@@ -183,47 +183,86 @@ public class CSVParser : IDisposable
         #endregion
     }
 
-    public class Load
+    public class Load : CSVParser,IDisposable
     {
-        CSVParser Parser;
+        // Variable
+        #region Variable
+
         StreamReader sReader;
         protected bool isCommaFind = false;
         int? commaCount = null;
 
-        public Load(CSVParser _instance)
+        #endregion
+
+
+        // Private Method
+        #region Private Method
+
+        /// <summary>
+        /// CSVParser Save initializing
+        /// </summary>
+        Load()
         {
-            Parser = _instance;
-            commaCount = 0;
-        }
-        public Load()
-        {
-            Parser = new CSVParser();
             commaCount = 0;
         }
 
+        #endregion
+
+
+        // Public Method
+        #region Public Method
+
+        /// <summary>
+        ///  Loader close
+        /// </summary>
         public void CloseLoader()
         {
+            isCommaFind = false;
             sReader.Close();
         }
 
+        /// <summary>
+        /// Get How Many Attreibute know
+        /// </summary>
+        /// <param name="_DataName">File Data name</param>
+        /// <param name="_address">File Data address</param>
+        /// <returns></returns>
         public int ReadComma(string _DataName, string _address)
         {
+            //속성값을 읽었음을 알림
             isCommaFind = true;
+
+            //읽을 라인 한줄
             string Line;
+
             //데이터이름(확장자 포함)을 데이터 경로와 합쳐서 저장하는 변수
-            Parser.DataPath = _address + _DataName;
+            StringBuilder f_StringBuilder = new StringBuilder(_address);
+            f_StringBuilder.Append(_address);
+            f_StringBuilder.Append(_DataName);
+            //f_StringBuilder.Append(".csv");
+
+            //데이터 경로 담기
+            DataPath = f_StringBuilder.ToString();
 
             //StreamWriter start with Path and FileMode Open(Can not found file, Create)OpenOrCreate
-            sReader = new StreamReader(new FileStream(Parser.DataPath, FileMode.Open));
+            sReader = new StreamReader(new FileStream(DataPath, FileMode.Open));
 
             Line = sReader.ReadLine();
 
+            //','의 갯수가 몇개인지 알아내기
             MatchCollection matches = Regex.Matches(Line, ",");
 
+            //속성의 갯수을 알아냄
             commaCount = matches.Count;
+            //속성 수를 반환
             return (int)commaCount;
         }
 
+        /// <summary>
+        /// 읽어올 데이터 배열을 넣어 반환값을 받아냄
+        /// </summary>
+        /// <param name="_inputData"></param>
+        /// <returns></returns>
         public int Reader(ref string[] _inputData)
         {
             string lineParse;
@@ -242,5 +281,7 @@ public class CSVParser : IDisposable
             return 1;
         }
     }
+    #endregion
+
 }
 
