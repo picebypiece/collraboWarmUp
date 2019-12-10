@@ -1,5 +1,3 @@
-//using System.Collections;
-//using System.Collections.Generic;
 using System;
 using System.IO;
 using System.Text;
@@ -12,34 +10,29 @@ using UnityEngine;
 // 간단설명 : CSV파싱을 위한 클래스
 // Save 클래스와 Load 클래스가 내부에서 분리되어 있음
 
-public class CSVParser : IDisposable
+abstract class CSVParser
 {
     // Variable
     #region Variable
+
     /// <summary>
     /// 가져올 주소
     /// </summary>
+    /// 
     private string m_DataPath = null;
+
     #endregion
 
     // Property
     #region Property
 
     /// <summary>
-        /// DataPath Property
-        /// </summary>
+    /// DataPath Property
+    /// </summary>
     public string DataPath
     {
         get { return m_DataPath;  }
         set { m_DataPath = value; }
-    }
-
-    /// <summary>
-    /// CSVParser 사용 후 제거를 위해 호출
-    /// </summary>
-    public void Dispose()
-    {
-        m_DataPath = null;
     }
 
     #endregion
@@ -52,8 +45,16 @@ public class CSVParser : IDisposable
     // Public Method
     #region Public Method
 
+
     #endregion
 
+    /// <summary>
+    /// CSV 데이터 작성시 사용
+    /// WriterOn 메소드를 이용해 속성값을 설정하고,
+    /// Writer 메소드를 사용하여 내용을 작성 그리고
+    /// CloseWriter 메소드를 사용하여 마무리.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Save<T> : CSVParser, IDisposable
     {
         // Variable
@@ -61,25 +62,10 @@ public class CSVParser : IDisposable
         
         //SteamWriter
         StreamWriter sWriter;
-
         //인덱스 갯수
-        int indexCounter;
-
+        int? indexCounter;
         //인덱스 설정 유무 확인
-        protected bool isIndexSet = false;
-
-        #endregion
-
-        // Private Method
-        #region Private Method
-
-        /// <summary>
-        /// CSVParser Save initializing
-        /// </summary>
-        Save()
-        {
-            indexCounter = 0;
-        }
+        protected bool? isIndexSet;
 
         #endregion
 
@@ -87,11 +73,20 @@ public class CSVParser : IDisposable
         #region Public Method
 
         /// <summary>
+        /// CSVParser Save initializing
+        /// </summary>
+        public Save()
+        {
+            indexCounter = 0;
+            isIndexSet = false;
+        }
+        
+        /// <summary>
         /// "StreamWriter.Close()" Wrapping, IndexSet return to false
         /// </summary>
         public void CloseWriter()
         {
-            isIndexSet = false;
+            m_DataPath = null;
             sWriter.Close();
         }
 
@@ -101,7 +96,7 @@ public class CSVParser : IDisposable
         /// <param name="_DataName">File Name(.Txt)</param>
         /// <param name="_attributes">attribute parameter</param>
         /// <param name="_address">FileAddress</param>
-        /// <param name="_fileMode">StreamWriter start with Path and FileMode [Open(Can not found file, Create) or Create]</param>
+        /// <param name="_fileMode">FileMode Select [CreateNew, Create]</param>
         public void WriterOn(string _DataName, string[] _attributes, string _address, FileMode _fileMode)
         {
             //속성 설정 중
@@ -125,10 +120,10 @@ public class CSVParser : IDisposable
 
             for (int i_index = 0; i_index < indexCounter; i_index++)
             {
+                //string Tuple = "\"" + _attributes[i_index] + "\"";
                 f_StringBuilder.Append("\"");
                 f_StringBuilder.Append(_attributes[i_index]);
                 f_StringBuilder.Append("\"");
-                //string Tuple = "\"" + _attributes[i_index] + "\"";
                 string Tuple = f_StringBuilder.ToString();
 
                 //사용 후 정리
@@ -151,7 +146,7 @@ public class CSVParser : IDisposable
         public void Writer(T[] _inputData)
         {
             //인덱스가 준비가 되지 않았다면
-            if (!isIndexSet)
+            if (!isIndexSet==null && !isIndexSet == false)
             {
 #if UNITY_EDITOR
                 //withUnity Erro Log
@@ -180,44 +175,57 @@ public class CSVParser : IDisposable
             }
         }
 
+        /// <summary>
+        /// Saver Dispose
+        /// </summary>
+        public void Dispose()
+        {
+            sWriter = null;
+            m_DataPath = null;
+            isIndexSet = null;
+            indexCounter = null;
+        }
+
         #endregion
     }
 
+    /// <summary>
+    /// CSV 데이터 읽기에 사용
+    /// ReadComma 메소드를 호출하여 데이터 경로와 이름을 지정,
+    /// Reader를 호출해 한 줄씩 원하는만큼 반복문을 사용하여 false가 반환될때 전부 읽어옴 그리고
+    /// CloseLoader를 호출하여 마무리.
+    /// </summary>
     public class Load : CSVParser,IDisposable
     {
         // Variable
         #region Variable
-
+        
+        //StreamReader
         StreamReader sReader;
-        protected bool isCommaFind = false;
-        int? commaCount = null;
+        //콤마(",")를 구분했는지 확인하는 변수
+        protected bool? isCommaFind;
+        //콤마(",")의 갯수를 샘해줄 변수
+        int? commaCount;
 
         #endregion
-
-
-        // Private Method
-        #region Private Method
-
-        /// <summary>
-        /// CSVParser Save initializing
-        /// </summary>
-        Load()
-        {
-            commaCount = 0;
-        }
-
-        #endregion
-
 
         // Public Method
         #region Public Method
+            
+        /// <summary>
+        /// CSVParser Save initializing
+        /// </summary>
+        public Load()
+        {
+            isCommaFind = false;
+            commaCount = 0;
+        }
 
         /// <summary>
         ///  Loader close
         /// </summary>
         public void CloseLoader()
         {
-            isCommaFind = false;
             sReader.Close();
         }
 
@@ -237,7 +245,6 @@ public class CSVParser : IDisposable
 
             //데이터이름(확장자 포함)을 데이터 경로와 합쳐서 저장하는 변수
             StringBuilder f_StringBuilder = new StringBuilder(_address);
-            f_StringBuilder.Append(_address);
             f_StringBuilder.Append(_DataName);
             //f_StringBuilder.Append(".csv");
 
@@ -246,6 +253,13 @@ public class CSVParser : IDisposable
 
             //StreamWriter start with Path and FileMode Open(Can not found file, Create)OpenOrCreate
             sReader = new StreamReader(new FileStream(DataPath, FileMode.Open));
+            if (sReader == null)
+            {
+#if UNITY_EDITOR
+                //withUnity Erro Log
+                Debug.LogError("<color=red><b>CSVPaserError</b></color> :  가져올 데이터가 없거나 경로가 잘못 되었습니다.");
+#endif
+            }
 
             Line = sReader.ReadLine();
 
@@ -259,29 +273,49 @@ public class CSVParser : IDisposable
         }
 
         /// <summary>
-        /// 읽어올 데이터 배열을 넣어 반환값을 받아냄
+        /// 데이터 값을 한줄씩 읽어올 수 있음
         /// </summary>
-        /// <param name="_inputData"></param>
-        /// <returns></returns>
-        public int Reader(ref string[] _inputData)
+        /// <param name="_GetData">GetData with String Array</param>
+        /// <returns>성공여부 반환</returns>
+        public bool Reader(ref string[] _GetData)
         {
+            //콤마를 찾았는지 못찾았는지 확인
+            if (!isCommaFind == null && !isCommaFind == false)
+            {
+#if UNITY_EDITOR
+                Debug.Log("<color=red><b>CSVPaserError</b></color> : 쉼표를 구분하지 않고 읽으려하고 있습니다. ReadComma 부터 실행하세요");
+#endif
+                return false;
+            }
+
+            //한줄 읽은 것 담는 변수
             string lineParse;
 
-            if (!isCommaFind)
-            {
-                Debug.Log("<color=red><b>CSVPaserError</b></color> : 쉼표를 구분하지 않고 읽으려하고 있습니다. ReadComma 부터 실행하세요");
-            }
-
+            //한줄 읽은것을 담음
             lineParse = sReader.ReadLine();
+
+            //읽어왔는데 null 이면 탈출
             if (lineParse == null)
             {
-                return 0;
+                return false;
             }
-            _inputData = lineParse.Split(',');
-            return 1;
-        }
-    }
-    #endregion
 
+            //읽은것을 ','를 기준으로 나눠서 String 배열에 넣어줌
+            _GetData = lineParse.Split(',');
+            return true;
+        }
+
+        /// <summary>
+        /// Loader Dispose
+        /// </summary>
+        public void Dispose()
+        {
+            sReader = null;
+            commaCount = null;
+            isCommaFind = null;
+        }
+
+        #endregion
+    }
 }
 
