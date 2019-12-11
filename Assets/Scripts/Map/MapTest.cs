@@ -6,30 +6,35 @@ using UnityEngine;
 // 작성자   : 김세중
 // 간단설명 : 맵데이터를 폴더내에 탐색하고 가져올 클래스
 
-public class MapDataPath
+public class MapTest : MonoBehaviour
 {
     // Variable
     #region Variable
-    
+
     #endregion
-    
+
     // Property
     #region Property
-    
+
     #endregion
 
     // MonoBehaviour
     #region MonoBehaviour
-    
+    private void Start()
+    {
+        MapData test = new MapData();
+        //test.FindMapList();
+        //test.LoadMapData(test.MapList[0]);
+    }
     #endregion
 
     // Private Method
     #region Private Method
-    
+
     #endregion
 
     // Public Method
     #region Public Method
-    
+
     #endregion
 }

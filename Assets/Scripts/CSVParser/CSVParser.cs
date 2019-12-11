@@ -29,22 +29,11 @@ abstract class CSVParser
     /// <summary>
     /// DataPath Property
     /// </summary>
-    public string DataPath
+    protected string DataPath
     {
         get { return m_DataPath;  }
         set { m_DataPath = value; }
     }
-
-    #endregion
-
-    // Private Method
-    #region Private Method
-
-    #endregion
-
-    // Public Method
-    #region Public Method
-
 
     #endregion
 
@@ -211,9 +200,9 @@ abstract class CSVParser
 
         // Public Method
         #region Public Method
-            
+
         /// <summary>
-        /// CSVParser Save initializing
+        /// CSVParser Load initializing
         /// </summary>
         public Load()
         {
@@ -246,7 +235,7 @@ abstract class CSVParser
             //데이터이름(확장자 포함)을 데이터 경로와 합쳐서 저장하는 변수
             StringBuilder f_StringBuilder = new StringBuilder(_address);
             f_StringBuilder.Append(_DataName);
-            //f_StringBuilder.Append(".csv");
+            f_StringBuilder.Append(".csv");
 
             //데이터 경로 담기
             DataPath = f_StringBuilder.ToString();
