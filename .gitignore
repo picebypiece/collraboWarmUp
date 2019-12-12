@@ -68,4 +68,4 @@ crashlytics-build.properties
 
 
 # End of https://www.gitignore.io/api/unity
-Assets/Editor/DeveloperInformation.asset
+[Aa]ssets/Editor/DeveloperInformation.asset
