@@ -17,8 +17,15 @@ public class PlayerAction : MonoBehaviour
     private Rigidbody2D playerRigidbody = null;
 
     [SerializeField]
-    private float jumpForce = 250f;
+    private float jumpForce = 200f;
+    [SerializeField]
+    private float runSpeed = 1.5f;
+
+    [SerializeField]
+    private float counterForce = 50f;
+    private Vector2 counterJumpForce;
     private bool isGrounded = false;
+    private bool isJumping = false;
     #endregion
 
     // Property
@@ -31,26 +38,27 @@ public class PlayerAction : MonoBehaviour
     private void Awake()
     {
         playerRigidbody = GetComponent(typeof(Rigidbody2D)) as Rigidbody2D;
-
         if (playerAnimCtrl != null)
             playerAnimCtrl.SetState(false);
+        counterJumpForce = Vector2.down * counterForce;
     }
     private void FixedUpdate()
     {
+        Move();
+
         if (playerInput.jumpBtnDown)
         {
             if (isGrounded)
             {
-                Debug.Log("GG");
                 Jump();
             }
-            
         }
-        else if (playerInput.jumpBtnUp && playerRigidbody.velocity.y > 0f)
+        if (isJumping)
         {
-            Debug.Log("gkgksdlkg");
-            playerRigidbody.velocity = playerRigidbody.velocity * 0.5f;
-
+            if(!playerInput.jumpBtnDown && Vector2.Dot(playerRigidbody.velocity, Vector2.up) > 0/*playerRigidbody.velocity.y >= 0f*/)
+            
+            playerRigidbody.AddForce(counterJumpForce * playerRigidbody.mass);
+            //playerRigidbody.velocity *= 0.25f;
         }
     }
     #endregion
@@ -59,25 +67,49 @@ public class PlayerAction : MonoBehaviour
     #region Private Method
     private void Move()
     {
-        
+
+        if (playerInput.move > 0)
+        {
+            playerAnimCtrl.FlipX = false;
+        }
+        else if (playerInput.move < 0)
+        {
+            playerAnimCtrl.FlipX = true;
+        }
+        else
+        {
+            playerAnimCtrl.PlayRun(false, 1f);
+            return;
+        }
+        Vector2 movePos = playerInput.move * Vector2.right * runSpeed * Time.deltaTime;
+            playerRigidbody.position = playerRigidbody.position + movePos;
+
+        playerAnimCtrl.PlayRun(true, playerInput.move * 5f);
     }
     private void Jump()
     {
         isGrounded = false;
+        isJumping = true;
         playerRigidbody.velocity = Vector2.zero;
-        playerRigidbody.AddForce(new Vector2(0, jumpForce));
+        playerRigidbody.AddForce(new Vector2(0, jumpForce) * playerRigidbody.mass);
         playerAnimCtrl.PlayJump(true);
     }
+    
     #endregion
 
     // Public Method
     #region Public Method
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        isGrounded = true;
-        Debug.Log(collision.transform.name);
         playerAnimCtrl.PlayJump(false);
+        isGrounded = true;
+        isJumping = false;
+        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        playerAnimCtrl.PlayGrowth();
     }
     #endregion
 }

@@ -37,8 +37,9 @@ public class PlayerInput : MonoBehaviour
         //}
 
         move = Input.GetAxis(moveAxisName);
-        jumpBtnDown = Input.GetButtonDown(jumpButtonName);
+        jumpBtnDown = Input.GetButton(jumpButtonName);
         jumpBtnUp = Input.GetButtonUp(jumpButtonName);
+        
     }
     #endregion
 
@@ -49,9 +50,5 @@ public class PlayerInput : MonoBehaviour
 
     // Public Method
     #region Public Method
-    public void JumpEnd()
-    {
-        jumpBtnDown = false;
-    }
     #endregion
 }

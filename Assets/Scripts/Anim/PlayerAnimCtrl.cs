@@ -11,18 +11,31 @@ public class PlayerAnimCtrl : MonoBehaviour
     // Variable
     #region Variable
 
-    private const string paramNameJump = "Jump";
-    private const string paramNameRun = "Run";
+    public const string paramNameJump = "Jump";
+    public const string paramNameRun = "Run";
+    public const string paramNameRunSpeed = "RunSpeed";
+    public const string paramNameGrowth = "Growth";
+    public const string paramNameFlag = "Flag";
+    public const string paramNameDeath = "Death";
 
 
     private float speedCorrectionValue = 5f;
     private Animator cntAnimator = null;
+    private SpriteRenderer cntRenderer = null;
 
     [Header("Animator")]
     [SerializeField]
     private Animator childAnim = null;
     [SerializeField]
     private Animator AdultAnim = null;
+
+    [Header("SpriteRenderer")]
+    [SerializeField]
+    private SpriteRenderer childRenderer = null;
+    [SerializeField]
+    private SpriteRenderer AdultRenderer = null;
+
+    private GrowthAnimState animState = null;
     #endregion
 
     // Property
@@ -30,6 +43,15 @@ public class PlayerAnimCtrl : MonoBehaviour
     public bool Adult
     {
         get; private set;
+    }
+    public bool FlipX
+    {
+        get { return cntRenderer.flipX; }
+        set
+        {
+            if(cntRenderer.flipX != value)
+                cntRenderer.flipX = value;
+        }
     }
     #endregion
 
@@ -57,24 +79,58 @@ public class PlayerAnimCtrl : MonoBehaviour
         {
             childAnim.gameObject.SetActive(false);
             cntAnimator = AdultAnim;
+            cntRenderer = AdultRenderer;
             AdultAnim.gameObject.SetActive(true);
         }
         else
         {
             AdultAnim.gameObject.SetActive(false);
             cntAnimator = childAnim;
+            cntRenderer = childRenderer;
             childAnim.gameObject.SetActive(true);
+        }
+        if(animState == null)
+        {
+            animState = cntAnimator.GetBehaviour<GrowthAnimState>();
+            animState.GrowthEndEvent += AnimEnd;
         }
     }
     public void PlayGrowth()
     {
+        cntAnimator.SetTrigger(paramNameGrowth);
     }
+
+    public void PlayFlag()
+    {
+
+    }
+    public void PlayDeath()
+    {
+
+    }
+    public void AnimEnd()
+    {
+        //Debug.Log(onStateInfo.StateInfo.);
+        //switch(onStateInfo.StateInfo.)
+
+    }
+
+    public void FlipSprite(bool flip)
+    {
+        cntRenderer.flipX = flip;
+    }
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="run">true : 달림 , false : 멈춤</param>
-    public void PlayRun(bool run)
+    public void PlayRun(bool run, float speed)
     {
+        if(cntAnimator.GetBool(paramNameRun) != run)
+        {
+            cntAnimator.SetBool(paramNameRun, run);
+        }
+        cntAnimator.SetFloat(paramNameRunSpeed, speed);
     }
 
     public void PlayJump(bool jump)
