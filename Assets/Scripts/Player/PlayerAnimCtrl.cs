@@ -8,6 +8,13 @@ using UnityEngine;
 
 public class PlayerAnimCtrl : MonoBehaviour
 {
+    public enum EventAnim
+    {
+        Growth,
+        Flag,
+        Death
+    }
+
     // Variable
     #region Variable
 
@@ -18,8 +25,6 @@ public class PlayerAnimCtrl : MonoBehaviour
     public const string paramNameFlag = "Flag";
     public const string paramNameDeath = "Death";
 
-
-    private float speedCorrectionValue = 5f;
     private Animator cntAnimator = null;
     private SpriteRenderer cntRenderer = null;
 
@@ -34,8 +39,13 @@ public class PlayerAnimCtrl : MonoBehaviour
     private SpriteRenderer childRenderer = null;
     [SerializeField]
     private SpriteRenderer AdultRenderer = null;
+    
 
-    private GrowthAnimState animState = null;
+    public delegate void AnimEnd(EventAnim eventAnim);
+    public event AnimEnd AnimEndEvent;
+    public delegate void AdultToChild();
+    public event AdultToChild AdultToChildEvent;
+
     #endregion
 
     // Property
@@ -57,17 +67,27 @@ public class PlayerAnimCtrl : MonoBehaviour
 
     // MonoBehaviour
     #region MonoBehaviour
-    
     #endregion
 
     // Private Method
     #region Private Method
 
+    private IEnumerator Growth()
+    {
+        cntAnimator.SetTrigger(paramNameGrowth);
+
+        yield return new WaitForSeconds(cntAnimator.GetCurrentAnimatorStateInfo(0).length);
+        if (Adult)
+            AdultToChildEvent?.Invoke();
+        SetState(!Adult);
+        AnimEndEvent?.Invoke(EventAnim.Growth);
+
+    }
     #endregion
 
     // Public Method
     #region Public Method
-    
+
     /// <summary>
     /// true면 어른
     /// </summary>
@@ -89,32 +109,20 @@ public class PlayerAnimCtrl : MonoBehaviour
             cntRenderer = childRenderer;
             childAnim.gameObject.SetActive(true);
         }
-        if(animState == null)
-        {
-            animState = cntAnimator.GetBehaviour<GrowthAnimState>();
-            animState.GrowthEndEvent += AnimEnd;
-        }
     }
     public void PlayGrowth()
     {
-        cntAnimator.SetTrigger(paramNameGrowth);
+        StartCoroutine(Growth());
     }
 
-    public void PlayFlag()
+    public void PlayFlag(bool play)
     {
-
+        cntAnimator.SetBool(paramNameFlag, play);
     }
     public void PlayDeath()
     {
-
+        cntAnimator.SetTrigger(paramNameDeath);
     }
-    public void AnimEnd()
-    {
-        //Debug.Log(onStateInfo.StateInfo.);
-        //switch(onStateInfo.StateInfo.)
-
-    }
-
     public void FlipSprite(bool flip)
     {
         cntRenderer.flipX = flip;
@@ -137,6 +145,5 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         cntAnimator.SetBool(paramNameJump, jump);
     }
-
     #endregion
 }
