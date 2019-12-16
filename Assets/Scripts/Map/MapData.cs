@@ -1,36 +1,23 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+//if You What Debug..
+//using UnityEngine;
 
 // 작성일자 : 2019-12-09-PM-4-46
 // 작성자   : 김세중 
 // 간단설명 : 데이터를 읽고 이를 유니티에 타일맵으로 만들어 줌
 
-public class MapData : MonoBehaviour ,IDisposable
+public class MapData : IDisposable
 {
     // Variable
     #region Variable
-    struct TileMapMatrix
-    {
-        //public string[] Matrix;
-    }
-    TileMapMatrix m_tileMapMatrix;
-
-    public enum TileType
-    {
-        //Map
-        Brick, Item,
-        //Monster
-        Flower, Goomba, Koopa
-    }
+    
 
     string[] MapDataBuffer;
     List<string[]> m_TileMatrix;
 
     FileFinder m_fileFinder;
     List<string> m_MapList;
-    
-    public EnumDictionary<TileType, GameObject> TileTypeDictionary;
 
     #endregion
 
@@ -61,7 +48,6 @@ public class MapData : MonoBehaviour ,IDisposable
         MapList = new List<string>();
         m_TileMatrix = new List<string[]>();
     }
-    #endregion
 
     /// <summary>
     /// MapList가 담긴 파일 위치를 찾아 읽어오기
@@ -70,11 +56,11 @@ public class MapData : MonoBehaviour ,IDisposable
     {
         m_fileFinder.FileName2List(FilePath.ExternalMapDataPath, ".csv",ref m_MapList);
 
-        //Debug
-        for (int i = 0; i < MapList.Count; ++i)
-        {
-            Debug.Log(MapList[i]);
-        }
+        ////Debug
+        //for (int i = 0; i < MapList.Count; ++i)
+        //{
+        //    Debug.Log(MapList[i]);
+        //}
     }
 
     /// <summary>
@@ -98,15 +84,15 @@ public class MapData : MonoBehaviour ,IDisposable
 
             m_TileMatrix.Add(MapDataBuffer);
 
-            //Debug
-            for (int i = 0; i < MapDataBuffer.Length; i++)
-            {
-                Debug.Log(MapDataBuffer[i]);
-            }
+            ////Debug
+            //for (int i = 0; i < MapDataBuffer.Length; i++)
+            //{
+            //    Debug.Log(MapDataBuffer[i]);
+            //}
         }
-        Debug.Log(m_TileMatrix);
+        //Debug.Log(m_TileMatrix);
         m_TileMatrix.Reverse();
-        Debug.Log(m_TileMatrix);
+        //Debug.Log(m_TileMatrix);
         LoadMapTool.CloseLoader();
         MapDataBuffer = null;
     }
@@ -116,8 +102,10 @@ public class MapData : MonoBehaviour ,IDisposable
         m_fileFinder = null;
         m_MapList.Clear();
         m_MapList = null;
-        TileTypeDictionary.Clear();
-        TileTypeDictionary = null;
+        //TileTypeDictionary.Clear();
+        //TileTypeDictionary = null;
         MapDataBuffer = null;
     }
+    #endregion
+
 }
