@@ -14,13 +14,11 @@ abstract class CSVParser
 {
     // Variable
     #region Variable
-
     /// <summary>
     /// 가져올 주소
     /// </summary>
     /// 
     private string m_DataPath = null;
-
     #endregion
 
     // Property
@@ -34,7 +32,20 @@ abstract class CSVParser
         get { return m_DataPath;  }
         set { m_DataPath = value; }
     }
+    #endregion
 
+    //Private Method
+    #region Method
+    protected virtual void Dispose(bool _disposing)
+    {
+#if UNITY_EDITOR
+        Debug.Log($"{this.ToString()}DisposStarting");
+#endif
+        if (_disposing)
+        {
+            m_DataPath = null;
+        }
+    }
     #endregion
 
     /// <summary>
@@ -48,7 +59,7 @@ abstract class CSVParser
     {
         // Variable
         #region Variable
-        
+
         //SteamWriter
         StreamWriter sWriter;
         //인덱스 갯수
@@ -69,13 +80,18 @@ abstract class CSVParser
             indexCounter = 0;
             isIndexSet = false;
         }
+        ~Save()
+        {
+            Dispose(false);
+        }
         
         /// <summary>
         /// "StreamWriter.Close()" Wrapping, IndexSet return to false
         /// </summary>
         public void CloseWriter()
         {
-            m_DataPath = null;
+            //StreamWriter.close in Dispose Method
+            //https://stackoverflow.com/questions/7524903/should-i-call-close-or-dispose-for-stream-objects
             sWriter.Close();
         }
 
@@ -169,13 +185,16 @@ abstract class CSVParser
         /// </summary>
         public void Dispose()
         {
-            sWriter = null;
-            m_DataPath = null;
+            Dispose(true);
+            CloseWriter();
             isIndexSet = null;
             indexCounter = null;
+            // 종료자를 호출하지 않도록 요청 Why? : Dispose 를 활용하여 이미 한번 호출 하였기 때문에 중복 호출방지를 위해
+            //https://docs.microsoft.com/ko-kr/dotnet/api/system.gc.suppressfinalize?view=netframework-4.8
+            GC.SuppressFinalize(this);
         }
 
-        #endregion
+#endregion
     }
 
     /// <summary>
@@ -184,11 +203,11 @@ abstract class CSVParser
     /// Reader를 호출해 한 줄씩 원하는만큼 반복문을 사용하여 false가 반환될때 전부 읽어옴 그리고
     /// CloseLoader를 호출하여 마무리.
     /// </summary>
-    public class Load : CSVParser,IDisposable
+    public class Load : CSVParser, IDisposable
     {
         // Variable
         #region Variable
-        
+
         //StreamReader
         StreamReader sReader;
         //콤마(",")를 구분했는지 확인하는 변수
@@ -208,6 +227,10 @@ abstract class CSVParser
         {
             isCommaFind = false;
             commaCount = 0;
+        }
+        ~Load()
+        {
+            Dispose(false);
         }
 
         /// <summary>
@@ -237,11 +260,14 @@ abstract class CSVParser
             f_StringBuilder.Append(_DataName);
             f_StringBuilder.Append(".csv");
 
-            //데이터 경로 담기
-            DataPath = f_StringBuilder.ToString();
+            ////데이터 경로 담기
+            //DataPath = f_StringBuilder.ToString();
 
-            //StreamWriter start with Path and FileMode Open(Can not found file, Create)OpenOrCreate
-            sReader = new StreamReader(new FileStream(DataPath, FileMode.Open));
+            //f_StringBuilder = null;
+
+            ////StreamWriter start with Path and FileMode Open(Can not found file, Create)OpenOrCreate
+            //sReader = new StreamReader(new FileStream(DataPath, FileMode.Open));
+            sReader = new StreamReader(new FileStream(f_StringBuilder.ToString(), FileMode.Open));
             if (sReader == null)
             {
 #if UNITY_EDITOR
@@ -254,7 +280,6 @@ abstract class CSVParser
 
             //','의 갯수가 몇개인지 알아내기
             MatchCollection matches = Regex.Matches(Line, ",");
-
             //속성의 갯수을 알아냄
             commaCount = matches.Count;
             //속성 수를 반환
@@ -299,9 +324,14 @@ abstract class CSVParser
         /// </summary>
         public void Dispose()
         {
+            Dispose(true);
+            CloseLoader();
             sReader = null;
             commaCount = null;
             isCommaFind = null;
+            // 종료자를 호출하지 않도록 요청 Why? : Dispose 를 활용하여 이미 한번 호출 하였기 때문에 중복 호출방지를 위해
+            //https://docs.microsoft.com/ko-kr/dotnet/api/system.gc.suppressfinalize?view=netframework-4.8
+            GC.SuppressFinalize(this);
         }
 
         #endregion

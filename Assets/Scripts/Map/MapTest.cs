@@ -22,11 +22,8 @@ public class MapTest : MonoBehaviour
     #region MonoBehaviour
     private void Start()
     {
-        //Debug.Log(System.Environment.Version);
-        MapData test = new MapData();
-        test.FindMapList();
-        test.LoadMapData(test.MapList[0]);
         
+      
     }
     #endregion
 

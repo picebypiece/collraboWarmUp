@@ -1,12 +1,15 @@
-using UnityEngine;
+using System.IO;
 using System.Collections.Generic;
 
+using UnityEngine;
 // 작성일자 : 2019-12-11-PM-5-16
 // 작성자   : 김세중
 // 간단설명 : 접근한 경로내에 파일이름을 알아올 수 있음
 
 public class FileFinder
 {
+    DirectoryInfo m_DI;
+
     // Public Method
     #region Public Method
     /// <summary>
@@ -19,8 +22,11 @@ public class FileFinder
     {
         //FileInfo 및 DirectoryInfo 을 이용하여
         // 파일, 폴더 또는 드라이브의 이름을 나타내는 문자열을 생성자에 전달하여 이러한 클래스의 인스턴스를 만들 수 있음
-        System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(_FileAddress);
-        foreach (System.IO.FileInfo File in di.GetFiles())
+        //System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(_FileAddress);
+
+        m_DI = new System.IO.DirectoryInfo(_FileAddress);
+
+        foreach (System.IO.FileInfo File in m_DI.GetFiles())
         {
             //파일이름(확장자포함)가 탐색할 파일 이름과 같으면
             if ((File.Name.Substring(0, File.Name.Length).CompareTo(_FileName) == 0))
@@ -41,9 +47,10 @@ public class FileFinder
     {
         //FileInfo 및 DirectoryInfo 을 이용하여
         // 파일, 폴더 또는 드라이브의 이름을 나타내는 문자열을 생성자에 전달하여 이러한 클래스의 인스턴스를 만들 수 있음
-        System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(_FileAddress);
+        //System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(_FileAddress);
+        m_DI = new System.IO.DirectoryInfo(_FileAddress);
 
-        foreach (System.IO.FileInfo File in di.GetFiles())
+        foreach (System.IO.FileInfo File in m_DI.GetFiles())
         {
             //파일안의 확장자 탐색 같으면 0 다르면 1
             if (File.Extension.ToLower().CompareTo(_Extension) == 0)
@@ -54,6 +61,7 @@ public class FileFinder
                 //파일 이름을 찾았다면
                 if (FileNameOnly != null)
                 {
+                   // m_DI.Delete();
                     //참조 인자에 넘겨줌
                     _GetFileName.Add(FileNameOnly);
                 }
@@ -76,11 +84,10 @@ public class FileFinder
     {
         //FileInfo 및 DirectoryInfo 을 이용하여
         // 파일, 폴더 또는 드라이브의 이름을 나타내는 문자열을 생성자에 전달하여 이러한 클래스의 인스턴스를 만들 수 있음
-        System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(_FileAddress);
+        m_DI = new System.IO.DirectoryInfo(_FileAddress);
 
-        foreach (System.IO.FileInfo File in di.GetFiles())
+        foreach (System.IO.FileInfo File in m_DI.GetFiles())
         {
-
             //이름+경로까지 포함
             string FullFileName = File.FullName;
 
