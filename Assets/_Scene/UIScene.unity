@@ -505,6 +505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 265073520}
+  - component: {fileID: 265073521}
   m_Layer: 5
   m_Name: Life
   m_TagString: Untagged
@@ -533,6 +534,20 @@ RectTransform:
   m_AnchoredPosition: {x: 120.2, y: -45.1}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &265073521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265073519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaaecd953307382459c661c6e9b33edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataKey: 
+  updateTytpe: 1
 --- !u!1 &288319251
 GameObject:
   m_ObjectHideFlags: 0
