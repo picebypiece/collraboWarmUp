@@ -12,6 +12,7 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         Growth,
         Flag,
+        Hit,
         Death
     }
 
@@ -24,6 +25,7 @@ public class PlayerAnimCtrl : MonoBehaviour
     public const string paramNameGrowth = "Growth";
     public const string paramNameFlag = "Flag";
     public const string paramNameDeath = "Death";
+    public const string paramNameHit = "Hit";
 
     private Animator cntAnimator = null;
     private SpriteRenderer cntRenderer = null;
@@ -54,15 +56,15 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         get; private set;
     }
-    public bool FlipX
-    {
-        get { return cntRenderer.flipX; }
-        set
-        {
-            if(cntRenderer.flipX != value)
-                cntRenderer.flipX = value;
-        }
-    }
+    //public bool FlipX
+    //{
+    //    get { return cntRenderer.flipX; }
+    //    set
+    //    {
+    //        if(cntRenderer.flipX != value)
+    //            cntRenderer.flipX = value;
+    //    }
+    //}
     #endregion
 
     // MonoBehaviour
@@ -77,8 +79,6 @@ public class PlayerAnimCtrl : MonoBehaviour
         cntAnimator.SetTrigger(paramNameGrowth);
 
         yield return new WaitForSeconds(cntAnimator.GetCurrentAnimatorStateInfo(0).length);
-        if (Adult)
-            AdultToChildEvent?.Invoke();
         SetState(!Adult);
         AnimEndEvent?.Invoke(EventAnim.Growth);
 
@@ -119,6 +119,10 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         cntAnimator.SetBool(paramNameFlag, play);
     }
+    public void PlayHit()
+    {
+        cntAnimator.SetTrigger(paramNameHit);
+    }
     public void PlayDeath()
     {
         cntAnimator.SetTrigger(paramNameDeath);
@@ -144,6 +148,11 @@ public class PlayerAnimCtrl : MonoBehaviour
     public void PlayJump(bool jump)
     {
         cntAnimator.SetBool(paramNameJump, jump);
+    }
+    public void SetFlipX(bool val)
+    {
+        if (cntRenderer.flipX != val)
+            cntRenderer.SetFlipX(val);
     }
     #endregion
 }

@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 9077543124221230587}
   - component: {fileID: 9077543124221230585}
+  - component: {fileID: 7309961429756777750}
   - component: {fileID: 8491152253956976917}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Goomba
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,6 +55,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &7309961429756777750
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9077543124221230584}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.16}
+  m_EdgeRadius: 0
 --- !u!114 &8491152253956976917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +93,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5358885fc30914c43b6ad88fded32d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0.3
+  spriteRenderer: {fileID: 9077543124422129373}
+  colliderEnemy: {fileID: 7309961429756777750}
+  animator: {fileID: 5814400567626850152}
+  goombaRigidbody: {fileID: 9077543124221230585}
+  DeathSprite: {fileID: 6955017614301310126, guid: cf87358665e55c14c863a58b4c7fecd3,
+    type: 3}
 --- !u!1 &9077543124422129363
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,9 +110,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9077543124422129372}
   - component: {fileID: 9077543124422129373}
-  - component: {fileID: 9077543124422129374}
   - component: {fileID: 5814400567626850152}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,32 +182,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &9077543124422129374
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9077543124422129363}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
-  m_EdgeRadius: 0
 --- !u!95 &5814400567626850152
 Animator:
   serializedVersion: 3
