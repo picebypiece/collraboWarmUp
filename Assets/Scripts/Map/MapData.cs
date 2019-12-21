@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-//if You What Debug..
-//using UnityEngine;
-
+#if UNITY_EDITOR
+using UnityEngine;
+#endif
 // 작성일자 : 2019-12-09-PM-4-46
 // 작성자   : 김세중 
 // 간단설명 : 데이터를 읽고 이를 유니티에 타일맵으로 만들어 줌
@@ -10,19 +10,19 @@ using System.Collections.Generic;
 public class MapData :SingletonManager<MapData>, IDisposable
 {
     // Variable
-    #region Variable
+#region Variable
     
     string[] MapDataBuffer;
 
-    List<string[]> m_TileMatrix;
-    List<string> m_MapNameList;
+    private List<string[]> m_TileMatrix;
+    private List<string> m_MapNameList;
 
     FileFinder m_fileFinder;
 
-    #endregion
+#endregion
 
     // Property
-    #region Property
+#region Property
     /// <summary>
     /// 찾은 맵의 정보를 담은 List
     /// </summary>
@@ -31,53 +31,66 @@ public class MapData :SingletonManager<MapData>, IDisposable
         get => m_MapNameList;
         set => m_MapNameList = value;
     }
+    /// <summary>
+    /// 맵전체 타일을 가지고 있는 리스트
+    /// </summary>
     public List<string[]> TileMatrix
     {
         get => m_TileMatrix;
         set => m_TileMatrix = value;
     }
-    #endregion
+#endregion
 
     // MonoBehaviour
-    #region MonoBehaviour
+#region MonoBehaviour
 
-    #endregion
+#endregion
 
     // Private Method
-    #region Private Method
+#region Private Method
     MapData()
     {
         m_fileFinder = new FileFinder();
         MapNameList = new List<string>();
         m_TileMatrix = new List<string[]>();
     }
-    #endregion
+#endregion
 
     // Public Method
-    #region Public Method
+#region Public Method
 
     /// <summary>
-    /// MapList가 담긴 파일 위치를 찾아 읽어오기
+    /// MapList가 담긴 파일 위치를 찾아 읽어오기 (MapDataClass's MapNameList으로 가져올것)
     /// </summary>
     public void FindMapList()
     {
         m_fileFinder.FileName2List(FilePath.ExternalMapDataPath, ".csv",ref m_MapNameList);
 
-        ////Debug
-        //for (int i = 0; i < MapList.Count; ++i)
-        //{
-        //    Debug.Log(m_MapNameList[i]);
-        //}
+#if UNITY_EDITOR
+        //Debug 
+        for (int i = 0; i < m_MapNameList.Count; ++i)
+        {
+            Debug.Log(m_MapNameList[i]);
+        }
+        Debug.Log("맵이름 읽어오기 <b><color=Green>Complete</color></b>");
+#endif
     }
+
+    /// <summary>
+    /// MapList가 담긴 파일 위치를 찾아 읽어오기(인자값에 List<string>으로 MapList 가져올것)
+    /// </summary>
+    /// <param name="_MapNameList"></param>
     public void FindMapList(ref List<string> _MapNameList)
     {
         m_fileFinder.FileName2List(FilePath.ExternalMapDataPath, ".csv", ref _MapNameList);
-
-        ////Debug
-        //for (int i = 0; i < _MapNameList.Count; ++i)
-        //{
-        //    Debug.Log(_MapNameList[i]);
-        //}
+ #if UNITY_EDITOR
+        //Debug
+        for (int i = 0; i < _MapNameList.Count; ++i)
+        {
+            Debug.Log(_MapNameList[i]);
+        }
+        Debug.Log("맵이름 읽어오기 <b><color=Green>Complete</color></b>");
+#endif
     }
 
     /// <summary>
@@ -102,11 +115,13 @@ public class MapData :SingletonManager<MapData>, IDisposable
 
                 m_TileMatrix.Add(MapDataBuffer);
 
-                ////Debug
-                //for (int i = 0; i < MapDataBuffer.Length; i++)
-                //{
-                //    Debug.Log(MapDataBuffer[i]);
-                //}
+                 #if UNITY_EDITER
+                //Debug
+                for (int i = 0; i < MapDataBuffer.Length; i++)
+                {
+                    Debug.Log(MapDataBuffer[i]);
+                }
+                #endif
             }
 
             //Debug.Log(m_TileMatrix);
@@ -121,11 +136,7 @@ public class MapData :SingletonManager<MapData>, IDisposable
     {
         m_fileFinder = null;
         m_MapNameList.Clear();
-        m_MapNameList = null;
-        //TileTypeDictionary.Clear();
-        //TileTypeDictionary = null;
-        //MapDataBuffer = null;
     }
-    #endregion
+#endregion
 
 }

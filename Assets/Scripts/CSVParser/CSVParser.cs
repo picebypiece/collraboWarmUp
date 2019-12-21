@@ -39,7 +39,7 @@ abstract class CSVParser
     protected virtual void Dispose(bool _disposing)
     {
 #if UNITY_EDITOR
-        Debug.Log($"{this.ToString()}DisposStarting");
+        Debug.Log($"{this.ToString()} : <b>Disposing</b>");
 #endif
         if (_disposing)
         {
