@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
+using System;
+using System.Linq;
 
 
 // 작성일자 : 2019-12-20-PM-12-20
@@ -10,40 +13,74 @@ using System.Collections.Generic;
 
 public class InputManager : SingletonMono<InputManager>
 {
-    public enum InputEventType { Push, Pushed, UP }
+    public enum InputEventType { Push, Pushed, UP, LAST }
 
-    Dictionary<string, Event[]> keyAndEvent;
-    Dictionary<string, string> keyCodeMapping;
-
-    // Use this for initialization
-    void Start()
+    class keyEvent
     {
-        // TO-DO Set Don't destory object
+        public string key;
+        public Action[] events;
+    }
+    #region Variable
+    //MappingKey, (key, Event)
+    Dictionary<string, keyEvent> keyMap;
+    #endregion
 
-
+    // MonoBehaviour
+    #region MonoBehaviour
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
     }
 
     
     void Update()
     {
-        // TODO 키입력 감지하여 인풋 이벤트 발생시킴
+        var keyList = keyMap.Values.ToList();
+        for (int i = 0; i < keyList.Count ; i++)
+        {
+            if(Input.GetKeyDown(keyList[i].key))
+            {
+                keyList[i].events[(int)InputEventType.Push]?.Invoke();
+            }
+            else if(Input.GetKey(keyList[i].key))
+            {
+                keyList[i].events[(int)InputEventType.Pushed]?.Invoke();
+            }
+            else if(Input.GetKeyUp(keyList[i].key))
+            {
+                keyList[i].events[(int)InputEventType.UP]?.Invoke();
+            }
+        }    
     }
-
+    #endregion
 
     void InitInputKeyData()
     {
-        // TODO setting KeyData in PlayerPrefab 
+        keyMap = new Dictionary<string, keyEvent>();
+        
+        var mapkeyList = SDInputKeyMapper.allMapKeys;
+        
+        for (int i = 0; i < mapkeyList.Length; i++)
+        {
+            var mkey = PlayerPrefs.GetString(mapkeyList[i]);
+            var events = new Action[(int)InputEventType.LAST];
+            keyMap.Add(mapkeyList[i], new keyEvent {key = mkey, events = events} );
+        }
     }
 
 
-    public void SetKeyData(KeyCode key, string mappingKey)
+    public bool SetKeyData(KeyCode key, string mappingKey)
     {
-        //TODO 맵핑 키값의 입력 키를 변경
+        return SetKeyData(key.ToString(), mappingKey);
     }
 
-    public void SetKeyData(string key, string mappingKey)
+    public bool SetKeyData(string key, string mappingKey)
     {
         //TODO 맵핑 키값의 입력 키를 변경
+        if (keyMap.ContainsKey(mappingKey) == false) return false;
+
+        keyMap[mappingKey].key = key ;
+        return true;
     }
 
     /// <summary>
@@ -53,8 +90,17 @@ public class InputManager : SingletonMono<InputManager>
     /// <param name="mappingKey">InputKeyMapper클래스 참고 </param>
     /// <param name="eventType">이벤트 발생 타입</param>
     /// <returns>없는 맵핑키이면 false 반환</returns>
-    public bool Subscribe(string mappingKey, InputEventType eventType)
+    public bool Subscribe(string mappingKey, InputEventType eventType, Action action)
     {
+        if (keyMap.ContainsKey(mappingKey) == false) return false;
+        keyMap[mappingKey].events[(int)eventType] += action;
+        return true;
+    }
+
+    public bool Desubscribe(string mappingKey, InputEventType eventType, Action action)
+    {
+        if (keyMap.ContainsKey(mappingKey) == false) return false;
+        keyMap[mappingKey].events[(int)eventType] -= action;
         return true;
     }
 }

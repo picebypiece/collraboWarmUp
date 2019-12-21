@@ -8,6 +8,15 @@ using UnityEngine;
 
 public static class SDInputKeyMapper 
 {
+    /// <summary>
+    /// 인풋매니저에서 맵핑키 반복을 위해서 사용
+    /// 키값이 추가될시 리스트에도 추가
+    /// </summary>
+    public static string[] allMapKeys =
+    {
+        ArrowUp, ArrowDown, ArrowRight, ArrowLeft, Escape, 
+        GameUp, GameDown, GameRight, GameLeft, Jump, Dash
+    };
     //기본 방향키 UI조작, 기본 키 입력
     public static string ArrowUp = "INPUT_MAPPING_ARROW_UP";
     public static string ArrowDown = "INPUT_MAPPING_ARROW_DOWN";
