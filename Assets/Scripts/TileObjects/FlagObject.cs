@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// ÀÛ¼ºÀÏÀÚ : 2019-12-22-PM-7-58
-// ÀÛ¼ºÀÚ   : ±è¼¼Áß
-// °£´Ü¼³¸í :
-abstract public class TileObject : MonoBehaviour
+
+// ì‘ì„±ì¼ì : 2019-12-22-PM-7-58
+// ì‘ì„±ì   : ê¹€ì„¸ì¤‘
+// ê°„ë‹¨ì„¤ëª… :
+
+public class FlagObject : TileObject
 {
     // Variable
     #region Variable
+
     #endregion
 
     // Property
@@ -17,14 +20,18 @@ abstract public class TileObject : MonoBehaviour
 
     // MonoBehaviour
     #region MonoBehaviour
+    public override void Awake()
+    {
 
-    abstract public void Awake();
+    }
+    public override void Start()
+    {
 
-    abstract public void Start();
-
-    abstract public void OnCollisionEnter2D(Collision2D col);
-    
-
+    }
+    public override void OnCollisionEnter2D(Collision2D col)
+    {
+        Debug.Log("FlagObject Collision Enter");
+    }
     #endregion
 
     // Private Method
@@ -36,5 +43,7 @@ abstract public class TileObject : MonoBehaviour
     #region Public Method
 
     #endregion
+
+
 
 }
