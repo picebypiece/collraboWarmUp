@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1706316770742818840}
   - component: {fileID: 1706316770742818842}
   - component: {fileID: 868954040}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Adult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 1706316771926530273}
   - component: {fileID: 1706316771926530274}
   - component: {fileID: 1706316771926530275}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,8 +241,8 @@ GameObject:
   - component: {fileID: 1706316772005055871}
   - component: {fileID: 1706316772005055867}
   - component: {fileID: 1706316772005055864}
-  - component: {fileID: 2080832211}
-  m_Layer: 0
+  - component: {fileID: 2886880157812536258}
+  m_Layer: 8
   m_Name: Child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!61 &2080832211
+--- !u!61 &2886880157812536258
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -356,5 +356,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.14, y: 0.14}
+  m_Size: {x: 0.14, y: 0.13}
   m_EdgeRadius: 0

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 // 작성일자 : 2019-12-18-PM-5-08
 // 작성자   : 배형영
 // 간단설명 :
@@ -47,7 +46,6 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
     #region Public Method
     public bool SpawnEnemy(EnemyKind enemyKind, Vector2 pos, Enemy.Direction direction)
     {
-
 
         return true;
     }

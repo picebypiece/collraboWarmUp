@@ -23,22 +23,18 @@ public class PlayerAction : MonoBehaviour
     private Rigidbody2D playerRigidbody = null;
 
     [SerializeField]
-    private float jumpForce = 200f;
+    private float jumpForce = 200f; // 점프 힘
     [SerializeField]
-    private float runSpeed = 1.5f;
+    private float runSpeed = 1.5f;  // 달리는 속도
 
     [SerializeField]
-    private float counterForce = 50f;
-    private Vector2 counterJumpForce;
+    private float counterForce = 50f;   // 역중력 힘
+    private Vector2 counterJumpForce;   // 역중력 방향
 
     private bool action = true;
     private bool isGrounded = false;
     private bool isJumping = false;
-
-
-    private const string tagEnvirments = "Envirments";
-    private const string tagEnemy = "Enemy";
-    private const string tagItem = "Item";
+    
     #endregion
 
     // Property
@@ -123,7 +119,8 @@ public class PlayerAction : MonoBehaviour
         switch (eventAnim)
         {
             case PlayerAnimCtrl.EventAnim.Growth:
-                
+                action = true;
+                SetIgnoreEnemy(false);
                 break;
             case PlayerAnimCtrl.EventAnim.Flag:
                 break;
@@ -132,6 +129,14 @@ public class PlayerAction : MonoBehaviour
             case PlayerAnimCtrl.EventAnim.Death:
                 break;
         }
+    }
+    private void Hit()
+    {
+
+    }
+    private void SetIgnoreEnemy(bool val)
+    {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(Common.layerPlayer), LayerMask.NameToLayer(Common.layerEnemy), val);
     }
     // 무적효과
     private void AdultToChildCall()
@@ -148,25 +153,40 @@ public class PlayerAction : MonoBehaviour
     // Public Method
     #region Public Method
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        switch(collision.collider.tag)
+        var dir = collision.contacts[0].normal;
+        switch (collision.collider.tag)
         {
-            case tagEnvirments:
-                playerAnimCtrl.PlayJump(false);
-                isGrounded = true;
-                isJumping = false;
-                break;
-            case tagEnemy:
+            // 벽돌
+            //case Common.tagEnvirments:
+            //    if (dir.y < 0 )
+            //    {
+            //        // 벽돌
+            //    }
+            //    break;
+            case Common.tagEnemy:
                 {
-                    var dir = playerRigidbody.position - collision.rigidbody.position;
+                    
                     if(dir.y > 0)
                     {
                         Enemy enemy = collision.collider.GetComponent(typeof(Enemy)) as Enemy;
                         enemy?.Death();
                         Jump();
                     }
+                    else
+                    {
+                        // 마리오 죽음
+                        Hit();
+                    }
+                }
+                break;
+            default:
+                if (dir.y > 0)
+                {
+                    playerAnimCtrl.PlayJump(false);
+                    isGrounded = true;
+                    isJumping = false;
                 }
                 break;
         }
@@ -175,7 +195,9 @@ public class PlayerAction : MonoBehaviour
     {
         switch(collision.tag)
         {
-            case tagItem:
+            case Common.tagItem:
+                action = false;
+                SetIgnoreEnemy(true);
                 playerAnimCtrl.PlayGrowth();
 
                 break;
