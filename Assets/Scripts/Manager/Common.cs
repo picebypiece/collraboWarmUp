@@ -10,27 +10,35 @@ public static class Common
 {
     // Variable
     #region Variable
-    
+
+    // 태그
+    public const string tagEnvirments = "Envirments";
+    public const string tagEnemy = "Enemy";
+    public const string tagItem = "Item";
+
+    // 레이어
+    public const string layerPlayer = "Player";
+    public const string layerEnemy = "Enemy";
     #endregion
-    
+
     // Property
     #region Property
-    
+
     #endregion
 
     // MonoBehaviour
     #region MonoBehaviour
-    
+
     #endregion
 
     // Private Method
     #region Private Method
-    
+
     #endregion
 
     // Public Method
     #region Public Method
-    
+
     // 확장 메소드
     public static void SetEnable(this Behaviour behaviour, bool val)
     {

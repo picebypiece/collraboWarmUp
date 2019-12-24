@@ -39,14 +39,7 @@ public class Goomba : Enemy
     private void Move()
     {
         goombaRigidbody.position += (moveDirections[(int)nowDir] * moveSpeed * Time.deltaTime);
-
-        //playerAnimCtrl.PlayRun(true, playerInput.move * 5f);
     }
-
-    //private IEnumerator DeathEffect()
-    //{
-
-    //}
     #endregion
 
     // Public Method
@@ -54,7 +47,12 @@ public class Goomba : Enemy
     public override void Init(Direction direction)
     {
         nowDir = direction;
+        colliderEnemy.SetEnable(true);
+        animator.SetEnable(true);
     }
+    /// <summary>
+    /// 밟혀 죽었을때
+    /// </summary>
     public override void Death()
     {
         colliderEnemy.SetEnable(false);
@@ -64,6 +62,9 @@ public class Goomba : Enemy
         goombaRigidbody.AddForce(Vector2.up * deathForce, ForceMode2D.Force);
     }
 
+    /// <summary>
+    /// 타일에 맞아서 죽었을때
+    /// </summary>
     public override void Hit()
     {
         //Death();
@@ -81,8 +82,13 @@ public class Goomba : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Debug.Log("fasfasfsfaf");
-
+        if(collision.collider.tag == Common.tagEnvirments)
+        {
+            if (nowDir == Direction.Left)
+                nowDir = Direction.Right;
+            else
+                nowDir = Direction.Left;
+        }
     }
     #endregion
 
