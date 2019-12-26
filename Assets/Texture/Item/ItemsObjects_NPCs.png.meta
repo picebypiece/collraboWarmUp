@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: f507b65092ad3d84ba6bda72233f14be
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -5985169281338606972
+    second: ItemsObjects_NPCs_0
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -96,11 +99,32 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ItemsObjects_NPCs_0
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 288
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3987f8e5106751542af9af0ba5cd2b5e
+      internalID: -5985169281338606972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6621df7479e964d46810c0d8837614e2
     internalID: 0
     vertices: []
     indices: 
