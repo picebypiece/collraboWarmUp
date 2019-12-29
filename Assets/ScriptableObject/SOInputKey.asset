@@ -12,14 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aba668ec1c9d21429577217b58e8037, type: 3}
   m_Name: SOInputKey
   m_EditorClassIdentifier: 
-  ArrowUpKey: Up
-  ArrowDownKey: Down
-  ArrowRightKey: Right
-  ArrowLeftKey: Left
+  allKeys:
+  - Up
+  - Down
+  - Right
+  - Left
+  - escape
+  - Up
+  - Down
+  - Right
+  - Left
+  - z
+  - x
+  ArrowUpKey: up
+  ArrowDownKey: down
+  ArrowRightKey: right
+  ArrowLeftKey: left
   EscapeKey: escape
-  GameUpKey: Up
-  GameDownKey: Down
-  GameRightKey: Right
-  GameLeftKey: Left
+  GameUpKey: up
+  GameDownKey: down
+  GameRightKey: right
+  GameLeftKey: left
   JumpKey: z
   DashKey: x
+  GameHorizontal: Horizontal
+  GameVertical: Vertical
+  SensetiveH: 5
+  SensetiveV: 5

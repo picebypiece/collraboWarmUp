@@ -26,6 +26,19 @@ public class PlayerInput : MonoBehaviour
     // MonoBehaviour
     #region MonoBehaviour
 
+
+    private void Start()
+    {
+        GameInputManager.Instance.Subscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Push, JumpDown);
+        GameInputManager.Instance.Subscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.UP, JumpUp);
+    }
+
+    private void OnDisable()
+    {
+        GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Push, JumpDown);
+        GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.UP, JumpUp);
+    }
+
     private void Update()
     {
         //TODO : 게임오버시 리턴시킴
@@ -36,16 +49,23 @@ public class PlayerInput : MonoBehaviour
         //    return;
         //}
 
-        move = Input.GetAxis(moveAxisName);
-        jumpBtnDown = Input.GetButton(jumpButtonName);
-        jumpBtnUp = Input.GetButtonUp(jumpButtonName);
-        
+        move = GameInputManager.Instance.hAxisValue;
     }
     #endregion
 
     // Private Method
     #region Private Method
+    void JumpDown()
+    {
+        jumpBtnDown = true;
+        jumpBtnUp = false;
+    }
 
+    void JumpUp()
+    {
+        jumpBtnDown = false;
+        jumpBtnUp = true;
+    }
     #endregion
 
     // Public Method
