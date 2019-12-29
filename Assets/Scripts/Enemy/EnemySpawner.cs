@@ -13,33 +13,33 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
         KoopaTroopa,
         Flower,
     }
-    [System.Serializable]
-    private struct Enemys
-    {
-        EnemyKind kind;
-        GameObject prefab;
-    }
+    EnemyKind m_EnemyKind;
 
     // Variable
     #region Variable
-    [SerializeField]
-    private Enemys[] enemyPrefabs = null;
-    //private EnumDictionary<EnemyKind,GameObject> 
+
+    private EnumDictionary<EnemyKind, CreateTileMap.TileType> EnemyCompareTileTypeDictionary;
     #endregion
-    
+
     // Property
     #region Property
-    
+
     #endregion
 
     // MonoBehaviour
     #region MonoBehaviour
-    
+    //private void Awake()
+    //{
+    //    CreateTileMap.TileType f_TileType;
+    //    EnemyCompareTileTypeDictionary.Add(EnemyKind.Goomba, CreateTileMap.TileType.Goomba);
+    //    EnemyCompareTileTypeDictionary.TryGetValue(EnemyKind.Goomba, out f_TileType);
+    //    CreateTileMap.Instance.TileGameObjectDictionary.Add(f_TileType, CreateTileMap.Instance.MonsterGameObjects[3]);
+    //}
     #endregion
 
     // Private Method
     #region Private Method
-    
+
     #endregion
 
     // Public Method
@@ -49,5 +49,16 @@ public class EnemySpawner : SingletonMono<EnemySpawner>
 
         return true;
     }
+
+    public void Add_Dictionary()
+    {
+        CreateTileMap.TileType f_TileType;
+        EnemyCompareTileTypeDictionary = new EnumDictionary<EnemyKind, CreateTileMap.TileType>();
+        EnemyCompareTileTypeDictionary.Add(EnemyKind.Goomba, CreateTileMap.TileType.Goomba);
+        EnemyCompareTileTypeDictionary.TryGetValue(EnemyKind.Goomba, out f_TileType);
+        CreateTileMap.Instance.TileGameObjectDictionary.Add(f_TileType, CreateTileMap.Instance.MonsterGameObjects[3]);
+    }
     #endregion
 }
+
+

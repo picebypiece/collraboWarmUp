@@ -16,12 +16,12 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
         //default
         Default, Player,
         //BackGround
-        Overworld1,Overworld2,OverWorld3,
+        Overworld1, Overworld2, OverWorld3,
         //Item
-        Flag,FlagBody,FlagTop,Mushroom,
+        Flag, FlagBody, FlagTop, Mushroom,
         //Map
         Ground, Brick, RiddleBox, Stair, PipeBodyLeft, PipeBodyRight, PipeDoorLeft, PipeDoorRight,
-        //Monster
+        ////Monster
         Flower, Goomba, Koopa,KoopaTroopa
     }
 
@@ -43,15 +43,21 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     [SerializeField]
     private List<Tile> Foregrounds;
 
-    private EnumDictionary<TileType, GameObject> TileGameObjectDictionary;
-    private EnumDictionary<TileType, Tile> TileDictionary;
+    public EnumDictionary<TileType, GameObject> TileGameObjectDictionary;
+    int TileGameObjectDictionary_indexer;
+    public EnumDictionary<TileType, Tile> TileDictionary;
+    int TileDictionary_indexer;
 
     private MapData m_MapData;
     #endregion
 
     // Property
     #region Property
-
+    public List<GameObject> MonsterGameObjects
+    {
+        get => GameObjects;
+        set => GameObjects = value;
+    }
     #endregion
 
     // MonoBehaviour
@@ -59,6 +65,9 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     private void Awake()
     {
         background_Counter = 0;
+        TileGameObjectDictionary_indexer = 0;
+        TileDictionary_indexer = 0;
+
         m_BackGroundRenderController = m_BackGround.GetComponent<BackGroundRenderControl>();
         m_MapData = MapData.Instance;
         TileGameObjectDictionary = new EnumDictionary<TileType, GameObject>();
@@ -86,21 +95,32 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     /// </summary>
     void ADD_Dictionary()
     {
-        TileGameObjectDictionary.Add(TileType.RiddleBox, GameObjects[0]);
-        TileGameObjectDictionary.Add(TileType.Brick, GameObjects[1]);
-        TileGameObjectDictionary.Add(TileType.Flag, GameObjects[2]);
-        TileGameObjectDictionary.Add(TileType.Goomba, GameObjects[3]);
-        TileGameObjectDictionary.Add(TileType.KoopaTroopa, GameObjects[4]);
-        TileGameObjectDictionary.Add(TileType.Player, GameObjects[5]);
+        TileGameObjectDictionary.Add(TileType.RiddleBox, GameObjects[TileGameObjectDictionary_indexer++]);
+        TileGameObjectDictionary.Add(TileType.Brick, GameObjects[TileGameObjectDictionary_indexer++]);
+        TileGameObjectDictionary.Add(TileType.Flag, GameObjects[TileGameObjectDictionary_indexer++]);
+        TileGameObjectDictionary.Add(TileType.Goomba, GameObjects[TileGameObjectDictionary_indexer++]);
+        TileGameObjectDictionary.Add(TileType.KoopaTroopa, GameObjects[TileGameObjectDictionary_indexer++]);
+        TileGameObjectDictionary.Add(TileType.Player, GameObjects[TileGameObjectDictionary_indexer++]);
+        TileGameObjectDictionary.Add(TileType.PipeBodyLeft, GameObjects[TileGameObjectDictionary_indexer++]);
+        TileGameObjectDictionary.Add(TileType.PipeBodyRight, GameObjects[TileGameObjectDictionary_indexer++]);
+        TileGameObjectDictionary.Add(TileType.PipeDoorLeft, GameObjects[TileGameObjectDictionary_indexer++]);
+        TileGameObjectDictionary.Add(TileType.PipeDoorRight, GameObjects[TileGameObjectDictionary_indexer++]);
 
-        TileDictionary.Add(TileType.Ground, Tiles[0]);
-        TileDictionary.Add(TileType.Stair, Tiles[1]);
-        TileDictionary.Add(TileType.PipeBodyLeft, Tiles[2]);
-        TileDictionary.Add(TileType.PipeBodyRight, Tiles[3]);
-        TileDictionary.Add(TileType.PipeDoorLeft, Tiles[4]);
-        TileDictionary.Add(TileType.PipeDoorRight, Tiles[5]);
-        TileDictionary.Add(TileType.FlagBody, Tiles[6]);
+        TileDictionary.Add(TileType.Ground, Tiles[TileDictionary_indexer++]);
+        TileDictionary.Add(TileType.Stair, Tiles[TileDictionary_indexer++]);
+        //TileDictionary.Add(TileType.PipeBodyLeft, Tiles[TileDictionary_indexer++]);
+        //TileDictionary.Add(TileType.PipeBodyRight, Tiles[TileDictionary_indexer++]);
+        //TileDictionary.Add(TileType.PipeDoorLeft, Tiles[TileDictionary_indexer++]);
+        //TileDictionary.Add(TileType.PipeDoorRight, Tiles[TileDictionary_indexer++]);
+        TileDictionary.Add(TileType.FlagBody, Tiles[TileDictionary_indexer++]);
+
+        //EnemySpawner.Instance.Add_Dictionary();
     }
+
+    //void CompareTileName2TileMatrix(string _compareTileString,enum _enum, int _i_row, int _i_Cloum)
+    //{
+        
+    //}
 
     /// <summary>
     /// 타일 메트릭스와 Tile이름을 비교하여 오브젝트를 생성해줌
@@ -132,10 +152,10 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
                         break;
                     case TileType.Flag:
                         //Instantiate<GameObject>(GameObjects[2], new Vector3(f_StandardVector3Pos.x + (0.16f * _i_row), f_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
-                        m_ForegroundLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), Tiles[6]);
+                        m_ForegroundLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), f_tile);
                         break;
                     case TileType.FlagBody:
-                        m_ForegroundLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), Tiles[6]);
+                        m_ForegroundLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), f_tile);
                         break;
                     #region Save Case code
                     //case TileType.FlagTop:
@@ -172,7 +192,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
                         break;
                 }
             }
-            
+
         }
         //예외 및 디버그 확인
         else
@@ -214,6 +234,8 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
                     string[] tempRow = m_MapData.TileMatrix[i_Cloum];
 
                     CompareTileName2TileMatrix(tempRow[i_row], i_row, i_Cloum);
+
+                    //CompareTileName2TileMatrix(tempRow[i_row], TileType, i_row, i_Cloum);
                 }
             }
         }

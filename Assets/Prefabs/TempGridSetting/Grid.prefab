@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 2326182966840870222}
   - component: {fileID: 2326182966840870221}
   - component: {fileID: 2058282242}
+  - component: {fileID: 1273743892}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -135,10 +136,6 @@ MonoBehaviour:
   Tiles:
   - {fileID: 11400000, guid: 7df09ba8e23c83947bbd203cc5e1db09, type: 2}
   - {fileID: 11400000, guid: 6edcdf815bc9a6440b784ad3f0daa43a, type: 2}
-  - {fileID: 11400000, guid: 01663620b3c902c4898d4a1ae76d9d7c, type: 2}
-  - {fileID: 11400000, guid: be95eb62dcf20dd4a8dc358c8e9d04bf, type: 2}
-  - {fileID: 11400000, guid: 948453bb64d95094ea1a8f2876582b68, type: 2}
-  - {fileID: 11400000, guid: 1c99c25a5b8cef64682908e5e9377e7f, type: 2}
   - {fileID: 11400000, guid: 564b3668385fad448b6b7dc907b5379e, type: 2}
   GameObjects:
   - {fileID: 7343402285217916722, guid: 0c447a0e91193324e9fa11a6bc65761c, type: 3}
@@ -147,7 +144,23 @@ MonoBehaviour:
   - {fileID: 9077543124221230584, guid: 62900d60de5455242987db385e0fa557, type: 3}
   - {fileID: 2012297802720456174, guid: eaae94e2d66c6004aa45db99b2d1cf7f, type: 3}
   - {fileID: 1706316771926530279, guid: a861714bd63132c4ca44a957ec0f29fd, type: 3}
+  - {fileID: 7343402285217916722, guid: 0a0ee51bf7adc29438e93a324387d435, type: 3}
+  - {fileID: 7343402285217916722, guid: bb39138ebe0367846bb81c47a1804989, type: 3}
+  - {fileID: 7343402285217916722, guid: 23b606f084e4ac2468407bf8c3827152, type: 3}
+  - {fileID: 7343402285217916722, guid: 7abffc51f62990c48b0cae76f7318b66, type: 3}
   Foregrounds: []
+--- !u!114 &1273743892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2326182966840870220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f843cedd1ebbb448a7f90ac92213db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2326182967069482453
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +292,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2326182967069482453}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
