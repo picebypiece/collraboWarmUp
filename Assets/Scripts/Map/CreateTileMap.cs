@@ -11,19 +11,32 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
 
     // Variable
     #region Variable
-    public enum TileType
+
+    IRegist_Dictionary[] m_Dictionary_Register;
+
+    [SerializeField]
+    EnemySpawner m_EnemySpawner;
+    [SerializeField]
+    ItemSpawner m_ItemSpawner;
+    [SerializeField]
+    PlayerSpawner m_PlayerSpawner;
+    [SerializeField]
+    TileSpawner m_TileSpawner;
+    [SerializeField]
+    ObjectTileSpawner m_ObjectTileSpawner;
+
+    public enum SpawnType
     {
-        //default
-        Default, Player,
-        //BackGround
-        Overworld1, Overworld2, OverWorld3,
-        //Item
-        Flag, FlagBody, FlagTop, Mushroom,
-        //Map
-        Ground, Brick, RiddleBox, Stair, PipeBodyLeft, PipeBodyRight, PipeDoorLeft, PipeDoorRight,
-        ////Monster
-        Flower, Goomba, Koopa,KoopaTroopa
+        Default,
+
+        Tile, ObjectTile, Enemy, Item, Player, 
+        
+        //항상 마지막에 사용할 Enum
+        EndSpawnType
     }
+    Tile m_Tile;
+    GameObject m_GameObject;
+    Vector3 m_StandardVector3Pos = new Vector3(0.08f, 0.08f, 0);
 
     [SerializeField]
     private GameObject m_BackGround;
@@ -36,50 +49,40 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     m_GameObjectLayer,
     m_ForegroundLayer;
 
-    [SerializeField]
-    private List<Tile> Tiles;
-    [SerializeField]
-    private List<GameObject> GameObjects;
-    [SerializeField]
-    private List<Tile> Foregrounds;
-
-    public EnumDictionary<TileType, GameObject> TileGameObjectDictionary;
-    int TileGameObjectDictionary_indexer;
-    public EnumDictionary<TileType, Tile> TileDictionary;
-    int TileDictionary_indexer;
-
     private MapData m_MapData;
     #endregion
 
     // Property
     #region Property
-    public List<GameObject> MonsterGameObjects
-    {
-        get => GameObjects;
-        set => GameObjects = value;
-    }
     #endregion
 
     // MonoBehaviour
     #region MonoBehaviour
     private void Awake()
     {
+        m_Dictionary_Register = new IRegist_Dictionary[]
+        {
+            m_EnemySpawner,m_ItemSpawner,m_ObjectTileSpawner,m_PlayerSpawner,m_TileSpawner
+        };
+
+        foreach (IRegist_Dictionary Regist in m_Dictionary_Register)
+        {
+            Regist.Dictionary_Init();
+            Regist.Contain_Dictionary();
+        }
+
+
         background_Counter = 0;
-        TileGameObjectDictionary_indexer = 0;
-        TileDictionary_indexer = 0;
 
         m_BackGroundRenderController = m_BackGround.GetComponent<BackGroundRenderControl>();
-        m_MapData = MapData.Instance;
-        TileGameObjectDictionary = new EnumDictionary<TileType, GameObject>();
-        TileDictionary = new EnumDictionary<TileType, Tile>();
 
-        ADD_Dictionary();
+        m_MapData = MapData.Instance;
 
         //Map이름을 받아 어떤 맵파일을 가져올지 준비.
         MapData.Instance.FindMapList();
         //사용할 맵의 이름에 따른 데이터를 가져와 로드 함.
         MapData.Instance.LoadMapData(m_MapData.MapNameList[0]);
-        
+
     }
 
     private void Start()
@@ -90,125 +93,82 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
 
     // Private Method
     #region Private Method
+
     /// <summary>
-    /// Dictionary ADD 메소드
+    /// 배경오브젝트를 필요한 만큼 생성시켜주는 메소드
     /// </summary>
-    void ADD_Dictionary()
+    /// <param name="_MaxRow">2d 타일의 최대 "행"값</param>
+    /// <param name="_Nomal">기준이 되는 BackGround 생성조건에 필요한 타일의 갯수</param>
+    void BackGroundCreater(int _MaxRow, int _Nomal)
     {
-        TileGameObjectDictionary.Add(TileType.RiddleBox, GameObjects[TileGameObjectDictionary_indexer++]);
-        TileGameObjectDictionary.Add(TileType.Brick, GameObjects[TileGameObjectDictionary_indexer++]);
-        TileGameObjectDictionary.Add(TileType.Flag, GameObjects[TileGameObjectDictionary_indexer++]);
-        TileGameObjectDictionary.Add(TileType.Goomba, GameObjects[TileGameObjectDictionary_indexer++]);
-        TileGameObjectDictionary.Add(TileType.KoopaTroopa, GameObjects[TileGameObjectDictionary_indexer++]);
-        TileGameObjectDictionary.Add(TileType.Player, GameObjects[TileGameObjectDictionary_indexer++]);
-        TileGameObjectDictionary.Add(TileType.PipeBodyLeft, GameObjects[TileGameObjectDictionary_indexer++]);
-        TileGameObjectDictionary.Add(TileType.PipeBodyRight, GameObjects[TileGameObjectDictionary_indexer++]);
-        TileGameObjectDictionary.Add(TileType.PipeDoorLeft, GameObjects[TileGameObjectDictionary_indexer++]);
-        TileGameObjectDictionary.Add(TileType.PipeDoorRight, GameObjects[TileGameObjectDictionary_indexer++]);
+        int BackgroundCounter = _MaxRow / _Nomal;
 
-        TileDictionary.Add(TileType.Ground, Tiles[TileDictionary_indexer++]);
-        TileDictionary.Add(TileType.Stair, Tiles[TileDictionary_indexer++]);
-        //TileDictionary.Add(TileType.PipeBodyLeft, Tiles[TileDictionary_indexer++]);
-        //TileDictionary.Add(TileType.PipeBodyRight, Tiles[TileDictionary_indexer++]);
-        //TileDictionary.Add(TileType.PipeDoorLeft, Tiles[TileDictionary_indexer++]);
-        //TileDictionary.Add(TileType.PipeDoorRight, Tiles[TileDictionary_indexer++]);
-        TileDictionary.Add(TileType.FlagBody, Tiles[TileDictionary_indexer++]);
-
-        //EnemySpawner.Instance.Add_Dictionary();
+        for (int i_Counter = 0; i_Counter < BackgroundCounter; i_Counter++)
+        {
+            Instantiate<GameObject>(m_BackGround, new Vector3(m_BackGroundRenderController.StartPos.x + (7.68f * background_Counter++), m_BackGroundRenderController.StartPos.y, m_BackGroundRenderController.StartPos.z), Quaternion.identity);
+            m_BackGroundRenderController.Background_Roulette(m_BackGroundRenderController.m_BackgroundSheet.OverWorld);
+        }
     }
-
-    //void CompareTileName2TileMatrix(string _compareTileString,enum _enum, int _i_row, int _i_Cloum)
-    //{
-        
-    //}
 
     /// <summary>
     /// 타일 메트릭스와 Tile이름을 비교하여 오브젝트를 생성해줌
     /// </summary>
     /// <param name="_compareTileString">비교할 String</param>
+    /// <param name="_spawnType">생성 타입</param>
     /// <param name="_i_row">행</param>
     /// <param name="_i_Cloum">렬</param>
-    void CompareTileName2TileMatrix(string _compareTileString, int _i_row, int _i_Cloum)
+    void CompareTileName2TileMatrix(string _compareTileString, SpawnType _spawnType, int _i_row, int _i_Cloum)
     {
-        TileType f_TileType;
-        if (Enum.TryParse<TileType>(_compareTileString, out f_TileType))
+        switch (_spawnType)
         {
-            GameObject f_GameObject;
-            Tile f_tile;
-            Vector3 f_StandardVector3Pos = new Vector3(0.08f, 0.08f, 0);
-
-            //게임오브젝트 선 비교
-            if (TileGameObjectDictionary.TryGetValue(f_TileType, out f_GameObject))
-            {
-                Instantiate<GameObject>(f_GameObject, new Vector3(f_StandardVector3Pos.x + (0.16f * _i_row), f_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
-            }
-
-            //타일 후 비교
-            if (TileDictionary.TryGetValue(f_TileType, out f_tile))
-            {
-                switch (f_TileType)
+            case SpawnType.Tile:
+                SpawnerType.TileType f_TileType;
+                if (Enum.TryParse<SpawnerType.TileType>(_compareTileString, out f_TileType))
                 {
-                    case TileType.Default:
-                        break;
-                    case TileType.Flag:
-                        //Instantiate<GameObject>(GameObjects[2], new Vector3(f_StandardVector3Pos.x + (0.16f * _i_row), f_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
-                        m_ForegroundLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), f_tile);
-                        break;
-                    case TileType.FlagBody:
-                        m_ForegroundLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), f_tile);
-                        break;
-                    #region Save Case code
-                    //case TileType.FlagTop:
-                    //    break;
-                    //case TileType.Mushroom:
-                    //    break;
-                    //case TileType.Ground:
-                    //    break;
-                    //case TileType.Brick:
-                    //    break;
-                    //case TileType.RiddleBox:
-                    //    break;
-                    //case TileType.Stair:
-                    //    break;
-                    //case TileType.PipeBodyLeft:
-                    //    break;
-                    //case TileType.PipeBodyRight:
-                    //    break;
-                    //case TileType.PipeDoorLeft:
-                    //    break;
-                    //case TileType.PipeDoorRight:
-                    //    break;
-                    //case TileType.Flower:
-                    //    break;
-                    //case TileType.Goomba:
-                    //    break;
-                    //case TileType.Koopa:
-                    //    break;
-                    //case TileType.KoopaTroopa:
-                    //    break;
-                    #endregion
-                    default:
-                        m_TileLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), f_tile);
-                        break;
+                    m_TileSpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_TileType, out m_Tile);
+                    m_TileLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), m_Tile);
                 }
-            }
-
-        }
-        //예외 및 디버그 확인
-        else
-        {
+                break;
+            case SpawnType.ObjectTile:
+                SpawnerType.ObjectTileType f_objectType;
+                if (Enum.TryParse<SpawnerType.ObjectTileType>(_compareTileString, out f_objectType))
+                {
+                    m_ObjectTileSpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_objectType, out m_GameObject);
+                    Instantiate<GameObject>(m_GameObject, new Vector3(m_StandardVector3Pos.x + (0.16f * _i_row), m_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
+                }
+                break;
+            case SpawnType.Enemy:
+                SpawnerType.EnemyType f_EnemyType;
+                if (Enum.TryParse<SpawnerType.EnemyType>(_compareTileString, out f_EnemyType))
+                {
+                    m_EnemySpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_EnemyType, out m_GameObject);
+                    Instantiate<GameObject>(m_GameObject, new Vector3(m_StandardVector3Pos.x + (0.16f * _i_row), m_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
+                }
+                break;
+            case SpawnType.Item:
+                SpawnerType.ItemType f_ItemType;
+                if (Enum.TryParse<SpawnerType.ItemType>(_compareTileString, out f_ItemType))
+                {
+                    m_ItemSpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_ItemType, out m_GameObject);
+                    Instantiate<GameObject>(m_GameObject, new Vector3(m_StandardVector3Pos.x + (0.16f * _i_row), m_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
+                }
+                break;
+            case SpawnType.Player:
+                SpawnerType.PlayerType f_PlayerType;
+                if (Enum.TryParse<SpawnerType.PlayerType>(_compareTileString, out f_PlayerType))
+                {
+                    m_PlayerSpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_PlayerType, out m_GameObject);
+                    Instantiate<GameObject>(m_GameObject, new Vector3(m_StandardVector3Pos.x + (0.16f * _i_row), m_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
+                }
+                break;
+            default:
 #if UNITY_EDITOR
-            if (f_TileType == TileType.Default)
-            {
-                Debug.Log("빈타일 생성");
-            }
-            else
-            {
                 Debug.LogWarning("맵데이터에서 <color=yellow><b>정의하지 않은</b></color> 타일값이 도출되었습니다.");
-            }
 #endif
+                break;
         }
     }
+
     #endregion
 
     // Public Method
@@ -221,22 +181,23 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
         if (m_MapData.TileMatrix != null)
         {
             int MaxRow = m_MapData.TileMatrix[0].Length;
-        
-            for (int i_Cloum = 0; i_Cloum < m_MapData.TileMatrix.Count; i_Cloum++)
+            BackGroundCreater(MaxRow, 50);
+
+            SpawnType f_SpawnType = SpawnType.Tile;
+          
+            while (f_SpawnType != SpawnType.EndSpawnType)
             {
-                for (int i_row = 0; i_row < MaxRow; i_row++)
+                for (int i_Cloum = 0; i_Cloum < m_MapData.TileMatrix.Count; i_Cloum++)
                 {
-                    if (i_row % 50 == 0&&i_Cloum==0)
+                    for (int i_row = 0; i_row < MaxRow; i_row++)
                     {
-                        Instantiate<GameObject>(m_BackGround, new Vector3(m_BackGroundRenderController.StartPos.x + (7.68f * background_Counter++), m_BackGroundRenderController.StartPos.y, m_BackGroundRenderController.StartPos.z), Quaternion.identity);
-                        m_BackGroundRenderController.Background_Roulette(2);
+                        string[] tempRow = m_MapData.TileMatrix[i_Cloum];
+
+                        CompareTileName2TileMatrix(tempRow[i_row], f_SpawnType, i_row, i_Cloum);
+
                     }
-                    string[] tempRow = m_MapData.TileMatrix[i_Cloum];
-
-                    CompareTileName2TileMatrix(tempRow[i_row], i_row, i_Cloum);
-
-                    //CompareTileName2TileMatrix(tempRow[i_row], TileType, i_row, i_Cloum);
                 }
+                ++f_SpawnType;
             }
         }
         else
@@ -245,9 +206,8 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
             Debug.LogError("Map Tile Matrix is <b><color=red>Empty</color></b>");
 #endif
         }
-
     }
     #endregion
 
-   
+
 }

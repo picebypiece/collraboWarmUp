@@ -174,3 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3458a6a0af3fbde419f5ca065c88919b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  my_rigid: {fileID: 5091565881371323097}
+  StandardForce: {x: 0, y: 0.08, z: 0}
+  SettingPos: {x: 0, y: 0, z: 0}

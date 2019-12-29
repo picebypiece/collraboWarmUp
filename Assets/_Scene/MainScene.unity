@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -209,8 +209,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 883155630}
+  - component: {fileID: 883155635}
+  - component: {fileID: 883155634}
+  - component: {fileID: 883155633}
+  - component: {fileID: 883155632}
+  - component: {fileID: 883155631}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: Spawners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,6 +235,85 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &883155631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883155629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f120dced9c8e36409a18157c62ab030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnObjectList: []
+--- !u!114 &883155632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883155629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba06c8e3514b32f4b9a2d1d8acf969b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnObjectList:
+  - {fileID: 1706316771926530279, guid: a861714bd63132c4ca44a957ec0f29fd, type: 3}
+  - {fileID: 1706316771926530279, guid: a861714bd63132c4ca44a957ec0f29fd, type: 3}
+--- !u!114 &883155633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883155629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cec8c087e0e32f64f9c3048260189e9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnObjectList:
+  - {fileID: 7343402285217916722, guid: ac5b59533badda24da8099e98721a6f0, type: 3}
+  - {fileID: 7343402285217916722, guid: b9c6b4a168d8fde408aefed828404883, type: 3}
+  - {fileID: 7343402285217916722, guid: 0c447a0e91193324e9fa11a6bc65761c, type: 3}
+  - {fileID: 7343402285217916722, guid: 0a0ee51bf7adc29438e93a324387d435, type: 3}
+  - {fileID: 7343402285217916722, guid: bb39138ebe0367846bb81c47a1804989, type: 3}
+  - {fileID: 7343402285217916722, guid: 23b606f084e4ac2468407bf8c3827152, type: 3}
+  - {fileID: 7343402285217916722, guid: 7abffc51f62990c48b0cae76f7318b66, type: 3}
+--- !u!114 &883155634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883155629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab57118dbeb26ab41a0dc550767b53da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnObjectList:
+  - {fileID: 11400000, guid: 7df09ba8e23c83947bbd203cc5e1db09, type: 2}
+  - {fileID: 11400000, guid: 6edcdf815bc9a6440b784ad3f0daa43a, type: 2}
+  - {fileID: 11400000, guid: 564b3668385fad448b6b7dc907b5379e, type: 2}
+--- !u!114 &883155635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883155629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f843cedd1ebbb448a7f90ac92213db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnObjectList:
+  - {fileID: 9077543124221230584, guid: 62900d60de5455242987db385e0fa557, type: 3}
+  - {fileID: 2012297802720456174, guid: eaae94e2d66c6004aa45db99b2d1cf7f, type: 3}
 --- !u!1 &1197979141
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +574,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2058282242, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}
+      propertyPath: m_EnemySpawner
+      value: 
+      objectReference: {fileID: 883155635}
+    - target: {fileID: 2058282242, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}
+      propertyPath: m_ItemSpawner
+      value: 
+      objectReference: {fileID: 883155631}
+    - target: {fileID: 2058282242, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}
+      propertyPath: m_PlayerSpawner
+      value: 
+      objectReference: {fileID: 883155632}
+    - target: {fileID: 2058282242, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}
+      propertyPath: m_TileSpawner
+      value: 
+      objectReference: {fileID: 883155634}
+    - target: {fileID: 2058282242, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}
+      propertyPath: m_ObjectTileSpawner
+      value: 
+      objectReference: {fileID: 883155633}
     - target: {fileID: 2326182966840870220, guid: ce211f0ae89594e4ebd66ca125e2b2e8,
         type: 3}
       propertyPath: m_Name

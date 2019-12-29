@@ -11,12 +11,13 @@ public class BackGroundRenderControl : MonoBehaviour
 {
     // Variable
     #region Variable
-    struct BackGroundSheet
+    public struct BackGroundSheet
     {
+        public int Worldinex;
         public int OverWorld;
                 //underWorld;
     }
-    BackGroundSheet m_BackgroundSheet;
+    public BackGroundSheet m_BackgroundSheet;
 
     Vector3 m_StartPos = new Vector3(3.84f, 1.2f, 0);
 
@@ -39,14 +40,20 @@ public class BackGroundRenderControl : MonoBehaviour
     #region MonoBehaviour
     private void Awake()
     {
-        //m_spriteRnderer = GetComponent<SpriteRenderer>();
-        m_BackgroundSheet.OverWorld = 3;
+        BackgroundSheet_init();
     }
     #endregion
 
     // Private Method
     #region Private Method
+    void BackgroundSheet_init()
+    {
+        // 백그라운드의 index 번호
+        m_BackgroundSheet.OverWorld = 2;
 
+        //전체 백그라운드 수
+        m_BackgroundSheet.Worldinex = (m_BackgroundSheet.OverWorld);
+    }
     #endregion
 
     // Public Method
