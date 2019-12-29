@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using System;
 using System.Linq;
+using static SOInputKey;
 
 
 // 작성일자 : 2019-12-20-PM-12-20
@@ -13,16 +14,12 @@ using System.Linq;
 
 public class InputManager : SingletonMono<InputManager>
 {
+    public SOInputKey keyMap;
     public enum InputEventType { Push, Pushed, UP, LAST }
-
-    class keyEvent
-    {
-        public string key;
-        public Action[] events;
-    }
+    
     #region Variable
     //MappingKey, (key, Event)
-    Dictionary<string, keyEvent> keyMap;
+    Dictionary<string, Action[]> keyMapper;
     #endregion
 
     // MonoBehaviour
@@ -35,20 +32,20 @@ public class InputManager : SingletonMono<InputManager>
     
     void Update()
     {
-        var keyList = keyMap.Values.ToList();
-        for (int i = 0; i < keyList.Count ; i++)
+        var keyList = keyMapper.Keys.ToList();
+        for (int i = 0; i < keyList.Count; i++)
         {
-            if(Input.GetKeyDown(keyList[i].key))
+            if(Input.GetKeyDown(keyList[i]))
             {
-                keyList[i].events[(int)InputEventType.Push]?.Invoke();
+                keyMapper[keyList[i]][(int)InputEventType.Push]?.Invoke();
             }
-            else if(Input.GetKey(keyList[i].key))
+            else if(Input.GetKey(keyList[i]))
             {
-                keyList[i].events[(int)InputEventType.Pushed]?.Invoke();
+                keyMapper[keyList[i]][(int)InputEventType.Pushed]?.Invoke();
             }
-            else if(Input.GetKeyUp(keyList[i].key))
+            else if(Input.GetKeyUp(keyList[i]))
             {
-                keyList[i].events[(int)InputEventType.UP]?.Invoke();
+                keyMapper[keyList[i]][(int)InputEventType.UP]?.Invoke();
             }
         }    
     }
@@ -56,30 +53,24 @@ public class InputManager : SingletonMono<InputManager>
 
     void InitInputKeyData()
     {
-        keyMap = new Dictionary<string, keyEvent>();
-        
-        var mapkeyList = SDInputKeyMapper.allMapKeys;
-        
-        for (int i = 0; i < mapkeyList.Length; i++)
+        keyMapper = new Dictionary<string, Action[]>();
+        var keys = keyMap.allKeys;
+        for (int i = 0; i < keys.Length; i++)
         {
-            var mkey = PlayerPrefs.GetString(mapkeyList[i]);
-            var events = new Action[(int)InputEventType.LAST];
-            keyMap.Add(mapkeyList[i], new keyEvent {key = mkey, events = events} );
+            keyMapper.Add(keys[i], new Action[(int)InputEventType.LAST]);
         }
     }
 
 
-    public bool SetKeyData(KeyCode key, string mappingKey)
+    public bool SetKeyData(KeyCode key, SOInputKey.InputKeyName keyName)
     {
-        return SetKeyData(key.ToString(), mappingKey);
+        return SetKeyData(key.ToString(), keyName);
     }
 
-    public bool SetKeyData(string key, string mappingKey)
+    public bool SetKeyData(string key, SOInputKey.InputKeyName keyName)
     {
         //TODO 맵핑 키값의 입력 키를 변경
-        if (keyMap.ContainsKey(mappingKey) == false) return false;
-
-        keyMap[mappingKey].key = key ;
+        keyMap.allKeys[(int)keyName] = key;
         return true;
     }
 
@@ -90,17 +81,15 @@ public class InputManager : SingletonMono<InputManager>
     /// <param name="mappingKey">InputKeyMapper클래스 참고 </param>
     /// <param name="eventType">이벤트 발생 타입</param>
     /// <returns>없는 맵핑키이면 false 반환</returns>
-    public bool Subscribe(string mappingKey, InputEventType eventType, Action action)
+    public bool Subscribe(InputKeyName keyName, InputEventType eventType, Action action)
     {
-        if (keyMap.ContainsKey(mappingKey) == false) return false;
-        keyMap[mappingKey].events[(int)eventType] += action;
+        keyMapper[keyMap.allKeys[(int)keyName]][(int)eventType] += action;
         return true;
     }
 
-    public bool Desubscribe(string mappingKey, InputEventType eventType, Action action)
+    public bool Desubscribe(InputKeyName keyName, InputEventType eventType, Action action)
     {
-        if (keyMap.ContainsKey(mappingKey) == false) return false;
-        keyMap[mappingKey].events[(int)eventType] -= action;
+        keyMapper[keyMap.allKeys[(int)keyName]][(int)eventType] -= action;
         return true;
     }
 }
