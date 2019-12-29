@@ -42,8 +42,10 @@ public class BrickObject : TileObject
     public override void OnCollisionEnter2D(Collision2D col)
     {
         Debug.Log("BrickObject Collision Enter");
-        //StartCoroutine(MoveUpDown);
-        RenderAnimator.SetTrigger("Hit");
+        if (col.gameObject.layer.Equals(8) && col.gameObject.transform.position.y < this.transform.position.y)
+        {
+            RenderAnimator.SetTrigger("Hit");
+        }
     }
     #endregion
 
