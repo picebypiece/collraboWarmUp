@@ -13,21 +13,13 @@ MonoBehaviour:
   m_Name: SOInputKey
   m_EditorClassIdentifier: 
   allKeys:
-  - Up
-  - Down
-  - Right
-  - Left
   - escape
-  - Up
-  - Down
-  - Right
-  - Left
+  - up
+  - down
+  - right
+  - left
   - z
   - x
-  ArrowUpKey: up
-  ArrowDownKey: down
-  ArrowRightKey: right
-  ArrowLeftKey: left
   EscapeKey: escape
   GameUpKey: up
   GameDownKey: down
