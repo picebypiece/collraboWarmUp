@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 745206624}
   m_Layer: 0
   m_Name: TileLayer
-  m_TagString: Envirments
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 1324404576739555151}
   m_Layer: 0
   m_Name: ForgoroundLayer
-  m_TagString: Envirments
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
