@@ -618,6 +618,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 54609918, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}
+      propertyPath: m_TagString
+      value: Envirments
+      objectReference: {fileID: 0}
     - target: {fileID: 2058282242, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}
       propertyPath: m_EnemySpawner
       value: 
@@ -697,6 +701,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326182967069482453, guid: ce211f0ae89594e4ebd66ca125e2b2e8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677362332817210144, guid: ce211f0ae89594e4ebd66ca125e2b2e8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}

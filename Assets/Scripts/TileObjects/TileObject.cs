@@ -23,7 +23,7 @@ abstract public class TileObject : MonoBehaviour
     abstract public void Start();
 
     abstract public void OnCollisionEnter2D(Collision2D col);
-    
+
 
     #endregion
 
@@ -35,6 +35,7 @@ abstract public class TileObject : MonoBehaviour
     // Public Method
     #region Public Method
 
+    abstract public void MoveCall();
     #endregion
 
 }

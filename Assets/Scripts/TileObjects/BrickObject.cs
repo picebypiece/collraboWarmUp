@@ -42,16 +42,20 @@ public class BrickObject : TileObject
     public override void OnCollisionEnter2D(Collision2D col)
     {
         Debug.Log("BrickObject Collision Enter");
-        if (col.gameObject.layer.Equals(8) && col.gameObject.transform.position.y < this.transform.position.y)
-        {
-            RenderAnimator.SetTrigger("Hit");
-        }
+        //if (col.gameObject.layer.Equals(8) && col.gameObject.transform.position.y < this.transform.position.y)
+        //{
+        //    RenderAnimator.SetTrigger("Hit");
+        //}
     }
     #endregion
 
     // Public Method
     #region Public Method
 
+    public override void MoveCall()
+    {
+        RenderAnimator.SetTrigger("Hit");
+    }
     /// <summary>
     /// 렌더링쪽으로 옮겨서 랜더만 옮길껏 2@@@@@@@@@!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     /// </summary>

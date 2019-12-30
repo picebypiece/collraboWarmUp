@@ -35,10 +35,10 @@ public class RiddleBoxControl : TileObject
     {
         Debug.Log("RiddleBoxControl Collision Enter");
 
-        if (col.gameObject.layer.Equals(8)&& col.gameObject.transform.position.y < this.transform.position.y)
-        {
-            RenderAnimator.SetTrigger("PopTrigger");
-        }
+        //if (col.gameObject.layer.Equals(8)&& col.gameObject.transform.position.y < this.transform.position.y)
+        //{
+        //    RenderAnimator.SetTrigger("PopTrigger");
+        //}
     }
 
     public override void Start()
@@ -55,7 +55,10 @@ public class RiddleBoxControl : TileObject
 
     // Public Method
     #region Public Method
-
+    public override void MoveCall()
+    {
+        RenderAnimator.SetTrigger("PopTrigger");
+    }
     IEnumerator HitMove()
     {
         while (true)

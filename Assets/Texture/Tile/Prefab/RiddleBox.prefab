@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 7293150958006961954}
   m_Layer: 0
   m_Name: RiddleBox
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -195,5 +195,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RenderAnimator: {fileID: 1177096340880768882}
-  MoveForce: {x: 0, y: 0.04, z: 0}
   SettingPos: {x: 0, y: 0, z: 0}
+  MoveForce: {x: 0, y: 0.04, z: 0}

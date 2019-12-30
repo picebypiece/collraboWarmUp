@@ -32,6 +32,11 @@ public class FlagObject : TileObject
     {
         Debug.Log("FlagObject Collision Enter");
     }
+
+    public override void MoveCall()
+    {
+        //throw new System.NotImplementedException();
+    }
     #endregion
 
     // Private Method
