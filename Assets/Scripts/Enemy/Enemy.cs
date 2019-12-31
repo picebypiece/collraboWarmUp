@@ -15,20 +15,21 @@ public abstract class Enemy : MonoBehaviour
     }
     // Variable
     #region Variable
+    [Header("Enemy")]
     [SerializeField]
     protected float moveSpeed = 0f;
+
+    [SerializeField]
+    protected SpriteRenderer spriteRenderer = null;
+    [SerializeField]
+    protected Animator animator = null;
+
     protected Direction nowDir = Direction.Left;
     protected Vector2[] moveDirections =
     {
         Vector2.left,
         Vector2.right
     };
-    [SerializeField]
-    protected SpriteRenderer spriteRenderer = null;
-    [SerializeField]
-    protected Collider2D colliderEnemy = null;
-    [SerializeField]
-    protected Animator animator = null;
     #endregion
 
     // Property
@@ -38,7 +39,10 @@ public abstract class Enemy : MonoBehaviour
 
     // MonoBehaviour
     #region MonoBehaviour
-    protected abstract void Update();
+    private void Awake()
+    {
+        DoAwake();
+    }
     #endregion
 
     // Private Method
@@ -48,13 +52,14 @@ public abstract class Enemy : MonoBehaviour
 
     // Protected Method
     #region Protected Method
+    protected virtual void DoAwake() { }
+    protected abstract void Death();
     #endregion
 
     // Public Method
     #region Public Method
     public abstract void Init(Direction direction);
-    public abstract void Hit();
-    public abstract void Death();
+    public abstract void Hit(bool isTrample, Vector2 hit);
     public abstract void Stop();
     #endregion
 }

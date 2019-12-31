@@ -10,9 +10,6 @@ public class PlayerInput : MonoBehaviour
 {
     // Variable
     #region Variable
-    private string moveAxisName = "Horizontal";
-    private string jumpButtonName = "Jump";
-
     public float move { get; private set; }
     public bool jumpBtnDown { get; private set; }
     public bool jumpBtnUp { get; private set; }

@@ -43,12 +43,14 @@ public static class Common
 
     // 태그
     public const string tagEnvirments = "Envirments";
+    public const string tagGround = "Ground";
     public const string tagEnemy = "Enemy";
     public const string tagItem = "Item";
 
     // 레이어
     public const string layerPlayer = "Player";
     public const string layerEnemy = "Enemy";
+    public const string layerEnvirments = "Envirments";
     #endregion
 
     // Property
@@ -74,21 +76,45 @@ public static class Common
     {
         if (behaviour != null)
             behaviour.enabled = val;
+        else
+        {
+#if UNITY_EDITOR
+            Debug.LogError(string.Format($"{behaviour.name} SetEnable NullError"));
+#endif
+        }
     }
     public static void SetSprite(this SpriteRenderer spriteRenderer, Sprite sprite)
     {
         if (spriteRenderer != null)
             spriteRenderer.sprite = sprite;
+        else
+        {
+#if UNITY_EDITOR
+            Debug.LogError(string.Format($"{spriteRenderer.name} SetEnable NullError"));
+#endif
+        }
     }
     public static void SetFlipX(this SpriteRenderer spriteRenderer, bool val)
     {
         if (spriteRenderer != null)
             spriteRenderer.flipX = val;
+        else
+        {
+#if UNITY_EDITOR
+            Debug.LogError(string.Format($"{spriteRenderer.name} SetEnable NullError"));
+#endif
+        }
     }
     public static void SetFlipY(this SpriteRenderer spriteRenderer, bool val)
     {
         if (spriteRenderer != null)
             spriteRenderer.flipY = val;
+        else
+        {
+#if UNITY_EDITOR
+            Debug.LogError(string.Format($"{spriteRenderer.name} SetEnable NullError"));
+#endif
+        }
     }
-    #endregion
+#endregion
 }

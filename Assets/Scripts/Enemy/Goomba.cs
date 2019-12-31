@@ -10,11 +10,15 @@ public class Goomba : Enemy
 {
     // Variable
     #region Variable
+    [Header("Goomba")]
     [SerializeField]
-    private Rigidbody2D goombaRigidbody = null;
-    [SerializeField]
-    private Sprite DeathSprite = null;
+    private Sprite spDeath = null;
+
+    private Rigidbody2D rbGoomba = null;
+    private BoxCollider2D colGoomba = null;
     private float deathForce = 100f;
+    private bool change = false;
+    private bool move = true;
     #endregion
 
     // Property
@@ -25,11 +29,12 @@ public class Goomba : Enemy
     // MonoBehaviour
     #region MonoBehaviour
 
-
-    protected override void Update()
+    private void FixedUpdate()
     {
-        Move();
-
+        if (move)
+        {
+            Move();
+        }
     }
     #endregion
 
@@ -38,7 +43,43 @@ public class Goomba : Enemy
 
     private void Move()
     {
-        goombaRigidbody.position += (moveDirections[(int)nowDir] * moveSpeed * Time.deltaTime);
+        rbGoomba.MovePosition((Vector2)transform.position + (moveDirections[(int)nowDir] * moveSpeed * Time.fixedDeltaTime));
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (!change && (collision.collider.tag == Common.tagEnvirments || collision.collider.tag == Common.tagEnemy))
+        {
+            if (nowDir == Direction.Left)
+                nowDir = Direction.Right;
+            else
+                nowDir = Direction.Left;
+            change = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (change && (collision.collider.tag == Common.tagEnvirments || collision.collider.tag == Common.tagEnemy))
+        {
+            change = false;
+        }
+    }
+    #endregion
+
+    // Protected Method
+    #region Protected Method
+    protected override void DoAwake() {
+        rbGoomba = GetComponent(typeof(Rigidbody2D)) as Rigidbody2D;
+        colGoomba = GetComponent(typeof(BoxCollider2D)) as BoxCollider2D;
+    }
+    protected override void Death()
+    {
+        move = false;
+        colGoomba.SetEnable(false);
+        animator.SetEnable(false);
+
+        rbGoomba.AddForce(Vector2.up * deathForce, ForceMode2D.Force);
     }
     #endregion
 
@@ -47,49 +88,31 @@ public class Goomba : Enemy
     public override void Init(Direction direction)
     {
         nowDir = direction;
-        colliderEnemy.SetEnable(true);
+        colGoomba.SetEnable(true);
         animator.SetEnable(true);
     }
-    /// <summary>
-    /// 밟혀 죽었을때
-    /// </summary>
-    public override void Death()
-    {
-        colliderEnemy.SetEnable(false);
-        animator.SetEnable(false);
-
-        spriteRenderer.SetSprite(DeathSprite);
-        goombaRigidbody.AddForce(Vector2.up * deathForce, ForceMode2D.Force);
-    }
 
     /// <summary>
-    /// 타일에 맞아서 죽었을때
+    /// 데미지 입었을때
     /// </summary>
-    public override void Hit()
+    public override void Hit(bool isTrample, Vector2 hitNormal)
     {
-        //Death();
-        colliderEnemy.SetEnable(false);
-        animator.SetEnable(false);
-
-        spriteRenderer.SetFlipY(true);
-        goombaRigidbody.AddForce(Vector2.up * deathForce, ForceMode2D.Force);
+        if(isTrample)
+        {
+            spriteRenderer.SetSprite(spDeath);
+        }
+        else // 벽돌위에서 맞았을때
+        {
+            spriteRenderer.SetFlipY(true);
+        }
+        Death();
     }
 
     public override void Stop()
     {
         throw new System.NotImplementedException();
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.collider.tag == Common.tagEnvirments)
-        {
-            if (nowDir == Direction.Left)
-                nowDir = Direction.Right;
-            else
-                nowDir = Direction.Left;
-        }
-    }
+    
     #endregion
 
 }

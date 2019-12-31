@@ -79,7 +79,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.14, y: 0.13}
   m_EdgeRadius: 0
 --- !u!114 &8491152253956976917
 MonoBehaviour:
@@ -95,11 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0.3
   spriteRenderer: {fileID: 9077543124422129373}
-  colliderEnemy: {fileID: 7309961429756777750}
   animator: {fileID: 5814400567626850152}
-  goombaRigidbody: {fileID: 9077543124221230585}
-  DeathSprite: {fileID: 6955017614301310126, guid: cf87358665e55c14c863a58b4c7fecd3,
-    type: 3}
+  spDeath: {fileID: 6955017614301310126, guid: cf87358665e55c14c863a58b4c7fecd3, type: 3}
 --- !u!1 &9077543124422129363
 GameObject:
   m_ObjectHideFlags: 0
