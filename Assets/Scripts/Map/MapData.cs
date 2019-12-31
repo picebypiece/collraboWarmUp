@@ -15,9 +15,11 @@ public class MapData :SingletonManager<MapData>, IDisposable
 #region Variable
     
     string[] MapDataBuffer;
+    private List<string> m_MapNameList;
+    private List<string> m_MapInfoList;
 
     private List<string[]> m_TileMatrix;
-    private List<string> m_MapNameList;
+    private List<string[]> m_TileMatrixInfo;
 
     FileFinder m_fileFinder;
 
@@ -33,6 +35,11 @@ public class MapData :SingletonManager<MapData>, IDisposable
         get => m_MapNameList;
         set => m_MapNameList = value;
     }
+    public List<string> MapInfoList
+    {
+        get => m_MapInfoList;
+        set => m_MapInfoList = value;
+    }
     /// <summary>
     /// 맵전체 타일을 가지고 있는 리스트
     /// </summary>
@@ -41,20 +48,27 @@ public class MapData :SingletonManager<MapData>, IDisposable
         get => m_TileMatrix;
         set => m_TileMatrix = value;
     }
-#endregion
+    public List<string[]> TileMatrixInfo
+    {
+        get => m_TileMatrixInfo;
+        set => m_TileMatrixInfo = value;
+    }
+    #endregion
 
     // MonoBehaviour
-#region MonoBehaviour
+    #region MonoBehaviour
 
-#endregion
+    #endregion
 
     // Private Method
-#region Private Method
+    #region Private Method
     MapData()
     {
         m_fileFinder = new FileFinder();
         MapNameList = new List<string>();
+        m_MapInfoList = new List<string>();
         m_TileMatrix = new List<string[]>();
+        m_TileMatrixInfo = new List<string[]>();
     }
 #endregion
 
@@ -95,17 +109,43 @@ public class MapData :SingletonManager<MapData>, IDisposable
 #endif
     }
 
+    public void FindMapInfo()
+    {
+        m_fileFinder.FileName2List(FilePath.ExternalMapInfoPath, ".csv", ref m_MapInfoList);
+#if UNITY_EDITOR
+        //Debug 
+        for (int i = 0; i < m_MapInfoList.Count; ++i)
+        {
+            Debug.Log(m_MapInfoList[i]);
+        }
+        Debug.Log("맵정보 읽어오기 <b><color=Green>Complete</color></b>");
+#endif
+    }
+
+    public void FindMapInfo(ref List<string> _MapInfoList)
+    {
+        m_fileFinder.FileName2List(FilePath.ExternalMapInfoPath, ".csv", ref _MapInfoList);
+#if UNITY_EDITOR
+        //Debug
+        for (int i = 0; i < _MapInfoList.Count; ++i)
+        {
+            Debug.Log(_MapInfoList[i]);
+        }
+        Debug.Log("맵정보 읽어오기 <b><color=Green>Complete</color></b>");
+#endif
+    }
+
     /// <summary>
     /// 맵데이터 가져오기
     /// </summary>
     /// <param name="_mapName">Load Map name</param>
-    public void LoadMapData(string _mapName)
+    public void LoadMapData(string _mapName,string _Extension,string _FilePath,List<string[]> _Matrix)
     {
         //CSVParser.Load LoadMapTool = new CSVParser.Load();
         using (CSVParser.Load LoadMapTool = new CSVParser.Load())
         {
             //속성의 갯수만큼 스트링 배열의 크기를 정해 동적할당
-            MapDataBuffer = new string[LoadMapTool.ReadComma(_mapName, FilePath.ExternalMapDataPath)];
+            MapDataBuffer = new string[LoadMapTool.ReadComma(_mapName, _FilePath, _Extension)];
 
             while (true)
             {
@@ -115,19 +155,20 @@ public class MapData :SingletonManager<MapData>, IDisposable
                     break;
                 }
 
-                m_TileMatrix.Add(MapDataBuffer);
+                _Matrix.Add(MapDataBuffer);
+                //m_TileMatrix.Add(MapDataBuffer);
 
-                 #if UNITY_EDITER
+#if UNITY_EDITOR
                 //Debug
-                for (int i = 0; i < MapDataBuffer.Length; i++)
-                {
-                    Debug.Log(MapDataBuffer[i]);
-                }
-                #endif
+                //for (int i = 0; i < MapDataBuffer.Length; i++)
+                //{
+                //    Debug.Log(MapDataBuffer[i]);
+                //}
+#endif
             }
 
             //Debug.Log(m_TileMatrix);
-            m_TileMatrix.Reverse();
+            _Matrix.Reverse();
             //Debug.Log(m_TileMatrix);
 
             LoadMapTool.CloseLoader();

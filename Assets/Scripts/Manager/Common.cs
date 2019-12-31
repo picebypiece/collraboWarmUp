@@ -23,7 +23,7 @@ namespace SpawnerType
     }
     public enum ItemType
     {
-        Mushroom, Coin, Flower
+        Coin, Mushroom, Flower
     }
     public enum PlayerType
     {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 // 작성일자 : 2019-12-27-PM-12-57
 // 작성자   : 김세중
@@ -11,6 +12,9 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
 {
     // Variable
     #region Variable
+    private MapData m_MapData;
+    [SerializeField]
+    private ItemSpawner m_ItemSpawner;
 
     #endregion
 
@@ -21,6 +25,10 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
 
     // MonoBehaviour
     #region MonoBehaviour
+    private void Awake()
+    {
+        m_MapData = MapData.Instance;
+    }
 
     #endregion
 
@@ -32,7 +40,12 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
     // Public Method
     #region Public Method
 
-    #endregion
+    override public void Instantiate(GameObject _GameObject,Vector3 _StandardPos,int _row, int _Cloum,Transform _ParentTransform)
+    {
+        Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
+        SpawnObjects.Add(_GameObject);
+    }
+
     public override void Add_Dictionary()
     {
         int ObjectTileindex = 0;
@@ -44,7 +57,7 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
         CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeDoorLeft, SpawnObjectList[ObjectTileindex++]);
         CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeDoorRight, SpawnObjectList[ObjectTileindex++]);
     }
-        
+
     public void Contain_Dictionary()
     {
         Add_Dictionary();
@@ -54,4 +67,6 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
     {
         CompareEnumTypeDictionary = new EnumDictionary<SpawnerType.ObjectTileType, GameObject>();
     }
+    #endregion
+
 }

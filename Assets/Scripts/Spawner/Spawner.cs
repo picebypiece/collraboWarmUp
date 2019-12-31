@@ -11,6 +11,8 @@ abstract public class Spawner<TEnum, TSpawnType> : MonoBehaviour where TEnum : s
     [SerializeField]
     protected List<TSpawnType> SpawnObjectList;
     [SerializeField]
+    protected List<TSpawnType> SpawnObjects;
+    [SerializeField]
     protected EnumDictionary<TEnum, TSpawnType> CompareEnumTypeDictionary;
     public EnumDictionary<TEnum, TSpawnType> Get_CompareEnumTypeDictionary
     {
@@ -18,4 +20,7 @@ abstract public class Spawner<TEnum, TSpawnType> : MonoBehaviour where TEnum : s
     }
 
     abstract public void Add_Dictionary();
+
+    virtual public void Instantiate(TSpawnType _GameObject,Vector3 _StandardPos,int _row, int _Cloum, Transform _ParentTransform)
+    { }
 }

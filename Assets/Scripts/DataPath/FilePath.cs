@@ -10,5 +10,6 @@ static public class FilePath
     /// 외부 맵 데이터 폴더 경로
     /// </summary>
     static public readonly string ExternalMapDataPath = string.Format($"{Application.streamingAssetsPath}/Map/");
+    static public readonly string ExternalMapInfoPath = string.Format($"{Application.streamingAssetsPath}/MapInfo/");
 
 }

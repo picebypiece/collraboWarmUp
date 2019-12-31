@@ -247,7 +247,7 @@ abstract class CSVParser
         /// <param name="_DataName">File Data name</param>
         /// <param name="_address">File Data address</param>
         /// <returns></returns>
-        public int ReadComma(string _DataName, string _address)
+        public int ReadComma(string _DataName, string _address, string _Extension)
         {
             //속성값을 읽었음을 알림
             isCommaFind = true;
@@ -258,7 +258,7 @@ abstract class CSVParser
             //데이터이름(확장자 포함)을 데이터 경로와 합쳐서 저장하는 변수
             StringBuilder f_StringBuilder = new StringBuilder(_address);
             f_StringBuilder.Append(_DataName);
-            f_StringBuilder.Append(".csv");
+            f_StringBuilder.Append(_Extension);
 
             ////데이터 경로 담기
             //DataPath = f_StringBuilder.ToString();

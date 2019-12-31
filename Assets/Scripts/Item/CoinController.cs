@@ -1,42 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// ÀÛ¼ºÀÏÀÚ : 2019-12-22-PM-7-58
-// ÀÛ¼ºÀÚ   : ±è¼¼Áß
-// °£´Ü¼³¸í :
-abstract public class TileObject : MonoBehaviour
+
+// ì‘ì„±ì¼ì : 2019-12-31-AM-12-11
+// ì‘ì„±ì   : ìµœíƒœìš±
+// ê°„ë‹¨ì„¤ëª… :
+
+public class CoinController : MonoBehaviour
 {
     // Variable
     #region Variable
+    
     #endregion
-
+    
     // Property
     #region Property
-
+    
     #endregion
 
     // MonoBehaviour
     #region MonoBehaviour
-
-    abstract public void Awake();
-
-    abstract public void Start();
-
-    abstract public void OnCollisionEnter2D(Collision2D col);
-
-
+    
     #endregion
 
     // Private Method
     #region Private Method
-
+    
     #endregion
 
     // Public Method
     #region Public Method
-
-    virtual public void MoveCall()
-    { }
+    
     #endregion
-
 }

@@ -30,11 +30,11 @@ public class EnemySpawner : Spawner<SpawnerType.EnemyType, GameObject>, IRegist_
 
     // Public Method
     #region Public Method
-    //public bool SpawnEnemy(EnemyType enemyKind, Vector2 pos, Enemy.Direction direction)
-    //{
-
-    //    return true;
-    //}
+    public override void Instantiate(GameObject _GameObject, Vector3 _StandardPos, int _row, int _Cloum, Transform _ParentTransform)
+    {
+        Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
+        SpawnObjects.Add(_GameObject);
+    }
 
     public override void Add_Dictionary()
     {

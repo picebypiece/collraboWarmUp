@@ -11,7 +11,8 @@ public class TileSpawner : Spawner<SpawnerType.TileType, Tile>,IRegist_Dictionar
 {
     // Variable
     #region Variable
-
+    [SerializeField]
+    Tilemap m_Tilemap;
     #endregion
 
     // Property
@@ -21,18 +22,22 @@ public class TileSpawner : Spawner<SpawnerType.TileType, Tile>,IRegist_Dictionar
 
     // MonoBehaviour
     #region MonoBehaviour
-    
+
     #endregion
 
     // Private Method
     #region Private Method
-    
+
     #endregion
 
     // Public Method
     #region Public Method
+    override public void Instantiate(Tile _Tile, Vector3 _StandardPos, int _row, int _Cloum, Transform _ParentTransform)
+    {
+        m_Tilemap.SetTile(new Vector3Int(_row, _Cloum, 0), _Tile);
+        SpawnObjects.Add(_Tile);
+    }
 
-    #endregion
     public override void Add_Dictionary()
     {
         int Tileindex = 0;
@@ -50,4 +55,6 @@ public class TileSpawner : Spawner<SpawnerType.TileType, Tile>,IRegist_Dictionar
     {
         CompareEnumTypeDictionary = new EnumDictionary<SpawnerType.TileType, Tile>();
     }
+    #endregion
+
 }
