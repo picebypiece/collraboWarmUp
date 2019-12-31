@@ -60,19 +60,30 @@ public class PlayerAction : MonoBehaviour
         if (!action)
             return;
         Move();
+        CheckGround();
 
+
+        // 떨어질때 점프불가
+        //if (playerRigidbody.velocity.y < 0)
+        //{
+        //    if(!isJumping)
+        //        Jump(false);
+        //}
+        //else
+        //{
         if (playerInput.jumpBtnDown)
         {
             if (isGrounded)
             {
-                Jump();
+                Jump(true);
             }
         }
+        //}
         if (isJumping)
         {
-            if(!playerInput.jumpBtnDown && Vector2.Dot(playerRigidbody.velocity, Vector2.up) > 0/*playerRigidbody.velocity.y >= 0f*/)
-            
-            playerRigidbody.AddForce(counterJumpForce * playerRigidbody.mass);
+            if (!playerInput.jumpBtnDown && Vector2.Dot(playerRigidbody.velocity, Vector2.up) > 0/*playerRigidbody.velocity.y >= 0f*/)
+
+                playerRigidbody.AddForce(counterJumpForce * playerRigidbody.mass);
         }
     }
     private void OnDisable()
@@ -84,6 +95,9 @@ public class PlayerAction : MonoBehaviour
 
     // Private Method
     #region Private Method
+    /// <summary>
+    /// 움직이기
+    /// </summary>
     private void Move()
     {
 
@@ -100,20 +114,53 @@ public class PlayerAction : MonoBehaviour
             playerAnimCtrl.PlayRun(false, 1f);
             return;
         }
-        Vector2 movePos = playerInput.move * Vector2.right * runSpeed * Time.deltaTime;
+        Vector2 movePos = playerInput.move * Vector2.right * runSpeed * Time.fixedDeltaTime;
             playerRigidbody.position = playerRigidbody.position + movePos;
-
         playerAnimCtrl.PlayRun(true, playerInput.move * 5f);
     }
-    private void Jump()
+
+    /// <summary>
+    /// 점프 
+    /// </summary>
+    /// <param name="doForce">AddForce 하는지?</param>
+    private void Jump(bool doForce)
     {
         isGrounded = false;
         isJumping = true;
-        playerRigidbody.velocity = Vector2.zero;
-        playerRigidbody.AddForce(new Vector2(0, jumpForce) * playerRigidbody.mass);
         playerAnimCtrl.PlayJump(true);
+
+        if (doForce)
+        {
+            playerRigidbody.velocity = Vector2.zero;
+            playerRigidbody.AddForce(new Vector2(0, jumpForce) * playerRigidbody.mass);
+        }
     }
-    
+
+    private void CheckGround()
+    {
+        //Vector2 vector2 = new Vector2(transform.position.x, transform.position.y + 0.015f);
+        //RaycastHit2D hit = Physics2D.Raycast(vector2, transform.TransformDirection(Vector2.down), 0.03f/*, LayerMask.GetMask(Common.layerEnvirments)*/);
+        Collider2D hit = Physics2D.OverlapBox(transform.position, new Vector2(0.12f, 0.03f), 0, LayerMask.GetMask(Common.layerEnvirments));
+
+        //Debug.DrawRay(vector2, transform.TransformDirection(Vector2.down) * 0.03f, Color.red);
+
+        if (hit != null)
+        {
+        Debug.Log(hit.gameObject.GetInstanceID());
+            if(!isGrounded)
+            {
+                InitJump();
+            }
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector2(0.12f, 0.03f));
+    }
+    /// <summary>
+    /// 애니메이션 끝났을때 호출
+    /// </summary>
+    /// <param name="eventAnim"></param>
     private void AnimEndCall(PlayerAnimCtrl.EventAnim eventAnim)
     {
         switch (eventAnim)
@@ -130,15 +177,35 @@ public class PlayerAction : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// 적한테 맞았을때
+    /// </summary>
     private void Hit()
     {
 
     }
+
+    /// <summary>
+    /// 점프가 가능하도록 초기화
+    /// </summary>
+    private void InitJump()
+    {
+        playerAnimCtrl.PlayJump(false);
+        isGrounded = true;
+        isJumping = false;
+    }
+
+    /// <summary>
+    /// 적의 충돌을 무시하는지
+    /// </summary>
+    /// <param name="val"></param>
     private void SetIgnoreEnemy(bool val)
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(Common.layerPlayer), LayerMask.NameToLayer(Common.layerEnemy), val);
     }
-    // 무적효과
+    /// <summary>
+    /// 
+    /// </summary>
     private void AdultToChildCall()
     {
         StartCoroutine(Invincibility());
@@ -152,27 +219,34 @@ public class PlayerAction : MonoBehaviour
 
     // Public Method
     #region Public Method
-
+    
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var dir = collision.contacts[0].normal;
-        switch (collision.collider.tag)
+        ContactPoint2D contactPoint = collision.contacts[0];
+        Vector2 normal = contactPoint.normal;
+
+        switch (contactPoint.collider.tag)
         {
             // 벽돌
-            //case Common.tagEnvirments:
-            //    if (dir.y < 0 )
-            //    {
-            //        // 벽돌
-            //    }
-            //    break;
+            case Common.tagEnvirments:
+                if (normal.y < 0)
+                {
+                    TileObject tileObject = contactPoint.collider.GetComponent(typeof(TileObject)) as TileObject;
+                    tileObject?.MoveCall();
+                }
+                //else if (normal.y > 0)
+                //{
+                //    InitJump();
+                //}
+                break;
             case Common.tagEnemy:
                 {
-                    
-                    if(dir.y > 0)
+                    if(normal.y > 0)
                     {
-                        Enemy enemy = collision.collider.GetComponent(typeof(Enemy)) as Enemy;
-                        enemy?.Death();
-                        Jump();
+                        Enemy enemy = contactPoint.collider.GetComponent(typeof(Enemy)) as Enemy;
+                        enemy?.Hit(true, transform.position - contactPoint.collider.transform.position);
+                        Jump(true);
                     }
                     else
                     {
@@ -182,12 +256,10 @@ public class PlayerAction : MonoBehaviour
                 }
                 break;
             default:
-                if (dir.y > 0)
-                {
-                    playerAnimCtrl.PlayJump(false);
-                    isGrounded = true;
-                    isJumping = false;
-                }
+                //if(normal.y > 0)
+                //{
+                //    InitJump();
+                //}
                 break;
         }
     }
