@@ -32,9 +32,8 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     {
         Default,
 
-        Tile, ObjectTile, Enemy, Item, Player,
+        Player,Tile, ObjectTile, Enemy, Item,
 
-        info,
         //항상 마지막에 사용할 Enum
         EndSpawnType
     }
@@ -229,15 +228,24 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     /// <param name="_compareTileString">String Tile 값 </param>
     /// <param name="_row">행</param>
     /// <param name="_cloum">렬</param>
-    void MapInfoSet(string _compareTileString,int _row,int _cloum)
+    void MapInfoSet(GameObject _gameObject, string _compareTileString, int _row, int _cloum)
     {
-        int f_parserNum;
-
-        bool isNum= int.TryParse(_compareTileString, out f_parserNum);
-
-        if (isNum == true)
+        SpawnerType.ItemType f_ItemType;
+        if (Enum.TryParse<SpawnerType.ItemType>(_compareTileString, out f_ItemType))
         {
-            
+            _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(f_ItemType);
+        }
+        else
+        {
+            int f_parserNum;
+
+            bool isNum = int.TryParse(_compareTileString, out f_parserNum);
+
+            if (isNum == true)
+            {
+                //for
+                _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(f_ItemType);
+            }
         }
     }
     #endregion

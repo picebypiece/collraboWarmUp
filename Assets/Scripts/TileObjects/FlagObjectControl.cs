@@ -6,7 +6,7 @@ using UnityEngine;
 // 작성자   : 김세중
 // 간단설명 :
 
-public class FlagObject : TileObject
+public class FlagObjectControl : TileObject
 {
     // Variable
     #region Variable
