@@ -190,7 +190,6 @@ MonoBehaviour:
   SpawnObjectList:
   - {fileID: 7343402285217916722, guid: 4f809073bfd4b9e418394b8b07365c6d, type: 3}
   - {fileID: 7343402285217916722, guid: da4088e86c5a9c94bbb4fd00b08e909c, type: 3}
-  - {fileID: 7343402285217916722, guid: da4088e86c5a9c94bbb4fd00b08e909c, type: 3}
   - {fileID: 7343402285217916722, guid: 60a4cfbc797b5dc43af2285917ce8a5e, type: 3}
   SpawnObjects: []
 --- !u!1 &2326182966840870220

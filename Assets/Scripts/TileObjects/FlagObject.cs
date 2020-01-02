@@ -33,7 +33,7 @@ public class FlagObject : TileObject
         Debug.Log("FlagObject Collision Enter");
     }
 
-    public override void MoveCall()
+    public override void ActionCall()
     {
         //throw new System.NotImplementedException();
     }

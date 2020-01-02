@@ -55,7 +55,7 @@ public class RiddleBoxControl : TileObject
 
     // Public Method
     #region Public Method
-    public override void MoveCall()
+    public override void ActionCall()
     {
         RenderAnimator.SetTrigger("PopTrigger");
     }
