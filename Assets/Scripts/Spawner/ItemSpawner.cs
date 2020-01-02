@@ -30,7 +30,7 @@ public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject>, IRegist_Di
     {
         PoolInit(3, SpawnerType.ItemType.PopCoin);
         PoolInit(1, SpawnerType.ItemType.Mushroom);
-        int temp = m_PoolDictionary.Count;
+      
     }
     #endregion
 

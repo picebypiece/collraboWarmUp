@@ -197,8 +197,9 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
             int MaxRow = m_MapData.TileMatrix[0].Length;
             BackGroundCreater(MaxRow, 50);
 
-            SpawnType f_SpawnType = SpawnType.Tile;
-          
+            SpawnType f_SpawnType = SpawnType.Default;
+            ++f_SpawnType;
+
             while (f_SpawnType != SpawnType.EndSpawnType)
             {
                 for (int i_Cloum = 0; i_Cloum < m_MapData.TileMatrix.Count; i_Cloum++)
