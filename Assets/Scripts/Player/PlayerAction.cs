@@ -22,6 +22,8 @@ public class PlayerAction : MonoBehaviour
     private PlayerAnimCtrl playerAnimCtrl = null;
     [SerializeField]
     private LayerMask overlapCheckLayer;
+    [SerializeField]
+    private Vector2 overlapBoxSize;
 
     private Rigidbody2D playerRigidbody = null;
     private float jumpForce; // 점프 힘
@@ -32,7 +34,6 @@ public class PlayerAction : MonoBehaviour
     private bool action = true;
     private bool isGrounded = false;
     private bool isJumping = false;
-    private Vector2 overlapBoxSize;
     private int layerMask;
 
 
@@ -104,7 +105,6 @@ public class PlayerAction : MonoBehaviour
         runSpeed = 1.5f;
         counterForce = 50f;
         counterJumpForce = Vector2.down * counterForce;
-        overlapBoxSize = new Vector2(0.12f, 0.03f);
         action = true;
         isGrounded = false;
         isJumping = false;
@@ -157,25 +157,17 @@ public class PlayerAction : MonoBehaviour
         //RaycastHit2D hit = Physics2D.Raycast(vector2, transform.TransformDirection(Vector2.down), 0.03f/*, LayerMask.GetMask(Common.layerEnvirments)*/);
         //Debug.DrawRay(vector2, transform.TransformDirection(Vector2.down) * 0.03f, Color.red);
 
+        Debug.Log(overlapCheckLayer.value);
         Collider2D hit = Physics2D.OverlapBox(transform.position, overlapBoxSize, 0, overlapCheckLayer.value);
         
         if (hit != null)
         {
-
-            if(hit.IsTouchingLayers(LayerMask.NameToLayer(Common.tagEnvirments)))
+            if(hit.gameObject.layer == LayerMask.NameToLayer(Common.tagEnvirments))
             {
                 if (!isGrounded)
                 {
                     InitJump();
                 }
-            }
-            switch (hit.tag)
-            {
-                case Common.tagEnemy:
-                    Enemy enemy = hit.GetComponent(typeof(Enemy)) as Enemy;
-                    enemy?.Hit(true, transform.position - hit.transform.position);
-                    Jump(true);
-                    break;
             }
         }
     }
@@ -208,7 +200,17 @@ public class PlayerAction : MonoBehaviour
     /// </summary>
     private void Hit()
     {
+        playerAnimCtrl.PlayDeath();
+        if(playerAnimCtrl.Adult)
+        {
 
+        }
+        else
+        {
+            action = false;
+            SetIgnoreCollision(true, Common.layerEnemy, Common.layerEnvirments);
+            Jump(true);
+        }
     }
 
     /// <summary>
@@ -229,6 +231,18 @@ public class PlayerAction : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(Common.layerPlayer), LayerMask.NameToLayer(Common.layerEnemy), val);
     }
+    private void SetIgnoreCollision(bool val, params string[] LayerName)
+    {
+        int layer = 0;
+        for (int i = 0; i < LayerName.Length; ++i)
+        {
+            layer = layer + (1 << LayerMask.NameToLayer(LayerName[i]));
+        }
+        Debug.Log(LayerMask.GetMask(Common.layerPlayer));
+        Debug.Log(LayerMask.NameToLayer(Common.layerPlayer));
+
+        //Physics2D.IgnoreLayerCollision(LayerMask.GetMask(Common.layerPlayer), LayerMask.GetMask(Common.layerEnemy), val);
+    }
     /// <summary>
     /// 
     /// </summary>
@@ -245,8 +259,8 @@ public class PlayerAction : MonoBehaviour
 
     // Public Method
     #region Public Method
-    
-    
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ContactPoint2D contactPoint = collision.contacts[0];
@@ -261,14 +275,10 @@ public class PlayerAction : MonoBehaviour
                     TileObject tileObject = contactPoint.collider.GetComponent(typeof(TileObject)) as TileObject;
                     tileObject?.ActionCall();
                 }
-                //else if (normal.y > 0)
-                //{
-                //    InitJump();
-                //}
                 break;
             case Common.tagEnemy:
                 {
-                    if(normal.y > 0)
+                    if (normal.y > 0)
                     {
                         Enemy enemy = contactPoint.collider.GetComponent(typeof(Enemy)) as Enemy;
                         enemy?.Hit(true, transform.position - contactPoint.collider.transform.position);
@@ -281,25 +291,19 @@ public class PlayerAction : MonoBehaviour
                     }
                 }
                 break;
-            default:
-                //if(normal.y > 0)
-                //{
-                //    InitJump();
-                //}
-                break;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        switch(collision.tag)
-        {
-            case Common.tagItem:
-                action = false;
-                SetIgnoreEnemy(true);
-                playerAnimCtrl.PlayGrowth();
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    switch(collision.tag)
+    //    {
+    //        case Common.tagItem:
+    //            action = false;
+    //            SetIgnoreEnemy(true);
+    //            playerAnimCtrl.PlayGrowth();
 
-                break;
-        }
-    }
+    //            break;
+    //    }
+    //}
     #endregion
 }
