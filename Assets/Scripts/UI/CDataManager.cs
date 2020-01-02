@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class CDataManager : SingletonManager<CDataManager>
 {
+    
 
 }
