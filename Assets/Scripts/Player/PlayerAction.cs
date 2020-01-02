@@ -164,7 +164,7 @@ public class PlayerAction : MonoBehaviour
         {
             if(hit.gameObject.layer == LayerMask.NameToLayer(Common.tagEnvirments))
             {
-                if (!isGrounded)
+                if (!isGrounded && playerRigidbody.velocity == Vector2.zero)
                 {
                     InitJump();
                 }
@@ -185,7 +185,7 @@ public class PlayerAction : MonoBehaviour
         {
             case PlayerAnimCtrl.EventAnim.Growth:
                 action = true;
-                SetIgnoreEnemy(false);
+                SetIgnoreCollision(false, Common.layerEnemy) ;
                 break;
             case PlayerAnimCtrl.EventAnim.Flag:
                 break;
@@ -227,21 +227,13 @@ public class PlayerAction : MonoBehaviour
     /// 적의 충돌을 무시하는지
     /// </summary>
     /// <param name="val"></param>
-    private void SetIgnoreEnemy(bool val)
-    {
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(Common.layerPlayer), LayerMask.NameToLayer(Common.layerEnemy), val);
-    }
     private void SetIgnoreCollision(bool val, params string[] LayerName)
     {
-        int layer = 0;
+        int player = LayerMask.NameToLayer(Common.layerPlayer);
         for (int i = 0; i < LayerName.Length; ++i)
         {
-            layer = layer + (1 << LayerMask.NameToLayer(LayerName[i]));
+            Physics2D.IgnoreLayerCollision(player, LayerMask.NameToLayer(LayerName[i]), val);
         }
-        Debug.Log(LayerMask.GetMask(Common.layerPlayer));
-        Debug.Log(LayerMask.NameToLayer(Common.layerPlayer));
-
-        //Physics2D.IgnoreLayerCollision(LayerMask.GetMask(Common.layerPlayer), LayerMask.GetMask(Common.layerEnemy), val);
     }
     /// <summary>
     /// 
@@ -255,10 +247,6 @@ public class PlayerAction : MonoBehaviour
         // 무적 시작
         yield return new WaitForSeconds(2f);
     }
-    #endregion
-
-    // Public Method
-    #region Public Method
 
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -293,6 +281,7 @@ public class PlayerAction : MonoBehaviour
                 break;
         }
     }
+
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
     //    switch(collision.tag)
@@ -305,5 +294,23 @@ public class PlayerAction : MonoBehaviour
     //            break;
     //    }
     //}
+    #endregion
+
+    // Public Method
+    #region Public Method
+
+    public void ItemAction(ItemKind itemKind)
+    {
+        switch (itemKind)
+        {
+            case ItemKind.Coin:
+                break;
+            case ItemKind.GrowthMushroom:
+                break;
+            case ItemKind.LifeMushroom:
+                break;
+        }
+    }
+
     #endregion
 }
