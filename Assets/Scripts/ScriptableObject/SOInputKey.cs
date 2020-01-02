@@ -5,7 +5,7 @@ using static SOInputKey;
 /// <summary>
 /// 키입력 저장하는 스크립터블 오브젝트
 /// </summary>
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ScriptableObject/InputKey")]
 public class SOInputKey : ScriptableObject
 {
     /// <summary>
@@ -13,7 +13,7 @@ public class SOInputKey : ScriptableObject
     /// 키값이 추가될시 리스트에도 추가
     /// </summary>
     public string[] allKeys;
-    public string EscapeKey = "escape";
+    public string   escapeKey = "escape";
 
     //인게임에서 사용되는 키입력
     public string GameUpKey = "up";
@@ -32,7 +32,7 @@ public class SOInputKey : ScriptableObject
     {
         allKeys = new string[]
         {
-            EscapeKey, GameUpKey, GameDownKey, GameRightKey, GameLeftKey, JumpKey, DashKey
+            escapeKey, GameUpKey, GameDownKey, GameRightKey, GameLeftKey, JumpKey, DashKey
         };
     }
 

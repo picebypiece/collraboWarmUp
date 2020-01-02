@@ -16,7 +16,7 @@ namespace UI
         // Variable
         #region Variable
         public string dataKey = null;   //데이터를 가져올 키
-        public UpdateType updateTytpe = UpdateType.Event;
+        public readonly UpdateType updateTytpe = UpdateType.Event;
         #endregion
 
         // Property
