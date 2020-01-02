@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8493850184159795152}
   - component: {fileID: 6198133342693676155}
   - component: {fileID: 1177096340880768882}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RenderImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 775914251129828027}
   - component: {fileID: 5091565881371323097}
   - component: {fileID: 7293150958006961954}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RiddleBox
   m_TagString: Envirments
   m_Icon: {fileID: 0}

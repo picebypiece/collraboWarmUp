@@ -4,7 +4,7 @@ using UnityEngine;
 // 작성일자 : 2019-12-22-PM-7-58
 // 작성자   : 김세중
 // 간단설명 :
-public class BrickObject : TileObject
+public class BrickObjectControl : TileObject
 {
     // Variable
     #region Variable
@@ -56,6 +56,7 @@ public class BrickObject : TileObject
     {
         RenderAnimator.SetTrigger("Hit");
     }
+
     /// <summary>
     /// 렌더링쪽으로 옮겨서 랜더만 옮길껏 2@@@@@@@@@!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     /// </summary>
@@ -80,10 +81,7 @@ public class BrickObject : TileObject
         }
     }
 
-    //public void EndHit()
-    //{
-    //    RenderAnimator.ResetTrigger("Hit");
-    //}
+
     #endregion
 
 

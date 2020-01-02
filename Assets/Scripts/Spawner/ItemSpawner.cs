@@ -28,7 +28,7 @@ public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject>, IRegist_Di
     }
     private void Start()
     {
-        PoolInit(3, SpawnerType.ItemType.Coin);
+        PoolInit(3, SpawnerType.ItemType.PopCoin);
         PoolInit(1, SpawnerType.ItemType.Mushroom);
         int temp = m_PoolDictionary.Count;
     }
@@ -43,11 +43,11 @@ public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject>, IRegist_Di
         for (int i = 0; i < _CreateNum; i++)
         {
             CompareEnumTypeDictionary.TryGetValue(_ItemType,out f_gameObject);
-            
+
             m_tempPoolList.Add(Instantiate(f_gameObject, this.transform));
+            m_tempPoolList[i].SetActive(false);
         }
         m_PoolDictionary.Add(_ItemType, m_tempPoolList);
-        //m_tempPoolList.Clear();
 
     }
     #endregion

@@ -118,6 +118,7 @@ MonoBehaviour:
   SpawnObjectList:
   - {fileID: 9077543124221230584, guid: 62900d60de5455242987db385e0fa557, type: 3}
   - {fileID: 2012297802720456174, guid: eaae94e2d66c6004aa45db99b2d1cf7f, type: 3}
+  SpawnObjects: []
 --- !u!114 &883155634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7df09ba8e23c83947bbd203cc5e1db09, type: 2}
   - {fileID: 11400000, guid: 6edcdf815bc9a6440b784ad3f0daa43a, type: 2}
   - {fileID: 11400000, guid: 564b3668385fad448b6b7dc907b5379e, type: 2}
-  SpawnTiles: []
+  SpawnObjects: []
   m_Tilemap: {fileID: 2326182967069482448}
 --- !u!114 &883155633
 MonoBehaviour:
@@ -156,7 +157,7 @@ MonoBehaviour:
   - {fileID: 7343402285217916722, guid: bb39138ebe0367846bb81c47a1804989, type: 3}
   - {fileID: 7343402285217916722, guid: 23b606f084e4ac2468407bf8c3827152, type: 3}
   - {fileID: 7343402285217916722, guid: 7abffc51f62990c48b0cae76f7318b66, type: 3}
-  m_SpawnObjects: []
+  SpawnObjects: []
   m_ItemSpawner: {fileID: 883155631}
 --- !u!114 &883155632
 MonoBehaviour:
@@ -173,6 +174,7 @@ MonoBehaviour:
   SpawnObjectList:
   - {fileID: 1706316771926530279, guid: a861714bd63132c4ca44a957ec0f29fd, type: 3}
   - {fileID: 1706316771926530279, guid: a861714bd63132c4ca44a957ec0f29fd, type: 3}
+  SpawnObjects: []
 --- !u!114 &883155631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +191,8 @@ MonoBehaviour:
   - {fileID: 7343402285217916722, guid: 4f809073bfd4b9e418394b8b07365c6d, type: 3}
   - {fileID: 7343402285217916722, guid: da4088e86c5a9c94bbb4fd00b08e909c, type: 3}
   - {fileID: 7343402285217916722, guid: da4088e86c5a9c94bbb4fd00b08e909c, type: 3}
+  - {fileID: 7343402285217916722, guid: 60a4cfbc797b5dc43af2285917ce8a5e, type: 3}
+  SpawnObjects: []
 --- !u!1 &2326182966840870220
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +258,7 @@ MonoBehaviour:
   m_PlayerSpawner: {fileID: 883155632}
   m_TileSpawner: {fileID: 883155634}
   m_ObjectTileSpawner: {fileID: 883155633}
+  m_SpawnersTransform: []
   m_BackGround: {fileID: 2750445711894177753, guid: cc8c4b73ad2fbff49830aeee55634449,
     type: 3}
   m_TileLayer: {fileID: 2326182967069482448}
@@ -273,7 +278,7 @@ GameObject:
   - component: {fileID: 745206623}
   - component: {fileID: 745206622}
   - component: {fileID: 745206624}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TileLayer
   m_TagString: Ground
   m_Icon: {fileID: 0}

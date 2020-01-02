@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8493850184159795152}
   - component: {fileID: 6198133342693676155}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RenderImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,9 +92,9 @@ GameObject:
   - component: {fileID: 6412980229837139646}
   - component: {fileID: 775914251129828027}
   - component: {fileID: 5091565881371323097}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PipleDoorLeft
-  m_TagString: Untagged
+  m_TagString: Envirments
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
