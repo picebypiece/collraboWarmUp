@@ -52,7 +52,7 @@ public class BrickObjectControl : TileObject
     // Public Method
     #region Public Method
 
-    public override void MoveCall()
+    public override void ActionCall()
     {
         RenderAnimator.SetTrigger("Hit");
     }

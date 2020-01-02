@@ -32,8 +32,9 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     {
         Default,
 
-        Tile, ObjectTile, Enemy, Item, Player, 
-        
+        Tile, ObjectTile, Enemy, Item, Player,
+
+        info,
         //항상 마지막에 사용할 Enum
         EndSpawnType
     }
@@ -219,6 +220,24 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
 #if UNITY_EDITOR
             Debug.LogError("Map Tile Matrix is <b><color=red>Empty</color></b>");
 #endif
+        }
+    }
+
+    /// <summary>
+    /// 타일내에 들어갈 정보값을 저장해주는 메소드
+    /// </summary>
+    /// <param name="_compareTileString">String Tile 값 </param>
+    /// <param name="_row">행</param>
+    /// <param name="_cloum">렬</param>
+    void MapInfoSet(string _compareTileString,int _row,int _cloum)
+    {
+        int f_parserNum;
+
+        bool isNum= int.TryParse(_compareTileString, out f_parserNum);
+
+        if (isNum == true)
+        {
+            
         }
     }
     #endregion

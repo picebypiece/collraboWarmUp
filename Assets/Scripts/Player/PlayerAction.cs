@@ -233,7 +233,7 @@ public class PlayerAction : MonoBehaviour
                 if (normal.y < 0)
                 {
                     TileObject tileObject = contactPoint.collider.GetComponent(typeof(TileObject)) as TileObject;
-                    tileObject?.MoveCall();
+                    tileObject?.ActionCall();
                 }
                 //else if (normal.y > 0)
                 //{

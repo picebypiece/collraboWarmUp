@@ -35,7 +35,7 @@ abstract public class TileObject : MonoBehaviour
     // Public Method
     #region Public Method
 
-    virtual public void MoveCall()
+    virtual public void ActionCall()
     { }
     #endregion
 
