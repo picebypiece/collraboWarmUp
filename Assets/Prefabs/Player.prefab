@@ -211,9 +211,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1706316771926530273}
   playerAnimCtrl: {fileID: 1706316771926530275}
-  jumpForce: 250
-  runSpeed: 1.5
-  counterForce: 50
+  overlapCheckLayer:
+    serializedVersion: 2
+    m_Bits: 1536
 --- !u!114 &1706316771926530275
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32,8 +32,11 @@ public class PlayerInput : MonoBehaviour
 
     private void OnDisable()
     {
-        GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Push, JumpDown);
-        GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.UP, JumpUp);
+        if (GameInputManager.Instance != null)
+        {
+            GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Push, JumpDown);
+            GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.UP, JumpUp);
+        }
     }
 
     private void Update()

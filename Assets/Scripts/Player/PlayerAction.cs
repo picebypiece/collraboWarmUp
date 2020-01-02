@@ -20,21 +20,22 @@ public class PlayerAction : MonoBehaviour
     private PlayerInput playerInput = null;
     [SerializeField]
     private PlayerAnimCtrl playerAnimCtrl = null;
+    [SerializeField]
+    private LayerMask overlapCheckLayer;
+
     private Rigidbody2D playerRigidbody = null;
-
-    [SerializeField]
-    private float jumpForce = 200f; // 점프 힘
-    [SerializeField]
-    private float runSpeed = 1.5f;  // 달리는 속도
-
-    [SerializeField]
-    private float counterForce = 50f;   // 역중력 힘
+    private float jumpForce; // 점프 힘
+    private float runSpeed;  // 달리는 속도
+    private float counterForce;   // 역중력 힘
     private Vector2 counterJumpForce;   // 역중력 방향
 
     private bool action = true;
     private bool isGrounded = false;
     private bool isJumping = false;
-    
+    private Vector2 overlapBoxSize;
+    private int layerMask;
+
+
     #endregion
 
     // Property
@@ -46,14 +47,7 @@ public class PlayerAction : MonoBehaviour
     #region MonoBehaviour
     private void Awake()
     {
-        playerRigidbody = GetComponent(typeof(Rigidbody2D)) as Rigidbody2D;
-
-        if (playerAnimCtrl != null)
-            playerAnimCtrl.SetState(false);
-
-        counterJumpForce = Vector2.down * counterForce;
-        playerAnimCtrl.AnimEndEvent += AnimEndCall;
-        playerAnimCtrl.AdultToChildEvent += AdultToChildCall;
+        InitData();
     }
     private void FixedUpdate()
     {
@@ -95,6 +89,27 @@ public class PlayerAction : MonoBehaviour
 
     // Private Method
     #region Private Method
+
+    private void InitData()
+    {
+        playerRigidbody = GetComponent(typeof(Rigidbody2D)) as Rigidbody2D;
+
+        if (playerAnimCtrl != null)
+            playerAnimCtrl.SetState(false);
+
+        playerAnimCtrl.AnimEndEvent += AnimEndCall;
+        playerAnimCtrl.AdultToChildEvent += AdultToChildCall;
+
+        jumpForce = 200f;
+        runSpeed = 1.5f;
+        counterForce = 50f;
+        counterJumpForce = Vector2.down * counterForce;
+        overlapBoxSize = new Vector2(0.12f, 0.03f);
+        action = true;
+        isGrounded = false;
+        isJumping = false;
+
+    }
     /// <summary>
     /// 움직이기
     /// </summary>
@@ -140,22 +155,33 @@ public class PlayerAction : MonoBehaviour
     {
         //Vector2 vector2 = new Vector2(transform.position.x, transform.position.y + 0.015f);
         //RaycastHit2D hit = Physics2D.Raycast(vector2, transform.TransformDirection(Vector2.down), 0.03f/*, LayerMask.GetMask(Common.layerEnvirments)*/);
-        Collider2D hit = Physics2D.OverlapBox(transform.position, new Vector2(0.12f, 0.03f), 0, LayerMask.GetMask(Common.layerEnvirments));
-
         //Debug.DrawRay(vector2, transform.TransformDirection(Vector2.down) * 0.03f, Color.red);
 
+        Collider2D hit = Physics2D.OverlapBox(transform.position, overlapBoxSize, 0, overlapCheckLayer.value);
+        
         if (hit != null)
         {
-        Debug.Log(hit.gameObject.GetInstanceID());
-            if(!isGrounded)
+
+            if(hit.IsTouchingLayers(LayerMask.NameToLayer(Common.tagEnvirments)))
             {
-                InitJump();
+                if (!isGrounded)
+                {
+                    InitJump();
+                }
+            }
+            switch (hit.tag)
+            {
+                case Common.tagEnemy:
+                    Enemy enemy = hit.GetComponent(typeof(Enemy)) as Enemy;
+                    enemy?.Hit(true, transform.position - hit.transform.position);
+                    Jump(true);
+                    break;
             }
         }
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector2(0.12f, 0.03f));
+        Gizmos.DrawWireCube(transform.position, overlapBoxSize);
     }
     /// <summary>
     /// 애니메이션 끝났을때 호출
