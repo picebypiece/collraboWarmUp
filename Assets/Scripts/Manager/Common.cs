@@ -23,7 +23,7 @@ namespace SpawnerType
     }
     public enum ItemType
     {
-        Coin, Mushroom, Flower, PopCoin
+        PopCoin, Coin, Mushroom, Flower
     }
     public enum PlayerType
     {
@@ -117,4 +117,15 @@ public static class Common
         }
     }
 #endregion
+}
+
+[System.Serializable]
+public struct TilePos
+{
+    public int row, colum;
+    public TilePos(int r,int c)
+    {
+        row = r;
+        colum = c;
+    }
 }

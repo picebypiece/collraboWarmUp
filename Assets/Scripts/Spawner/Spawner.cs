@@ -21,6 +21,46 @@ abstract public class Spawner<TEnum, TSpawnType> : MonoBehaviour where TEnum : s
 
     abstract public void Add_Dictionary();
 
-    virtual public void Instantiate(TSpawnType _GameObject,Vector3 _StandardPos,int _row, int _Cloum, Transform _ParentTransform)
-    { }
+    abstract public void Instantiate(TSpawnType _GameObject, Vector3 _StandardPos, int _row, int _Cloum, Transform _ParentTransform);
+
+    //abstract void MapInfoSet(GameObject _gameObject, string _compareTileString, int _row, int _cloum)
+    //{
+    //    //string[] tempRow = m_MapData.TileMatrixInfo[_i_Cloum];
+    //    //MapInfoSet(m_GameObject, tempRow[_i_row], _i_row, _i_Cloum);
+
+    //    int f_parserNum;
+    //    SpawnerType.ItemType f_ItemType; //= SpawnerType.ItemType.PopCoin;
+    //    if (int.TryParse(_compareTileString, out f_parserNum))
+    //    {
+    //        for (int i_coin = 0; i_coin < f_parserNum; i_coin++)
+    //        {
+    //            _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(SpawnerType.ItemType.PopCoin);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (Enum.TryParse<SpawnerType.ItemType>(_compareTileString, out f_ItemType))
+    //        {
+    //            _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(f_ItemType);
+    //        }
+    //    }
+    //    //if (Enum.TryParse<SpawnerType.ItemType>(_compareTileString, out f_ItemType))
+    //    //{
+    //    //    _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(f_ItemType);
+    //    //}
+    //    //else
+    //    //{
+    //    //    int f_parserNum;
+
+    //    //    bool isNum = int.TryParse(_compareTileString, out f_parserNum);
+
+    //    //    if (isNum == true)
+    //    //    {
+    //    //        for (int i_coin = 0; i_coin < f_parserNum; i_coin++)
+    //    //        {
+    //    //            _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(SpawnerType.ItemType.PopCoin);
+    //    //        }
+    //    //    }
+    //    //}
+    //}
 }

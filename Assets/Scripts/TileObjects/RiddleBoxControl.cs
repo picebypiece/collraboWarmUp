@@ -27,6 +27,7 @@ public class RiddleBoxControl : TileObject
     #region MonoBehaviour
     public override void Awake()
     {
+        m_PoketQueue = new Queue<SpawnerType.ItemType>();
         SettingPos = this.transform.position;
         MoveUpDown = HitMove();
     }
