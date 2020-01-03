@@ -13,9 +13,6 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
     // Variable
     #region Variable
     private MapData m_MapData;
-    [SerializeField]
-    private ItemSpawner m_ItemSpawner;
-
     #endregion
 
     // Property
@@ -42,16 +39,15 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
 
     override public void Instantiate(GameObject _GameObject,Vector3 _StandardPos,int _row, int _Cloum,Transform _ParentTransform)
     {
-       GameObject tempgameobvj =  Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
+       GameObject f_tempObject =  Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
 
-        var _tempTileObject = tempgameobvj.GetComponent<TileObject>();
+        var f_tempTileObject = f_tempObject.GetComponent<TileObject>();
 
-        if(_tempTileObject != null)
+        if(f_tempTileObject != null)
         {
-            _tempTileObject.Vector2Pos = new TilePos(_row, _Cloum);
-            _tempTileObject.Initialized();
+            f_tempTileObject.Initialized(_row, _Cloum);
         }
-        SpawnObjects.Add(tempgameobvj);
+        SpawnObjects.Add(f_tempObject);
     }
 
     public override void Add_Dictionary()

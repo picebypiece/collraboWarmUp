@@ -34,12 +34,13 @@ abstract public class TileObject : MonoBehaviour
 
     abstract public void Awake();
 
-    abstract public void Start();
+    //abstract public void Start();
 
-    abstract public void OnCollisionEnter2D(Collision2D col);
+    //abstract public void OnCollisionEnter2D(Collision2D col);
 
-    public void Initialized()
+    virtual public void Initialized(int _row, int _Cloum)
     {
+        this.Vector2Pos = new TilePos(_row, _Cloum);
         TileInfoSet();
     }
     virtual public void TileInfoSet()
@@ -47,7 +48,6 @@ abstract public class TileObject : MonoBehaviour
         string[] tempstring = MapData.Instance.TileMatrixInfo[m_Vector2Pos.colum];
         
         int f_parserNum;
-        SpawnerType.ItemType f_ItemType;
 
         if (int.TryParse(tempstring[m_Vector2Pos.row], out f_parserNum))
         {
@@ -58,29 +58,13 @@ abstract public class TileObject : MonoBehaviour
         }
         else
         {
+            SpawnerType.ItemType f_ItemType;
             if (Enum.TryParse<SpawnerType.ItemType>(tempstring[m_Vector2Pos.row], out f_ItemType))
             {
                 this.GetComponent<TileObject>().PoketQueue.Enqueue(f_ItemType);
             }
          }
-        //if (Enum.TryParse<SpawnerType.ItemType>(_compareTileString, out f_ItemType))
-        //{
-        //    _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(f_ItemType);
-        //}
-        //else
-        //{
-        //    int f_parserNum;
-
-        //    bool isNum = int.TryParse(_compareTileString, out f_parserNum);
-
-        //    if (isNum == true)
-        //    {
-        //        for (int i_coin = 0; i_coin < f_parserNum; i_coin++)
-        //        {
-        //            _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(SpawnerType.ItemType.PopCoin);
-        //        }
-        //    }
-        //}
+      
     }
     #endregion
 
@@ -93,7 +77,12 @@ abstract public class TileObject : MonoBehaviour
     #region Public Method
 
     virtual public void ActionCall()
-    { }
+    {
+        if (m_PoketQueue.Count !=0)
+        {
+            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position + new Vector3(0, 0.16f, 0));
+        }
+    }
     #endregion
 
 }

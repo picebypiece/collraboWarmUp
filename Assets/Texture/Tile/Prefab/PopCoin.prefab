@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8493850184159795152}
   - component: {fileID: 6198133342693676155}
   - component: {fileID: 6609961842903946307}
+  - component: {fileID: 4324685848037531782}
   m_Layer: 0
   m_Name: RenderImage
   m_TagString: Untagged
@@ -101,6 +102,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4324685848037531782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2432412475732631194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 043bce1704138134c9844a6e33b34517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 6609961842903946307}
+  m_PopCoin: {fileID: 7343402285217916722}
 --- !u!1 &7343402285217916722
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6412980229837139646}
   - component: {fileID: 775914251129828027}
-  - component: {fileID: 5091565881371323097}
+  - component: {fileID: 7480659073601384383}
   m_Layer: 0
   m_Name: PopCoin
   m_TagString: Untagged
@@ -160,24 +175,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
---- !u!50 &5091565881371323097
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &7480659073601384383
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7343402285217916722}
-  m_BodyType: 0
-  m_Simulated: 0
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18262a20ed2bded45b69d3690553b39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemKind: 4

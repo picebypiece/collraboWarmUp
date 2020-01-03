@@ -91,7 +91,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
 
     private void Start()
     {
-        CreateMap();
+        CreateTileMap.Instance.CreateMap();
     }
     #endregion
 

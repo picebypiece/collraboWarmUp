@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8493850184159795152}
   - component: {fileID: 6198133342693676155}
   - component: {fileID: 1177096340880768882}
+  - component: {fileID: 7891720868795779232}
   m_Layer: 10
   m_Name: RenderImage
   m_TagString: Untagged
@@ -101,6 +102,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7891720868795779232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2432412475732631194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b5f8e1e1fdd9b408ac208a1ade8530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 1177096340880768882}
+  m_RiddleBox: {fileID: 7343402285217916722}
 --- !u!1 &7343402285217916722
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +209,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171a54b6bd20fc34fae971292b637d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ItemSpawner: {fileID: 0}
+  m_Vector2Pos:
+    row: 0
+    colum: 0
   RenderAnimator: {fileID: 1177096340880768882}
   SettingPos: {x: 0, y: 0, z: 0}
   MoveForce: {x: 0, y: 0.04, z: 0}

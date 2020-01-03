@@ -32,20 +32,20 @@ public class RiddleBoxControl : TileObject
         MoveUpDown = HitMove();
     }
 
-    public override void OnCollisionEnter2D(Collision2D col)
-    {
-        Debug.Log("RiddleBoxControl Collision Enter");
+    //public override void OnCollisionEnter2D(Collision2D col)
+    //{
+    //    Debug.Log("RiddleBoxControl Collision Enter");
 
-        //if (col.gameObject.layer.Equals(8)&& col.gameObject.transform.position.y < this.transform.position.y)
-        //{
-        //    RenderAnimator.SetTrigger("PopTrigger");
-        //}
-    }
+    //    //if (col.gameObject.layer.Equals(8)&& col.gameObject.transform.position.y < this.transform.position.y)
+    //    //{
+    //    //    RenderAnimator.SetTrigger("PopTrigger");
+    //    //}
+    //}
 
-    public override void Start()
-    {
-        //throw new System.NotImplementedException();
-    }
+    //public override void Start()
+    //{
+    //    //throw new System.NotImplementedException();
+    //}
 
     #endregion
 
@@ -58,7 +58,17 @@ public class RiddleBoxControl : TileObject
     #region Public Method
     public override void ActionCall()
     {
-        RenderAnimator.SetTrigger("PopTrigger");
+        //base.ActionCall();
+        if (m_PoketQueue.Count != 0)
+        {
+            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position+ new Vector3(0, 0.16f, 0));
+            RenderAnimator.SetTrigger("PopTrigger");
+        }
+    }
+
+    public void SetEmptyBox()
+    {
+        RenderAnimator.SetTrigger("EmptyTrigger");
     }
     IEnumerator HitMove()
     {

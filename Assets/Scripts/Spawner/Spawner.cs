@@ -6,7 +6,7 @@ using UnityEngine;
 // 작성자   : 김세중
 // 간단설명 : Spawner 클래스 제작시 상속 받아 사용
 
-abstract public class Spawner<TEnum, TSpawnType> : MonoBehaviour where TEnum : struct
+abstract public class Spawner<TEnum, TSpawnType> : SingletonMono<Spawner<TEnum, TSpawnType>> where TEnum : struct
 {
     [SerializeField]
     protected List<TSpawnType> SpawnObjectList;
@@ -20,7 +20,8 @@ abstract public class Spawner<TEnum, TSpawnType> : MonoBehaviour where TEnum : s
     }
 
     abstract public void Add_Dictionary();
-
+    virtual public void Pooling(int _Count, SpawnerType.ItemType _ItemType, Vector3 _SetPosition)
+    { }
     abstract public void Instantiate(TSpawnType _GameObject, Vector3 _StandardPos, int _row, int _Cloum, Transform _ParentTransform);
 
     //abstract void MapInfoSet(GameObject _gameObject, string _compareTileString, int _row, int _cloum)

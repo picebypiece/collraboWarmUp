@@ -12,7 +12,7 @@ public abstract class Item : MonoBehaviour
     #region Variable
     [Header("Item")]
     [SerializeField]
-    protected ItemKind itemKind;
+    protected SpawnerType.ItemType itemKind;
 
     #endregion
 

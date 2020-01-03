@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 작성일자 : 2019-12-22-PM-7-58
+// 작성일자 : 2020-01-02-PM-8-30
 // 작성자   : 김세중
 // 간단설명 :
 
-public class FlagObjectControl : TileObject
+public class PopCoin : Item
 {
     // Variable
     #region Variable
-
     #endregion
 
     // Property
@@ -20,23 +19,7 @@ public class FlagObjectControl : TileObject
 
     // MonoBehaviour
     #region MonoBehaviour
-    public override void Awake()
-    {
 
-    }
-    //public override void Start()
-    //{
-
-    //}
-    //public override void OnCollisionEnter2D(Collision2D col)
-    //{
-    //    Debug.Log("FlagObject Collision Enter");
-    //}
-
-    public override void ActionCall()
-    {
-        //throw new System.NotImplementedException();
-    }
     #endregion
 
     // Private Method
@@ -46,9 +29,6 @@ public class FlagObjectControl : TileObject
 
     // Public Method
     #region Public Method
-
+    
     #endregion
-
-
-
 }
