@@ -76,8 +76,8 @@ public class Goomba : Enemy
     protected override void Death()
     {
         move = false;
-        colGoomba.SetEnable(false);
-        animator.SetEnable(false);
+        colGoomba.enabled = false;
+        animator.enabled = false;
 
         rbGoomba.AddForce(Vector2.up * deathForce, ForceMode2D.Force);
     }
@@ -88,8 +88,8 @@ public class Goomba : Enemy
     public override void Init(Direction direction)
     {
         nowDir = direction;
-        colGoomba.SetEnable(true);
-        animator.SetEnable(true);
+        colGoomba.enabled = true;
+        animator.enabled = true;
     }
 
     /// <summary>
@@ -99,11 +99,11 @@ public class Goomba : Enemy
     {
         if(isTrample)
         {
-            spriteRenderer.SetSprite(spDeath);
+            spriteRenderer.sprite = spDeath;
         }
         else // 벽돌위에서 맞았을때
         {
-            spriteRenderer.SetFlipY(true);
+            spriteRenderer.flipY = true;
         }
         Death();
     }

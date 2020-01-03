@@ -13,7 +13,6 @@ public class PlayerAnimCtrl : MonoBehaviour
         Growth,
         Flag,
         Hit,
-        Death
     }
 
     // Variable
@@ -45,14 +44,12 @@ public class PlayerAnimCtrl : MonoBehaviour
 
     public delegate void AnimEnd(EventAnim eventAnim);
     public event AnimEnd AnimEndEvent;
-    public delegate void AdultToChild();
-    public event AdultToChild AdultToChildEvent;
 
     #endregion
 
     // Property
     #region Property
-    public bool Adult
+    public MarioSize marioSize
     {
         get; private set;
     }
@@ -79,8 +76,17 @@ public class PlayerAnimCtrl : MonoBehaviour
         cntAnimator.SetTrigger(paramNameGrowth);
 
         yield return new WaitForSeconds(cntAnimator.GetCurrentAnimatorStateInfo(0).length);
-        SetState(!Adult);
+        SetMarioSize(MarioSize.Adult);
         AnimEndEvent?.Invoke(EventAnim.Growth);
+
+    }
+    private IEnumerator Hit()
+    {
+        cntAnimator.SetTrigger(paramNameHit);
+
+        yield return new WaitForSeconds(cntAnimator.GetCurrentAnimatorStateInfo(0).length);
+        SetMarioSize(MarioSize.Child);
+        AnimEndEvent?.Invoke(EventAnim.Hit);
 
     }
     #endregion
@@ -92,22 +98,23 @@ public class PlayerAnimCtrl : MonoBehaviour
     /// true면 어른
     /// </summary>
     /// <param name="isAdult"></param>
-    public void SetState(bool isAdult)
+    public void SetMarioSize(MarioSize size)
     {
-        this.Adult = isAdult;
-        if (Adult)
+        this.marioSize = size;
+        switch (marioSize)
         {
-            childAnim.gameObject.SetActive(false);
-            cntAnimator = AdultAnim;
-            cntRenderer = AdultRenderer;
-            AdultAnim.gameObject.SetActive(true);
-        }
-        else
-        {
-            AdultAnim.gameObject.SetActive(false);
-            cntAnimator = childAnim;
-            cntRenderer = childRenderer;
-            childAnim.gameObject.SetActive(true);
+            case MarioSize.Child:
+                AdultAnim.gameObject.SetActive(false);
+                cntAnimator = childAnim;
+                cntRenderer = childRenderer;
+                childAnim.gameObject.SetActive(true);
+                break;
+            case MarioSize.Adult:
+                childAnim.gameObject.SetActive(false);
+                cntAnimator = AdultAnim;
+                cntRenderer = AdultRenderer;
+                AdultAnim.gameObject.SetActive(true);
+                break;
         }
     }
     public void PlayGrowth()
@@ -121,7 +128,7 @@ public class PlayerAnimCtrl : MonoBehaviour
     }
     public void PlayHit()
     {
-        cntAnimator.SetTrigger(paramNameHit);
+        StartCoroutine(Hit());
     }
     public void PlayDeath()
     {
@@ -152,7 +159,7 @@ public class PlayerAnimCtrl : MonoBehaviour
     public void SetFlipX(bool val)
     {
         if (cntRenderer.flipX != val)
-            cntRenderer.SetFlipX(val);
+            cntRenderer.flipX = val;
     }
     #endregion
 }
