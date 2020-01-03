@@ -8,11 +8,6 @@ using UnityEngine;
 
 public class PlayerAction : MonoBehaviour
 {
-    private enum MarioSize
-    {
-        Child = 0,
-        Adult
-    }
 
     // Variable
     #region Variable
@@ -84,7 +79,6 @@ public class PlayerAction : MonoBehaviour
     private void OnDisable()
     {
         playerAnimCtrl.AnimEndEvent -= AnimEndCall;
-        playerAnimCtrl.AdultToChildEvent -= AdultToChildCall;
     }
     #endregion
 
@@ -96,10 +90,9 @@ public class PlayerAction : MonoBehaviour
         playerRigidbody = GetComponent(typeof(Rigidbody2D)) as Rigidbody2D;
 
         if (playerAnimCtrl != null)
-            playerAnimCtrl.SetState(false);
+            playerAnimCtrl.SetMarioSize(MarioSize.Adult);
 
         playerAnimCtrl.AnimEndEvent += AnimEndCall;
-        playerAnimCtrl.AdultToChildEvent += AdultToChildCall;
 
         jumpForce = 200f;
         runSpeed = 1.5f;
@@ -157,7 +150,6 @@ public class PlayerAction : MonoBehaviour
         //RaycastHit2D hit = Physics2D.Raycast(vector2, transform.TransformDirection(Vector2.down), 0.03f/*, LayerMask.GetMask(Common.layerEnvirments)*/);
         //Debug.DrawRay(vector2, transform.TransformDirection(Vector2.down) * 0.03f, Color.red);
 
-        Debug.Log(overlapCheckLayer.value);
         Collider2D hit = Physics2D.OverlapBox(transform.position, overlapBoxSize, 0, overlapCheckLayer.value);
         
         if (hit != null)
@@ -190,8 +182,8 @@ public class PlayerAction : MonoBehaviour
             case PlayerAnimCtrl.EventAnim.Flag:
                 break;
             case PlayerAnimCtrl.EventAnim.Hit:
-                break;
-            case PlayerAnimCtrl.EventAnim.Death:
+                action = true;
+                SetIgnoreCollision(false, Common.layerEnemy);
                 break;
         }
     }
@@ -200,19 +192,20 @@ public class PlayerAction : MonoBehaviour
     /// </summary>
     private void Hit()
     {
-        playerAnimCtrl.PlayDeath();
-        if(playerAnimCtrl.Adult)
+        action = false;
+        switch (playerAnimCtrl.marioSize)
         {
-
-        }
-        else
-        {
-            action = false;
-            SetIgnoreCollision(true, Common.layerEnemy, Common.layerEnvirments);
-            Jump(true);
+            case MarioSize.Child:
+                SetIgnoreCollision(true, Common.layerEnemy, Common.layerEnvirments);
+                playerAnimCtrl.PlayDeath();
+                Jump(true);
+                break;
+            case MarioSize.Adult:
+                SetIgnoreCollision(true, Common.layerEnemy);
+                playerAnimCtrl.PlayHit();
+                break;
         }
     }
-
     /// <summary>
     /// 점프가 가능하도록 초기화
     /// </summary>
@@ -224,7 +217,7 @@ public class PlayerAction : MonoBehaviour
     }
 
     /// <summary>
-    /// 적의 충돌을 무시하는지
+    /// 충돌무시 레이어 설정
     /// </summary>
     /// <param name="val"></param>
     private void SetIgnoreCollision(bool val, params string[] LayerName)
@@ -234,18 +227,6 @@ public class PlayerAction : MonoBehaviour
         {
             Physics2D.IgnoreLayerCollision(player, LayerMask.NameToLayer(LayerName[i]), val);
         }
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    private void AdultToChildCall()
-    {
-        StartCoroutine(Invincibility());
-    }
-    private IEnumerator Invincibility()
-    {
-        // 무적 시작
-        yield return new WaitForSeconds(2f);
     }
 
 
@@ -284,7 +265,7 @@ public class PlayerAction : MonoBehaviour
 
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
-    //    switch(collision.tag)
+    //    switch (collision.tag)
     //    {
     //        case Common.tagItem:
     //            action = false;
@@ -299,18 +280,17 @@ public class PlayerAction : MonoBehaviour
     // Public Method
     #region Public Method
 
-    public void ItemAction(ItemKind itemKind)
+    public void DirectDeath()
     {
-        switch (itemKind)
-        {
-            case ItemKind.Coin:
-                break;
-            case ItemKind.GrowthMushroom:
-                break;
-            case ItemKind.LifeMushroom:
-                break;
-        }
+        action = false;
+        //음...
     }
 
+    public void Growth()
+    {
+        action = false;
+        SetIgnoreCollision(true,Common.layerEnemy);
+        playerAnimCtrl.PlayGrowth();
+    }
     #endregion
 }

@@ -90,8 +90,8 @@ public class KoopaTroopa : Enemy
         {
             case State.Normal:
                 move = false;
-                animator.SetEnable(false);
-                spriteRenderer.SetSprite(this.spHit);
+                animator.enabled = false;
+                spriteRenderer.sprite = this.spHit;
                 state = State.Hide;
                 break;
             case State.Hide:
@@ -119,10 +119,10 @@ public class KoopaTroopa : Enemy
         nowDir = direction;
         if(direction == Direction.Right)
         {
-            spriteRenderer.SetFlipX(true);
+            spriteRenderer.flipX = true;
         }
         else
-            spriteRenderer.SetFlipX(false);
+            spriteRenderer.flipX = false;
 
     }
     #endregion
@@ -137,8 +137,8 @@ public class KoopaTroopa : Enemy
     protected override void Death()
     {
         move = false;
-        colKoopaTroopa.SetEnable(false);
-        animator.SetEnable(false);
+        colKoopaTroopa.enabled = false;
+        animator.enabled = false;
 
         rbKoopaTroopa.AddForce(Vector2.up * deathForce, ForceMode2D.Force);
     }
@@ -155,7 +155,7 @@ public class KoopaTroopa : Enemy
         }
         else
         {
-            spriteRenderer.SetFlipY(true);
+            spriteRenderer.flipY = true;
             Death();
         }
     }
@@ -164,8 +164,8 @@ public class KoopaTroopa : Enemy
     {
         SetDirection(direction);
         state = State.Normal;
-        colKoopaTroopa.SetEnable(true);
-        animator.SetEnable(true);
+        colKoopaTroopa.enabled = true;
+        animator.enabled = true;
     }
 
     public override void Stop()
