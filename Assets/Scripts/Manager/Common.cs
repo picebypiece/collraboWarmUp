@@ -55,7 +55,11 @@ namespace SpawnerType
 {
     public enum TileType
     {
-        Ground, Stair, FlagBody
+        Ground, Stair
+    }
+    public enum ForegroundType
+    {
+        FlagBody, FlagTop, CalseFlag, CalseTop, Calse, CalseDoor
     }
     public enum ObjectTileType
     {
@@ -75,13 +79,6 @@ namespace SpawnerType
         KoopaTroopa,
         Flower,
     }
-}
-
-public enum ItemKind
-{
-    Coin,
-    GrowthMushroom,
-    LifeMushroom,
 }
 
 public enum MarioSize

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 54609919}
   - component: {fileID: 2121886097}
+  - component: {fileID: 457688952056390163}
   m_Layer: 0
   m_Name: GameObjectLayer
   m_TagString: Untagged
@@ -68,6 +69,17 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!210 &457688952056390163
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54609918}
+  m_Enabled: 1
+  m_SortingLayerID: -626692571
+  m_SortingLayer: 2
+  m_SortingOrder: 0
 --- !u!1 &883155629
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,6 +94,7 @@ GameObject:
   - component: {fileID: 883155633}
   - component: {fileID: 883155632}
   - component: {fileID: 883155631}
+  - component: {fileID: 1625837273}
   m_Layer: 0
   m_Name: Spawners
   m_TagString: Untagged
@@ -134,7 +147,6 @@ MonoBehaviour:
   SpawnObjectList:
   - {fileID: 11400000, guid: 7df09ba8e23c83947bbd203cc5e1db09, type: 2}
   - {fileID: 11400000, guid: 6edcdf815bc9a6440b784ad3f0daa43a, type: 2}
-  - {fileID: 11400000, guid: 564b3668385fad448b6b7dc907b5379e, type: 2}
   SpawnObjects: []
   m_Tilemap: {fileID: 2326182967069482448}
 --- !u!114 &883155633
@@ -158,7 +170,6 @@ MonoBehaviour:
   - {fileID: 7343402285217916722, guid: 23b606f084e4ac2468407bf8c3827152, type: 3}
   - {fileID: 7343402285217916722, guid: 7abffc51f62990c48b0cae76f7318b66, type: 3}
   SpawnObjects: []
-  m_ItemSpawner: {fileID: 883155631}
 --- !u!114 &883155632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +203,27 @@ MonoBehaviour:
   - {fileID: 7343402285217916722, guid: da4088e86c5a9c94bbb4fd00b08e909c, type: 3}
   - {fileID: 7343402285217916722, guid: 60a4cfbc797b5dc43af2285917ce8a5e, type: 3}
   SpawnObjects: []
+--- !u!114 &1625837273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883155629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d772e0327e0734848804d48dfc544f12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnObjectList:
+  - {fileID: 11400000, guid: 564b3668385fad448b6b7dc907b5379e, type: 2}
+  - {fileID: 11400000, guid: 313c041c58315bd42a259f18b188818c, type: 2}
+  - {fileID: 11400000, guid: 895d21408d0c82645802bf3593fe6b7d, type: 2}
+  - {fileID: 11400000, guid: f6b4c74355c2b294bace773755e6154b, type: 2}
+  - {fileID: 11400000, guid: 5fc33ca517640ed42a0d1403fc4dd011, type: 2}
+  - {fileID: 11400000, guid: f1552807b31c0e84380597425205b65e, type: 2}
+  SpawnObjects: []
+  m_Tilemap: {fileID: 2885347004904283210}
 --- !u!1 &2326182966840870220
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,12 +289,16 @@ MonoBehaviour:
   m_PlayerSpawner: {fileID: 883155632}
   m_TileSpawner: {fileID: 883155634}
   m_ObjectTileSpawner: {fileID: 883155633}
-  m_SpawnersTransform: []
+  m_ForgroundSpawner: {fileID: 1625837273}
   m_BackGround: {fileID: 2750445711894177753, guid: cc8c4b73ad2fbff49830aeee55634449,
     type: 3}
   m_TileLayer: {fileID: 2326182967069482448}
   m_GameObjectLayer: {fileID: 2121886097}
-  m_ForegroundLayer: {fileID: 2885347004904283210}
+  m_ForgroundLayer: {fileID: 2885347004904283210}
+  m_TileMapLayer:
+  - {fileID: 2326182967069482448}
+  - {fileID: 2121886097}
+  - {fileID: 2885347004904283210}
 --- !u!1 &2326182967069482453
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,8 +411,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -969995819
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -556,9 +592,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -969995819
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16

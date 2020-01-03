@@ -60,7 +60,7 @@ public class BackGroundRenderControl : MonoBehaviour
     #region Public Method
     public void Background_Roulette(int _backgroundSheet_Select)
     {
-        m_spriteRnderer.sprite = m_BackgroundImages[Random.Range(0, _backgroundSheet_Select)];
+        m_spriteRnderer.sprite = m_BackgroundImages[Random.Range(m_BackgroundSheet.Worldinex - _backgroundSheet_Select, _backgroundSheet_Select)];
         //m_spriteRnderer.sprite = m_BackgroundImages[1];
     }
     #endregion

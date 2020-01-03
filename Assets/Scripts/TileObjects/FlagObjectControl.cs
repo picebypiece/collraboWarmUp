@@ -22,7 +22,7 @@ public class FlagObjectControl : TileObject
     #region MonoBehaviour
     public override void Awake()
     {
-
+        this.transform.position += new Vector3(0.16f, 0, 0);
     }
     //public override void Start()
     //{

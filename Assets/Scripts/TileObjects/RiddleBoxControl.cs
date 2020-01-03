@@ -12,10 +12,12 @@ public class RiddleBoxControl : TileObject
     Animator RenderAnimator;
     [SerializeField]
     Vector3 SettingPos;
-    [SerializeField]
-    Vector3 MoveForce;
 
-    IEnumerator MoveUpDown;
+    List<int> AnimID;
+
+
+
+    //IEnumerator MoveUpDown;
     #endregion
 
     // Property
@@ -27,9 +29,14 @@ public class RiddleBoxControl : TileObject
     #region MonoBehaviour
     public override void Awake()
     {
+        AnimID = new List<int>();
         m_PoketQueue = new Queue<SpawnerType.ItemType>();
         SettingPos = this.transform.position;
-        MoveUpDown = HitMove();
+        //MoveUpDown = HitMove();
+
+        AnimID.Add(Animator.StringToHash("PopTrigger"));
+        AnimID.Add(Animator.StringToHash("EmptyTrigger"));
+
     }
 
     //public override void OnCollisionEnter2D(Collision2D col)
@@ -62,33 +69,34 @@ public class RiddleBoxControl : TileObject
         if (m_PoketQueue.Count != 0)
         {
             ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position+ new Vector3(0, 0.16f, 0));
-            RenderAnimator.SetTrigger("PopTrigger");
+         
+            RenderAnimator.SetTrigger(AnimID[0]);
         }
     }
 
     public void SetEmptyBox()
     {
-        RenderAnimator.SetTrigger("EmptyTrigger");
+        RenderAnimator.SetTrigger(AnimID[1]);
     }
-    IEnumerator HitMove()
-    {
-        while (true)
-        {
-            while (this.transform.position.y < SettingPos.y + 0.04f)
-            {
-                this.transform.position += MoveForce;
-                yield return new WaitForSeconds(0.15f);
-            }
-            while (SettingPos.y < this.transform.position.y)
-            {
-                this.transform.position -= MoveForce;
-                yield return new WaitForSeconds(0.15f);
-            }
-            StopCoroutine(MoveUpDown);
-            this.transform.position = new Vector3(SettingPos.x, (float)SettingPos.y, SettingPos.z);
-            yield return null;
-        }
-    }
+    //IEnumerator HitMove()
+    //{
+    //    while (true)
+    //    {
+    //        while (this.transform.position.y < SettingPos.y + 0.04f)
+    //        {
+    //            this.transform.position += MoveForce;
+    //            yield return new WaitForSeconds(0.15f);
+    //        }
+    //        while (SettingPos.y < this.transform.position.y)
+    //        {
+    //            this.transform.position -= MoveForce;
+    //            yield return new WaitForSeconds(0.15f);
+    //        }
+    //        StopCoroutine(MoveUpDown);
+    //        this.transform.position = new Vector3(SettingPos.x, (float)SettingPos.y, SettingPos.z);
+    //        yield return null;
+    //    }
+    //}
 
     #endregion
 

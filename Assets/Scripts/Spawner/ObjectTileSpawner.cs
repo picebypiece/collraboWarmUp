@@ -37,16 +37,17 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
     // Public Method
     #region Public Method
 
-    override public void Instantiate(GameObject _GameObject,Vector3 _StandardPos,int _row, int _Cloum,Transform _ParentTransform)
+    override public void Instantiate(GameObject _GameObject, Vector3 _StandardPos, int _row, int _Cloum, Transform _ParentTransform)
     {
-       GameObject f_tempObject =  Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
+        GameObject f_tempObject = Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
 
         var f_tempTileObject = f_tempObject.GetComponent<TileObject>();
 
-        if(f_tempTileObject != null)
+        if (f_tempTileObject != null)
         {
             f_tempTileObject.Initialized(_row, _Cloum);
         }
+       
         SpawnObjects.Add(f_tempObject);
     }
 

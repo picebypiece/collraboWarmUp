@@ -43,7 +43,6 @@ public class TileSpawner : Spawner<SpawnerType.TileType, Tile>,IRegist_Dictionar
         int Tileindex = 0;
         CompareEnumTypeDictionary.Add(SpawnerType.TileType.Ground, SpawnObjectList[Tileindex++]);
         CompareEnumTypeDictionary.Add(SpawnerType.TileType.Stair, SpawnObjectList[Tileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.TileType.FlagBody, SpawnObjectList[Tileindex++]);
     }
 
     public void Contain_Dictionary()

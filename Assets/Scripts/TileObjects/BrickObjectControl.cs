@@ -13,7 +13,6 @@ public class BrickObjectControl : TileObject
     [SerializeField]
     Vector3 SettingPos;
     [SerializeField]
-    Vector3 MoveForce;
 
     #endregion
 

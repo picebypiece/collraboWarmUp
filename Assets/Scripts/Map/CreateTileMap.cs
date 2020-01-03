@@ -24,15 +24,14 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     TileSpawner m_TileSpawner;
     [SerializeField]
     ObjectTileSpawner m_ObjectTileSpawner;
-
     [SerializeField]
-    List<Transform> m_SpawnersTransform;
+    ForgroundSpawner m_ForgroundSpawner;
 
     public enum SpawnType
     {
         Default,
 
-        Player,Tile, ObjectTile, Enemy, Item,
+        Player,Tile, ForegroundType, ObjectTile, Enemy, Item,
 
         //항상 마지막에 사용할 Enum
         EndSpawnType
@@ -50,7 +49,11 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     private Tilemap
     m_TileLayer,
     m_GameObjectLayer,
-    m_ForegroundLayer;
+    m_ForgroundLayer;
+
+    [SerializeField]
+    private Tilemap[]
+    m_TileMapLayer;
 
     private MapData m_MapData;
     #endregion
@@ -65,7 +68,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     {
         m_Dictionary_Register = new IRegist_Dictionary[]
         {
-            m_EnemySpawner,m_ItemSpawner,m_ObjectTileSpawner,m_PlayerSpawner,m_TileSpawner
+            m_EnemySpawner,m_ItemSpawner,m_ObjectTileSpawner,m_PlayerSpawner,m_TileSpawner,m_ForgroundSpawner
         };
 
         foreach (IRegist_Dictionary Regist in m_Dictionary_Register)
@@ -105,7 +108,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     /// <param name="_Nomal">기준이 되는 BackGround 생성조건에 필요한 타일의 갯수</param>
     void BackGroundCreater(int _MaxRow, int _Nomal)
     {
-        int BackgroundCounter = _MaxRow / _Nomal;
+        int BackgroundCounter = (_MaxRow / _Nomal) + 1;
 
         for (int i_Counter = 0; i_Counter < BackgroundCounter; i_Counter++)
         {
@@ -125,6 +128,16 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     {
         switch (_spawnType)
         {
+            case SpawnType.ForegroundType:
+                SpawnerType.ForegroundType f_foregroundType;
+                if (Enum.TryParse<SpawnerType.ForegroundType>(_compareTileString, out f_foregroundType))
+                {
+                    m_ForgroundSpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_foregroundType, out m_Tile);
+
+                    //m_TileLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), m_Tile);
+                    m_ForgroundSpawner.Instantiate(m_Tile, Vector3.zero, _i_row, _i_Cloum, null);
+                }
+                break;
             case SpawnType.Tile:
                 SpawnerType.TileType f_TileType;
                 if (Enum.TryParse<SpawnerType.TileType>(_compareTileString, out f_TileType))

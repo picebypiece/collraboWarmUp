@@ -26,8 +26,10 @@ public class PlayerCamera : MonoBehaviour
     {
         if (player != null)
         {
-            if(transform.position.x < player.position.x)
-                transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
+            //if (transform.position.x < player.position.x)
+            //    transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
+            if (transform.position.x < player.position.x)
+                transform.position = Vector3.Lerp(transform.position, new Vector3(player.position.x, transform.position.y, transform.position.z), Time.deltaTime*2);
         }
     }
     #endregion
