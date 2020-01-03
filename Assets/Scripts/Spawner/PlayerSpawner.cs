@@ -33,8 +33,9 @@ public class PlayerSpawner : Spawner<SpawnerType.PlayerType, GameObject>,IRegist
     #region Public Method
     public override void Instantiate(GameObject _GameObject, Vector3 _StandardPos, int _row, int _Cloum, Transform _ParentTransform)
     {
-        Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
-
+        var player = Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
+        GameCamera.Instance.SetActiveCamera(GameCamera.CameraKind.PlayerCamera);
+        GameCamera.Instance.GetCameraObjectComponent<PlayerCamera>(GameCamera.CameraKind.PlayerCamera).SetPlayer(player.transform);
         SpawnObjects.Add(_GameObject);
     }
     public override void Add_Dictionary()

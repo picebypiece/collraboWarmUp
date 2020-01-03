@@ -90,7 +90,7 @@ public class PlayerAction : MonoBehaviour
         playerRigidbody = GetComponent(typeof(Rigidbody2D)) as Rigidbody2D;
 
         if (playerAnimCtrl != null)
-            playerAnimCtrl.SetMarioSize(MarioSize.Adult);
+            playerAnimCtrl.SetMarioSize(MarioSize.Child);
 
         playerAnimCtrl.AnimEndEvent += AnimEndCall;
 
