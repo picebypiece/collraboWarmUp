@@ -163,6 +163,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
 
                     //Instantiate<GameObject>(m_GameObject, new Vector3(m_StandardVector3Pos.x + (0.16f * _i_row), m_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
                     m_ItemSpawner.Instantiate(m_GameObject, m_StandardVector3Pos, _i_row, _i_Cloum, m_GameObjectLayer.transform);
+
                 }
                 break;
             case SpawnType.Player:
@@ -231,23 +232,43 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     /// <param name="_cloum">·Ä</param>
     void MapInfoSet(GameObject _gameObject, string _compareTileString, int _row, int _cloum)
     {
-        SpawnerType.ItemType f_ItemType;
-        if (Enum.TryParse<SpawnerType.ItemType>(_compareTileString, out f_ItemType))
+        //string[] tempRow = m_MapData.TileMatrixInfo[_i_Cloum];
+        //MapInfoSet(m_GameObject, tempRow[_i_row], _i_row, _i_Cloum);
+
+        int f_parserNum;
+        SpawnerType.ItemType f_ItemType; //= SpawnerType.ItemType.PopCoin;
+        if (int.TryParse(_compareTileString, out f_parserNum))
         {
-            _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(f_ItemType);
+            for (int i_coin = 0; i_coin < f_parserNum; i_coin++)
+            {
+                _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(SpawnerType.ItemType.PopCoin);
+            }
         }
         else
         {
-            int f_parserNum;
-
-            bool isNum = int.TryParse(_compareTileString, out f_parserNum);
-
-            if (isNum == true)
+            if (Enum.TryParse<SpawnerType.ItemType>(_compareTileString, out f_ItemType))
             {
-                //for
                 _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(f_ItemType);
             }
         }
+        //if (Enum.TryParse<SpawnerType.ItemType>(_compareTileString, out f_ItemType))
+        //{
+        //    _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(f_ItemType);
+        //}
+        //else
+        //{
+        //    int f_parserNum;
+
+        //    bool isNum = int.TryParse(_compareTileString, out f_parserNum);
+
+        //    if (isNum == true)
+        //    {
+        //        for (int i_coin = 0; i_coin < f_parserNum; i_coin++)
+        //        {
+        //            _gameObject.GetComponent<TileObject>().PoketQueue.Enqueue(SpawnerType.ItemType.PopCoin);
+        //        }
+        //    }
+        //}
     }
     #endregion
 

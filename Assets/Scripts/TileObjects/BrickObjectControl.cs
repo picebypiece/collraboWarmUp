@@ -27,12 +27,14 @@ public class BrickObjectControl : TileObject
     #region MonoBehaviour
     public override void Awake()
     {
+        m_PoketQueue = new Queue<SpawnerType.ItemType>();
         SettingPos = this.transform.position;
         MoveUpDown = HitMove();
     }
 
     public override void Start()
     {
+        Debug.Log(PoketQueue.Peek().ToString());
         // throw new System.NotImplementedException();
     }
     #endregion
@@ -56,7 +58,11 @@ public class BrickObjectControl : TileObject
     {
         RenderAnimator.SetTrigger("Hit");
     }
-
+    //public override void TileInfoSet()
+    //{
+    //    string[] tempstring = MapData.Instance.TileMatrixInfo[m_Vector2Pos.y];
+    //   // tempstring[m_Vector2Pos.x];
+    //}
     /// <summary>
     /// 렌더링쪽으로 옮겨서 랜더만 옮길껏 2@@@@@@@@@!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     /// </summary>

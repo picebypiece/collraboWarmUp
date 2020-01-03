@@ -36,6 +36,16 @@ public static class Common
 }
 
 
+[System.Serializable]
+public struct TilePos
+{
+    public int row, colum;
+    public TilePos(int r, int c)
+    {
+        row = r;
+        colum = c;
+    }
+}
 public interface IRegist_Dictionary
 {
     void Dictionary_Init();
