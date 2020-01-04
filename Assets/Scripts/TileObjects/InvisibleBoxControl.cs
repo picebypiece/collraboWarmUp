@@ -1,30 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// ÀÛ¼ºÀÏÀÚ : 2019-12-22-PM-7-58
-// ÀÛ¼ºÀÚ   : ±è¼¼Áß
-// °£´Ü¼³¸í :
-public class BrickObjectControl : TileObject
+
+// ìž‘ì„±ì¼ìž : 2020-01-04-AM-12-51
+// ìž‘ì„±ìž   : ê¹€ì„¸ì¤‘
+// ê°„ë‹¨ì„¤ëª… :
+
+public class InvisibleBoxControl : TileObject
 {
     // Variable
     #region Variable
     [SerializeField]
-    Animator m_RenderAnimator;
+    Animator RenderAnimator;
+
     public struct AnimID
     {
         public int
             Hit;
     }
-    public AnimID m_AnimID;
+    AnimID m_AnimID;
+
     #endregion
 
     // Property
     #region Property
-    public Animator RenderAnimator
-    {
-        get => m_RenderAnimator;
-        set => m_RenderAnimator = value;
-    }
 
     #endregion
 
@@ -33,7 +32,6 @@ public class BrickObjectControl : TileObject
     public override void Awake()
     {
         base.Awake();
-        m_PoketQueue = new Queue<SpawnerType.ItemType>();
         AnimIDInit();
     }
     #endregion
@@ -48,17 +46,14 @@ public class BrickObjectControl : TileObject
 
     // Public Method
     #region Public Method
-
     public override void ActionCall()
     {
-        base.ActionCall();
-        m_RenderAnimator.SetTrigger(m_AnimID.Hit);
-    }
-    public void ReSetTriggerHit()
-    {
-        RenderAnimator.ResetTrigger(m_AnimID.Hit);
+        if (m_PoketQueue.Count != 0)
+        {
+            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position + new Vector3(0, 0.16f, 0));
+            RenderAnimator.SetTrigger(m_AnimID.Hit);
+        }
     }
     #endregion
-
 
 }

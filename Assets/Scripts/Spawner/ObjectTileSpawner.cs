@@ -54,13 +54,20 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
     public override void Add_Dictionary()
     {
         int ObjectTileindex = 0;
-        CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.Flag, SpawnObjectList[ObjectTileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.Brick, SpawnObjectList[ObjectTileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.RiddleBox, SpawnObjectList[ObjectTileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeBodyLeft, SpawnObjectList[ObjectTileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeBodyRight, SpawnObjectList[ObjectTileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeDoorLeft, SpawnObjectList[ObjectTileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeDoorRight, SpawnObjectList[ObjectTileindex++]);
+        SpawnerType.ObjectTileType f_ObjectTileType = SpawnerType.ObjectTileType.Flag; 
+        for (int i_Type = 0; i_Type < SpawnObjectList.Count; i_Type++)
+        {
+            CompareEnumTypeDictionary.Add(f_ObjectTileType++, SpawnObjectList[ObjectTileindex++]);
+        }
+
+        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.Flag, SpawnObjectList[ObjectTileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.Brick, SpawnObjectList[ObjectTileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.RiddleBox, SpawnObjectList[ObjectTileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeBodyLeft, SpawnObjectList[ObjectTileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeBodyRight, SpawnObjectList[ObjectTileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeDoorLeft, SpawnObjectList[ObjectTileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeDoorRight, SpawnObjectList[ObjectTileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.InvisibleBox, SpawnObjectList[ObjectTileindex++]);
     }
 
     public void Contain_Dictionary()

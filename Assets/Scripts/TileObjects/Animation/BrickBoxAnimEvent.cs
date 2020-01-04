@@ -12,6 +12,9 @@ public class BrickBoxAnimEvent : MonoBehaviour
     #region Variable
     [SerializeField]
     Animator RenderAnimator;
+    [SerializeField]
+    GameObject m_BrickBox;
+    BrickObjectControl m_BrickObjectController;
     #endregion
 
     // Property
@@ -21,7 +24,10 @@ public class BrickBoxAnimEvent : MonoBehaviour
 
     // MonoBehaviour
     #region MonoBehaviour
-
+    private void Awake()
+    {
+        m_BrickObjectController = m_BrickBox.GetComponent<BrickObjectControl>();
+    }
     #endregion
 
     // Private Method
@@ -33,7 +39,7 @@ public class BrickBoxAnimEvent : MonoBehaviour
     #region Public Method
     public void EndHit()
     {
-        RenderAnimator.ResetTrigger("Hit");
+        m_BrickObjectController.ReSetTriggerHit();
     }
     #endregion
 }

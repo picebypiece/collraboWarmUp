@@ -41,8 +41,13 @@ public class PlayerSpawner : Spawner<SpawnerType.PlayerType, GameObject>,IRegist
     public override void Add_Dictionary()
     {
         int playerIndex = 0;
-        CompareEnumTypeDictionary.Add(SpawnerType.PlayerType.Player, SpawnObjectList[playerIndex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.PlayerType.Mario, SpawnObjectList[playerIndex++]);
+        SpawnerType.PlayerType f_PlayerType = SpawnerType.PlayerType.Player;
+        for (int i_Type = 0; i_Type < SpawnObjectList.Count; i_Type++)
+        {
+            CompareEnumTypeDictionary.Add(f_PlayerType++, SpawnObjectList[playerIndex++]);
+        }
+        //CompareEnumTypeDictionary.Add(SpawnerType.PlayerType.Player, SpawnObjectList[playerIndex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.PlayerType.Mario, SpawnObjectList[playerIndex++]);
     }
 
     public void Contain_Dictionary()

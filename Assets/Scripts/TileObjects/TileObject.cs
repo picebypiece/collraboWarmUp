@@ -12,6 +12,8 @@ abstract public class TileObject : MonoBehaviour
     [SerializeField]
     protected Queue<SpawnerType.ItemType> m_PoketQueue;
     [SerializeField]
+    Vector3 SettingPos;
+    [SerializeField]
     protected TilePos m_Vector2Pos;
     #endregion
 
@@ -32,8 +34,11 @@ abstract public class TileObject : MonoBehaviour
     // MonoBehaviour
     #region MonoBehaviour
 
-    abstract public void Awake();
-
+    virtual public void Awake()
+    {
+        m_PoketQueue = new Queue<SpawnerType.ItemType>();
+        SettingPos = this.transform.position;
+    }
     //abstract public void Start();
 
     //abstract public void OnCollisionEnter2D(Collision2D col);

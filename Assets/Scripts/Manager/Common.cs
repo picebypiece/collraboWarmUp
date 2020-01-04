@@ -63,12 +63,12 @@ namespace SpawnerType
     }
     public enum ObjectTileType
     {
-        Flag, Brick, RiddleBox, PipeBodyLeft, PipeBodyRight, PipeDoorLeft, PipeDoorRight,
+        Flag, Brick, RiddleBox, PipeBodyLeft, PipeBodyRight, PipeDoorLeft, PipeDoorRight, InvisibleBox
     }
     public enum ItemType
     {
-        Coin, GrowthMushroom, LifeMushroom, Flower, PopCoin
-    }         
+        Coin, GrowthMushroom, PopCoin//, LifeMushroom, Flower
+    }
     public enum PlayerType
     {
         Player, Mario
@@ -76,8 +76,7 @@ namespace SpawnerType
     public enum EnemyType
     {
         Goomba,
-        KoopaTroopa,
-        Flower,
+        KoopaTroopa
     }
 }
 

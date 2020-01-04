@@ -51,12 +51,17 @@ public class ForgroundSpawner : Spawner<SpawnerType.ForegroundType, Tile>, IRegi
     public override void Add_Dictionary()
     {
         int Tileindex = 0;
-        CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.FlagBody, SpawnObjectList[Tileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.FlagTop, SpawnObjectList[Tileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.CalseFlag, SpawnObjectList[Tileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.CalseTop, SpawnObjectList[Tileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.Calse, SpawnObjectList[Tileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.CalseDoor, SpawnObjectList[Tileindex++]);
+        SpawnerType.ForegroundType f_ForegroundType = SpawnerType.ForegroundType.FlagBody;
+        for (int i_Type = 0; i_Type < SpawnObjectList.Count; i_Type++)
+        {
+            CompareEnumTypeDictionary.Add(f_ForegroundType++, SpawnObjectList[Tileindex++]);
+        }
+        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.FlagBody, SpawnObjectList[Tileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.FlagTop, SpawnObjectList[Tileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.CalseFlag, SpawnObjectList[Tileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.CalseTop, SpawnObjectList[Tileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.Calse, SpawnObjectList[Tileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.CalseDoor, SpawnObjectList[Tileindex++]);
     }
     #endregion
    

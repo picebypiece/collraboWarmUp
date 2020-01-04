@@ -169,6 +169,7 @@ MonoBehaviour:
   - {fileID: 7343402285217916722, guid: bb39138ebe0367846bb81c47a1804989, type: 3}
   - {fileID: 7343402285217916722, guid: 23b606f084e4ac2468407bf8c3827152, type: 3}
   - {fileID: 7343402285217916722, guid: 7abffc51f62990c48b0cae76f7318b66, type: 3}
+  - {fileID: 7343402285217916722, guid: 150937441d32acf46ab50eb3abb5ab39, type: 3}
   SpawnObjects: []
 --- !u!114 &883155632
 MonoBehaviour:

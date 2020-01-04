@@ -39,8 +39,13 @@ public class EnemySpawner : Spawner<SpawnerType.EnemyType, GameObject>, IRegist_
     public override void Add_Dictionary()
     {
         int EnemyIndex = 0;
-        CompareEnumTypeDictionary.Add(SpawnerType.EnemyType.Goomba, SpawnObjectList[EnemyIndex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.EnemyType.KoopaTroopa, SpawnObjectList[EnemyIndex++]);
+        SpawnerType.EnemyType f_EnemyType = SpawnerType.EnemyType.Goomba;
+        for (int i_Type = 0; i_Type < SpawnObjectList.Count; i_Type++)
+        {
+            CompareEnumTypeDictionary.Add(f_EnemyType++, SpawnObjectList[EnemyIndex++]);
+        }
+        //CompareEnumTypeDictionary.Add(SpawnerType.EnemyType.Goomba, SpawnObjectList[EnemyIndex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.EnemyType.KoopaTroopa, SpawnObjectList[EnemyIndex++]);
     }
 
     public void Contain_Dictionary()

@@ -80,9 +80,14 @@ public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject>, IRegist_Di
     public override void Add_Dictionary()
     {
         int Itemindex = 0;
-        CompareEnumTypeDictionary.Add(SpawnerType.ItemType.Coin, SpawnObjectList[Itemindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ItemType.GrowthMushroom, SpawnObjectList[Itemindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.ItemType.PopCoin, SpawnObjectList[Itemindex++]);
+        SpawnerType.ItemType f_ItemType = SpawnerType.ItemType.Coin;
+        for (int i_Type = 0; i_Type < SpawnObjectList.Count; i_Type++)
+        {
+            CompareEnumTypeDictionary.Add(f_ItemType++, SpawnObjectList[Itemindex++]);
+        }
+        //CompareEnumTypeDictionary.Add(SpawnerType.ItemType.Coin, SpawnObjectList[Itemindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ItemType.GrowthMushroom, SpawnObjectList[Itemindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.ItemType.PopCoin, SpawnObjectList[Itemindex++]);
     }
 
     public void Contain_Dictionary()

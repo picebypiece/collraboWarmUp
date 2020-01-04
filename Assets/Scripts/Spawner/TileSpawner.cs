@@ -41,8 +41,13 @@ public class TileSpawner : Spawner<SpawnerType.TileType, Tile>,IRegist_Dictionar
     public override void Add_Dictionary()
     {
         int Tileindex = 0;
-        CompareEnumTypeDictionary.Add(SpawnerType.TileType.Ground, SpawnObjectList[Tileindex++]);
-        CompareEnumTypeDictionary.Add(SpawnerType.TileType.Stair, SpawnObjectList[Tileindex++]);
+        SpawnerType.TileType f_TileType = SpawnerType.TileType.Ground;
+        for (int i_Type = 0; i_Type < SpawnObjectList.Count; i_Type++)
+        {
+            CompareEnumTypeDictionary.Add(f_TileType++, SpawnObjectList[Tileindex++]);
+        }
+        //CompareEnumTypeDictionary.Add(SpawnerType.TileType.Ground, SpawnObjectList[Tileindex++]);
+        //CompareEnumTypeDictionary.Add(SpawnerType.TileType.Stair, SpawnObjectList[Tileindex++]);
     }
 
     public void Contain_Dictionary()

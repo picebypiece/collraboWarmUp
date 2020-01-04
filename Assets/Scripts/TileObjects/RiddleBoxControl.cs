@@ -10,11 +10,13 @@ public class RiddleBoxControl : TileObject
     #region Variable
     [SerializeField]
     Animator RenderAnimator;
-    [SerializeField]
-    Vector3 SettingPos;
-
-    List<int> AnimID;
-
+    
+    public struct AnimID
+    {
+        public int
+            Pop, Empty;
+    }
+    AnimID m_AnimID;
 
 
     //IEnumerator MoveUpDown;
@@ -29,36 +31,19 @@ public class RiddleBoxControl : TileObject
     #region MonoBehaviour
     public override void Awake()
     {
-        AnimID = new List<int>();
-        m_PoketQueue = new Queue<SpawnerType.ItemType>();
-        SettingPos = this.transform.position;
-        //MoveUpDown = HitMove();
+        base.Awake();
 
-        AnimID.Add(Animator.StringToHash("PopTrigger"));
-        AnimID.Add(Animator.StringToHash("EmptyTrigger"));
-
+        AnimIDInit();
     }
-
-    //public override void OnCollisionEnter2D(Collision2D col)
-    //{
-    //    Debug.Log("RiddleBoxControl Collision Enter");
-
-    //    //if (col.gameObject.layer.Equals(8)&& col.gameObject.transform.position.y < this.transform.position.y)
-    //    //{
-    //    //    RenderAnimator.SetTrigger("PopTrigger");
-    //    //}
-    //}
-
-    //public override void Start()
-    //{
-    //    //throw new System.NotImplementedException();
-    //}
-
     #endregion
 
     // Private Method
     #region Private Method
-
+    void AnimIDInit()
+    {
+        m_AnimID.Pop = Animator.StringToHash("PopTrigger");
+        m_AnimID.Empty = Animator.StringToHash("EmptyTrigger");
+    }
     #endregion
 
     // Public Method
@@ -70,14 +55,15 @@ public class RiddleBoxControl : TileObject
         {
             ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position+ new Vector3(0, 0.16f, 0));
          
-            RenderAnimator.SetTrigger(AnimID[0]);
+            RenderAnimator.SetTrigger(m_AnimID.Pop);
         }
     }
 
     public void SetEmptyBox()
     {
-        RenderAnimator.SetTrigger(AnimID[1]);
+        RenderAnimator.SetTrigger(m_AnimID.Empty);
     }
+
     //IEnumerator HitMove()
     //{
     //    while (true)
