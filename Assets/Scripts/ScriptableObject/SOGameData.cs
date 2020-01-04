@@ -11,10 +11,6 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "ScriptableObject/GameData")]
 public class SOGameData : ScriptableObject
 {
-    public enum GameDataKind
-    {
-        Score, Life, Coin, Time, StageName, Last
-    }
     // Variable
     #region Variable
     int score = 0;
@@ -24,7 +20,7 @@ public class SOGameData : ScriptableObject
     string stageName = "";
     float time = 0;
 
-    Dictionary<int, UnityAction> updateEvent;
+    Dictionary<string, UnityAction> updateEvent;
     #endregion
 
     // Property
@@ -37,7 +33,7 @@ public class SOGameData : ScriptableObject
             if (value != score)
             {
                 score = value;
-                InvokeUpdateEvent(GameDataKind.Score);
+                InvokeUpdateEvent(GameData.GDScore);
             }
         }
     }
@@ -49,7 +45,7 @@ public class SOGameData : ScriptableObject
             if (value != life)
             {
                 life = value;
-                InvokeUpdateEvent(GameDataKind.Life);
+                InvokeUpdateEvent(GameData.GDLife);
             }
         }
     }
@@ -61,7 +57,7 @@ public class SOGameData : ScriptableObject
             if (value != coin)
             {
                 coin = value;
-                InvokeUpdateEvent(GameDataKind.Coin);
+                InvokeUpdateEvent(GameData.GDCoin);
             }
         }
     }
@@ -73,7 +69,7 @@ public class SOGameData : ScriptableObject
             if (value != time)
             {
                 time = value;
-                InvokeUpdateEvent(GameDataKind.Time);
+                InvokeUpdateEvent(GameData.GDTime);
             }
         }
     }
@@ -96,19 +92,32 @@ public class SOGameData : ScriptableObject
     // Private Method
     #region Private Method
 
+    void DumyFunction()
+    {
+
+    }
+
     void InitData()
     {
+        if (updateEvent == null)
+        {
+            updateEvent = new Dictionary<string, UnityAction>(GameData.GDStrings.Length);
+            for (int i = 0; i < GameData.GDStrings.Length; i++)
+            {
+                updateEvent.Add(GameData.GDStrings[i], DumyFunction);
+            }
+        }
         // 스테이지 이름 가져와서 세팅
-        InvokeUpdateEvent(GameDataKind.StageName);
+        // InvokeUpdateEvent(StageName);
 
         // 각 데이터 값 초기화
     }
 
-    void InvokeUpdateEvent(GameDataKind datakind)
+    void InvokeUpdateEvent(string datakind)
     {
         try
         {
-            updateEvent[(int)datakind].Invoke();
+            updateEvent[datakind].Invoke();
         }
         catch (Exception e)
         {
@@ -120,14 +129,28 @@ public class SOGameData : ScriptableObject
 
     // Public Method
     #region Public Method
-    public void SubscribeUpdate(UnityAction action, GameDataKind datakind)
+    /// <param name="action">Update Function</param>
+    /// <param name="datakind"> GameDefine GameData string </param>
+    public bool SubscribeUpdate(UnityAction action, string datakind)
     {
-        updateEvent[(int)datakind] += action;
+        if(updateEvent.ContainsKey(datakind))
+        {
+            updateEvent[datakind] += action;
+            return true;
+        }
+        return false;
     }
 
-    public void DesubscribeUpdate(UnityAction action, GameDataKind datakind)
+    /// <param name="action">Update Function</param>
+    /// <param name="datakind"> GameDefine GameData string </param>
+    public bool DesubscribeUpdate(UnityAction action, string datakind)
     {
-        updateEvent[(int)datakind] -= action;
+        if (updateEvent.ContainsKey(datakind))
+        {
+            updateEvent[datakind] -= action;
+            return true;
+        }
+        return false;
     }
     #endregion
 }
