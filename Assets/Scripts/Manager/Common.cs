@@ -86,3 +86,15 @@ public enum MarioSize
     Child = 0,
     Adult
 }
+
+public class GameData
+{
+    public const string GDCoin = "GameDataCoin";
+    public const string GDTime = "GameDataTime";
+    public const string GDLife = "GameDataLife";
+    public const string GDScore = "GameDataScore";
+    public const string GDStageName = "GameDataStageName";
+
+    //새 데이터 추가시 아래 배열에도 추가
+    public static readonly string[] GDStrings = { GDCoin, GDTime, GDLife, GDScore, GDStageName };
+}
