@@ -8,23 +8,36 @@ using UnityEngine;
 
 public class PlayerAnimCtrl : MonoBehaviour
 {
-    public enum EventAnim
+    public enum TriggerAnim
     {
+        Death,
         Growth,
-        Flag,
         Hit,
+        Jump,
+        Flag,
+        Run,
     }
-
+    public enum BoolAnim
+    {
+        Jump,
+        Flag,
+    }
+    public enum MultiplierAnim
+    {
+        Run,
+    }
     // Variable
     #region Variable
 
+    public const string paramNameDeath = "Death";
+    public const string paramNameGrowth = "Growth";
+    public const string paramNameHit = "Hit";
+
     public const string paramNameJump = "Jump";
+    public const string paramNameFlag = "Flag";
+
     public const string paramNameRun = "Run";
     public const string paramNameRunSpeed = "RunSpeed";
-    public const string paramNameGrowth = "Growth";
-    public const string paramNameFlag = "Flag";
-    public const string paramNameDeath = "Death";
-    public const string paramNameHit = "Hit";
 
     private Animator cntAnimator = null;
     private SpriteRenderer cntRenderer = null;
@@ -40,10 +53,10 @@ public class PlayerAnimCtrl : MonoBehaviour
     private SpriteRenderer childRenderer = null;
     [SerializeField]
     private SpriteRenderer AdultRenderer = null;
-    
 
-    public delegate void AnimEnd(EventAnim eventAnim);
-    public event AnimEnd AnimEndEvent;
+
+    //public delegate void AnimEnd(EventAnim eventAnim);
+    //public event AnimEnd AnimEndEvent;
 
     #endregion
 
@@ -53,47 +66,73 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         get; private set;
     }
-    //public bool FlipX
-    //{
-    //    get { return cntRenderer.flipX; }
-    //    set
-    //    {
-    //        if(cntRenderer.flipX != value)
-    //            cntRenderer.flipX = value;
-    //    }
-    //}
     #endregion
 
     // MonoBehaviour
     #region MonoBehaviour
+    private void Awake()
+    {
+    }
     #endregion
 
     // Private Method
     #region Private Method
 
-    private IEnumerator Growth()
-    {
-        cntAnimator.SetTrigger(paramNameGrowth);
-
-        yield return new WaitForSeconds(cntAnimator.GetCurrentAnimatorStateInfo(0).length);
-        SetMarioSize(MarioSize.Adult);
-        AnimEndEvent?.Invoke(EventAnim.Growth);
-
-    }
-    private IEnumerator Hit()
-    {
-        cntAnimator.SetTrigger(paramNameHit);
-
-        yield return new WaitForSeconds(cntAnimator.GetCurrentAnimatorStateInfo(0).length);
-        SetMarioSize(MarioSize.Child);
-        AnimEndEvent?.Invoke(EventAnim.Hit);
-
-    }
     #endregion
 
     // Public Method
     #region Public Method
 
+    public void HitEnd()
+    {
+        SetMarioSize(MarioSize.Child);
+        //AnimEndEvent?.Invoke(EventAnim.Hit);
+    }
+    public void GrowthEnd()
+    {
+        SetMarioSize(MarioSize.Adult);
+        //AnimEndEvent?.Invoke(EventAnim.Growth);
+    }
+    public void PlayAnim(TriggerAnim anim)
+    {
+        switch (anim)
+        {
+            case TriggerAnim.Death:
+                cntAnimator.SetTrigger(paramNameDeath);
+                break;
+            case TriggerAnim.Growth:
+                cntAnimator.SetTrigger(paramNameGrowth);
+                break;
+            case TriggerAnim.Hit:
+                cntAnimator.SetTrigger(paramNameHit);
+                break;
+        }
+    }
+    public void PlayAnim(BoolAnim anim, bool value)
+    {
+        switch (anim)
+        {
+            case BoolAnim.Jump:
+                cntAnimator.SetBool(paramNameJump, value);
+                break;
+            case BoolAnim.Flag:
+                cntAnimator.SetBool(paramNameFlag, value);
+                break;
+        }
+    }
+    public void PlayAnim(MultiplierAnim anim, float value)
+    {
+        switch (anim)
+        {
+            case MultiplierAnim.Run:
+                //if (cntAnimator.GetBool(paramNameRun) != run)
+                //{
+                //    cntAnimator.SetBool(paramNameRun, run);
+                //}
+                cntAnimator.SetFloat(paramNameRunSpeed, value);
+                break;
+        }
+    }
     /// <summary>
     /// true면 어른
     /// </summary>
@@ -117,22 +156,9 @@ public class PlayerAnimCtrl : MonoBehaviour
                 break;
         }
     }
-    public void PlayGrowth()
-    {
-        StartCoroutine(Growth());
-    }
-
     public void PlayFlag(bool play)
     {
         cntAnimator.SetBool(paramNameFlag, play);
-    }
-    public void PlayHit()
-    {
-        StartCoroutine(Hit());
-    }
-    public void PlayDeath()
-    {
-        cntAnimator.SetTrigger(paramNameDeath);
     }
     public void FlipSprite(bool flip)
     {
@@ -151,11 +177,7 @@ public class PlayerAnimCtrl : MonoBehaviour
         }
         cntAnimator.SetFloat(paramNameRunSpeed, speed);
     }
-
-    public void PlayJump(bool jump)
-    {
-        cntAnimator.SetBool(paramNameJump, jump);
-    }
+    
     public void SetFlipX(bool val)
     {
         if (cntRenderer.flipX != val)

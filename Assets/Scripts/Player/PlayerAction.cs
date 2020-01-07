@@ -6,7 +6,7 @@ using UnityEngine;
 // 작성자   : 배형영
 // 간단설명 : 조작에 따른 액션 처리 
 
-public class PlayerAction : MonoBehaviour
+public partial class PlayerAction : MonoBehaviour
 {
 
     // Variable
@@ -53,15 +53,7 @@ public class PlayerAction : MonoBehaviour
         Move();
         CheckGround();
 
-
-        // 떨어질때 점프불가
-        //if (playerRigidbody.velocity.y < 0)
-        //{
-        //    if(!isJumping)
-        //        Jump(false);
-        //}
-        //else
-        //{
+        
         if (playerInput.jumpBtnDown)
         {
             if (isGrounded)
@@ -69,7 +61,6 @@ public class PlayerAction : MonoBehaviour
                 Jump(true);
             }
         }
-        //}
         if (isJumping)
         {
             if (!playerInput.jumpBtnDown && Vector2.Dot(playerRigidbody.velocity, Vector2.up) > 0/*playerRigidbody.velocity.y >= 0f*/)
@@ -79,7 +70,7 @@ public class PlayerAction : MonoBehaviour
     }
     private void OnDisable()
     {
-        playerAnimCtrl.AnimEndEvent -= AnimEndCall;
+        //playerAnimCtrl.AnimEndEvent -= AnimEndCall;
     }
     #endregion
 
@@ -93,7 +84,7 @@ public class PlayerAction : MonoBehaviour
         if (playerAnimCtrl != null)
             playerAnimCtrl.SetMarioSize(MarioSize.Child);
 
-        playerAnimCtrl.AnimEndEvent += AnimEndCall;
+        //playerAnimCtrl.AnimEndEvent += AnimEndCall;
 
         jumpForce = 200f;
         runSpeed = 1.5f;
@@ -136,7 +127,7 @@ public class PlayerAction : MonoBehaviour
     {
         isGrounded = false;
         isJumping = true;
-        playerAnimCtrl.PlayJump(true);
+        //playerAnimCtrl.PlayJump(true);
 
         if (doForce)
         {
@@ -144,140 +135,35 @@ public class PlayerAction : MonoBehaviour
             playerRigidbody.AddForce(new Vector2(0, jumpForce) * playerRigidbody.mass);
         }
     }
-
-    private void CheckGround()
-    {
-        //Vector2 vector2 = new Vector2(transform.position.x, transform.position.y + 0.015f);
-        //RaycastHit2D hit = Physics2D.Raycast(vector2, transform.TransformDirection(Vector2.down), 0.03f/*, LayerMask.GetMask(Common.layerEnvirments)*/);
-        //Debug.DrawRay(vector2, transform.TransformDirection(Vector2.down) * 0.03f, Color.red);
-
-        Collider2D hit = Physics2D.OverlapBox(transform.position, overlapBoxSize, 0, overlapCheckLayer.value);
-        
-        if (hit != null)
-        {
-            if(hit.gameObject.layer == LayerMask.NameToLayer(Common.tagEnvirments))
-            {
-                isBoxHit = false;
-                if (!isGrounded && playerRigidbody.velocity == Vector2.zero)
-                {
-                    InitJump();
-                }
-            }
-        }
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position, overlapBoxSize);
-    }
     /// <summary>
     /// 애니메이션 끝났을때 호출
     /// </summary>
     /// <param name="eventAnim"></param>
-    private void AnimEndCall(PlayerAnimCtrl.EventAnim eventAnim)
-    {
-        switch (eventAnim)
-        {
-            case PlayerAnimCtrl.EventAnim.Growth:
-                action = true;
-                SetIgnoreCollision(false, Common.layerEnemy) ;
-                break;
-            case PlayerAnimCtrl.EventAnim.Flag:
-                break;
-            case PlayerAnimCtrl.EventAnim.Hit:
-                action = true;
-                SetIgnoreCollision(false, Common.layerEnemy);
-                break;
-        }
-    }
-    /// <summary>
-    /// 적한테 맞았을때
-    /// </summary>
-    private void Hit()
-    {
-        action = false;
-        switch (playerAnimCtrl.marioSize)
-        {
-            case MarioSize.Child:
-                SetIgnoreCollision(true, Common.layerEnemy, Common.layerEnvirments);
-                playerAnimCtrl.PlayDeath();
-                Jump(true);
-                break;
-            case MarioSize.Adult:
-                SetIgnoreCollision(true, Common.layerEnemy);
-                playerAnimCtrl.PlayHit();
-                break;
-        }
-    }
+    //private void AnimEndCall(PlayerAnimCtrl.EventAnim eventAnim)
+    //{
+    //    switch (eventAnim)
+    //    {
+    //        case PlayerAnimCtrl.EventAnim.Growth:
+    //            action = true;
+    //            SetIgnoreCollision(false, Common.layerEnemy) ;
+    //            break;
+    //        case PlayerAnimCtrl.EventAnim.Flag:
+    //            break;
+    //        case PlayerAnimCtrl.EventAnim.Hit:
+    //            action = true;
+    //            SetIgnoreCollision(false, Common.layerEnemy);
+    //            break;
+    //    }
+    //}
     /// <summary>
     /// 점프가 가능하도록 초기화
     /// </summary>
     private void InitJump()
     {
-        playerAnimCtrl.PlayJump(false);
+        //playerAnimCtrl.PlayJump(false);
         isGrounded = true;
         isJumping = false;
     }
-
-    /// <summary>
-    /// 충돌무시 레이어 설정
-    /// </summary>
-    /// <param name="val"></param>
-    private void SetIgnoreCollision(bool val, params string[] LayerName)
-    {
-        int player = LayerMask.NameToLayer(Common.layerPlayer);
-        for (int i = 0; i < LayerName.Length; ++i)
-        {
-            Physics2D.IgnoreLayerCollision(player, LayerMask.NameToLayer(LayerName[i]), val);
-        }
-    }
-
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        ContactPoint2D contactPoint = collision.contacts[0];
-        Vector2 normal = contactPoint.normal;
-
-        switch (contactPoint.collider.tag)
-        {
-            // 벽돌
-            case Common.tagEnvirments:
-                if (normal.y < 0 && isBoxHit == false)
-                {
-                    isBoxHit = true;
-                    TileObject tileObject = contactPoint.collider.GetComponent(typeof(TileObject)) as TileObject;
-                    tileObject?.ActionCall();
-                }
-                break;
-            case Common.tagEnemy:
-                {
-                    if (normal.y > 0)
-                    {
-                        Enemy enemy = contactPoint.collider.GetComponent(typeof(Enemy)) as Enemy;
-                        enemy?.Hit(true, transform.position - contactPoint.collider.transform.position);
-                        Jump(true);
-                    }
-                    else
-                    {
-                        // 마리오 죽음
-                        Hit();
-                    }
-                }
-                break;
-        }
-    }
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    switch (collision.tag)
-    //    {
-    //        case Common.tagItem:
-    //            action = false;
-    //            SetIgnoreEnemy(true);
-    //            playerAnimCtrl.PlayGrowth();
-
-    //            break;
-    //    }
-    //}
     #endregion
 
     // Public Method
@@ -293,7 +179,7 @@ public class PlayerAction : MonoBehaviour
     {
         action = false;
         SetIgnoreCollision(true,Common.layerEnemy);
-        playerAnimCtrl.PlayGrowth();
+        //playerAnimCtrl.PlayGrowth();
     }
     #endregion
 }

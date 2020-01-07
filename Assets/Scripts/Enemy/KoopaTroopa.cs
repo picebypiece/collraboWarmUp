@@ -58,17 +58,17 @@ public class KoopaTroopa : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        string tag = collision.collider.tag;
+        var col = collision.collider;
         if (state == State.HideMove)
         {
-            if(tag == Common.tagEnemy)
+            if(col.CompareTag(Common.tagEnemy))
             {
                 var enemy = collision.collider.GetComponent(typeof(Enemy)) as Enemy;
                 enemy?.Hit(false, Vector2.zero);
                 return;
             }
         }
-        if (!change && (tag == Common.tagEnvirments || tag == Common.tagEnemy))
+        if (!change && (col.CompareTag(Common.tagEnvirments) || col.CompareTag(Common.tagEnemy)))
         {
             if (nowDir == Direction.Left)
                 SetDirection(Direction.Right);
@@ -79,7 +79,7 @@ public class KoopaTroopa : Enemy
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (change && (collision.collider.tag == Common.tagEnvirments || collision.collider.tag == Common.tagEnemy))
+        if (change && (collision.collider.CompareTag(Common.tagEnvirments) || collision.collider.CompareTag(Common.tagEnemy)))
         {
             change = false;
         }
