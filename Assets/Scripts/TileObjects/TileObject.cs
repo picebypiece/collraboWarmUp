@@ -44,8 +44,6 @@ abstract public class TileObject : MonoBehaviour
     virtual public void Awake()
     {
         RenderSetting();
-        Debug.Log(this.gameObject.tag);
-        //m_Render.enabled = false;
         m_PoketQueue = new Queue<SpawnerType.ItemType>();
         SettingPos = this.transform.position;
     }
