@@ -49,7 +49,7 @@ public class Goomba : Enemy
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (!change && (collision.collider.tag == Common.tagEnvirments || collision.collider.tag == Common.tagEnemy))
+        if (!change && ( collision.collider.CompareTag(Common.tagEnvirments) || collision.collider.CompareTag(Common.tagEnemy)))
         {
             if (nowDir == Direction.Left)
                 nowDir = Direction.Right;
@@ -60,7 +60,7 @@ public class Goomba : Enemy
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (change && (collision.collider.tag == Common.tagEnvirments || collision.collider.tag == Common.tagEnemy))
+        if (change && (collision.collider.CompareTag(Common.tagEnvirments) || collision.collider.CompareTag(Common.tagEnemy)))
         {
             change = false;
         }

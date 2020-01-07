@@ -28,7 +28,7 @@ public class Coin : Item
     #region Private Method
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == Common.tagPlayer)
+        if(collision.CompareTag(Common.tagPlayer))
         {
             // GetScore
             gameObject.SetActive(false);
