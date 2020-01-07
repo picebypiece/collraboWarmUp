@@ -13,7 +13,7 @@ public class SOInputKey : ScriptableObject
     /// 키값이 추가될시 리스트에도 추가
     /// </summary>
     public string[] allKeys;
-    public string   escapeKey = "escape";
+    public string   EscapeKey = "escape";
 
     //인게임에서 사용되는 키입력
     public string GameUpKey = "up";

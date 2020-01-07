@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7aba668ec1c9d21429577217b58e8037, type: 3}
-  m_Name: SOInputKey
+  m_Name: SOInputKeyMap
   m_EditorClassIdentifier: 
   allKeys:
   - escape
@@ -20,7 +20,7 @@ MonoBehaviour:
   - left
   - z
   - x
-  EscapeKey: escape
+  escapeKey: escape
   GameUpKey: up
   GameDownKey: down
   GameRightKey: right
