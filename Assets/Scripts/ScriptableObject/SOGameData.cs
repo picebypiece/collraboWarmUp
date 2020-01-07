@@ -6,7 +6,14 @@ using UnityEngine.Events;
 
 // 작성일자 : 2019-12-29-PM-11-17
 // 작성자   : 최태욱
-// 간단설명 : 게임에서 사용되는 데이터들을 저장하고 
+// 간단설명 : 게임에서 사용되는 데이터들을 저장하고 이벤트를 켜주는 클래스
+
+/// <summary>
+/// TODO
+///  게임에서만 사용할 데이터이고 게임 시작할때마다 초기화 할텐데
+///  파일로 저장하는건 쓸모없는것 같은 느낌이 든다.
+///  스크립터블 오브젝트 활용에서 이벤트를 사용하는 용도로 쓰기에 좋다고한건 왜지?
+/// </summary>
 
 [CreateAssetMenu(menuName = "ScriptableObject/GameData")]
 public class SOGameData : ScriptableObject
@@ -91,10 +98,9 @@ public class SOGameData : ScriptableObject
 
     // Private Method
     #region Private Method
-
     void DumyFunction()
     {
-
+        // 이벤트 함수 추가용 임시 함수
     }
 
     void InitData()

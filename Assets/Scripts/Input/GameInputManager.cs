@@ -14,7 +14,8 @@ using static SOInputKey;
 
 public class GameInputManager : SingletonMono<GameInputManager>
 {
-    public SOInputKey keyMap;
+    //싱글톤 패턴으로 하나만 사용됨으로 지정
+    public static SOInputKey keyMap;
     public enum InputEventType { Push, Pushed, UP, LAST }
     
     #region Variable
@@ -67,8 +68,13 @@ public class GameInputManager : SingletonMono<GameInputManager>
     #endregion
 
     #region Private Method
+
     void InitInputKeyData()
     {
+        if(keyMap == null)
+        {
+            keyMap = Resources.Load<SOInputKey>(GameData.GameDataScriptableObjectPath);
+        }
         keyMapper = new Dictionary<InputKeyName, Action[]>();
         var keys = keyMap.allKeys;
         for (int i = 0; i < (int)InputKeyName.Last; i++)

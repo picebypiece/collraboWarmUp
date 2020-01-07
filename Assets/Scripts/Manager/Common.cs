@@ -88,6 +88,8 @@ public enum MarioSize
 
 public class GameData
 {
+    public const string GameDataScriptableObjectPath = "ScriptableObject/SOInputKeyMap";
+
     public const string GDCoin = "GameDataCoin";
     public const string GDTime = "GameDataTime";
     public const string GDLife = "GameDataLife";
