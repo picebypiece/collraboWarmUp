@@ -41,15 +41,26 @@ public partial class PlayerAction
 
         if (hit != null)
         {
-            if (hit.gameObject.layer == LayerMask.NameToLayer(Common.layerEnvirments))
-            {
                 isBoxHit = false;
-                if (!isGrounded && playerRigidbody.velocity == Vector2.zero)
+                if (!isGrounded/* && playerRigidbody.velocity == Vector2.zero*/)
                 {
                     InitJump();
                 }
-            }
         }
+    }
+
+    private void CheckHorizontal()
+    {
+        //var hit = Physics2D.Raycast(transform.position + new Vector3(0,0.15f,0) , Vector2.right, 0.08f,LayerMask.NameToLayer("Water"));
+        //Debug.DrawRay(transform.position + new Vector3(0, 0.15f, 0), Vector2.right, Color.red, 0.08f);
+        //    //IsTouchingLayers(GetComponentInChildren<BoxCollider2D>(), LayerMask.NameToLayer("Water"));
+        //if (hit.collider != null )
+        //{
+        //    Debug.Log("asfasfas");
+        //    ignoreMoveForce = true;
+        //}
+        //else
+        //    ignoreMoveForce = false;
     }
 
     /// <summary>
@@ -101,6 +112,12 @@ public partial class PlayerAction
                     TileObject tileObject = contactPoint.collider.GetComponent(typeof(TileObject)) as TileObject;
                     tileObject?.ActionCall();
                 }
+                //if (normal.x != 0 && normal.y > 0)
+                //{
+                //    ignoreMoveForce = true;
+                //}
+                //else
+                //    ignoreMoveForce = false;
                 break;
             case Common.tagEnemy:
                 {

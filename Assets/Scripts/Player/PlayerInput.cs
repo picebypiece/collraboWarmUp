@@ -13,6 +13,7 @@ public class PlayerInput : MonoBehaviour
     public float move { get; private set; }
     public bool jumpBtnDown { get; private set; }
     public bool jumpBtnUp { get; private set; }
+    public bool jumpBtnDownPush { get; private set; }
     #endregion
 
     // Property
@@ -27,6 +28,7 @@ public class PlayerInput : MonoBehaviour
     private void Start()
     {
         GameInputManager.Instance.Subscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Push, JumpDown);
+        GameInputManager.Instance.Subscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Pushed, JumpDownStay);
         GameInputManager.Instance.Subscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.UP, JumpUp);
     }
 
@@ -35,6 +37,7 @@ public class PlayerInput : MonoBehaviour
         if (GameInputManager.Instance != null)
         {
             GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Push, JumpDown);
+            GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Pushed, JumpDownStay);
             GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.UP, JumpUp);
         }
     }
@@ -58,12 +61,20 @@ public class PlayerInput : MonoBehaviour
     void JumpDown()
     {
         jumpBtnDown = true;
+        jumpBtnDownPush = true;
+        jumpBtnUp = false;
+    }
+    void JumpDownStay()
+    {
+        jumpBtnDown = false;
+        jumpBtnDownPush = true;
         jumpBtnUp = false;
     }
 
     void JumpUp()
     {
         jumpBtnDown = false;
+        jumpBtnDownPush = false;
         jumpBtnUp = true;
     }
     #endregion

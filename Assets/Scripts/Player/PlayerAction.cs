@@ -30,6 +30,7 @@ public partial class PlayerAction : MonoBehaviour
     private bool isGrounded = false;
     private bool isJumping = false;
     private bool isBoxHit = false;
+    private bool ignoreMoveForce = false;
     private int layerMask;
 
 
@@ -51,6 +52,7 @@ public partial class PlayerAction : MonoBehaviour
         if (!action)
             return;
         Move();
+        //CheckHorizontal();
         CheckGround();
 
         
@@ -63,7 +65,7 @@ public partial class PlayerAction : MonoBehaviour
         }
         if (isJumping)
         {
-            if (!playerInput.jumpBtnDown && Vector2.Dot(playerRigidbody.velocity, Vector2.up) > 0/*playerRigidbody.velocity.y >= 0f*/)
+            if (!playerInput.jumpBtnDownPush && Vector2.Dot(playerRigidbody.velocity, Vector2.up) > 0/*playerRigidbody.velocity.y >= 0f*/)
 
                 playerRigidbody.AddForce(counterJumpForce * playerRigidbody.mass);
         }
@@ -114,8 +116,12 @@ public partial class PlayerAction : MonoBehaviour
             playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Run,false, 1f);
             return;
         }
+        if(!ignoreMoveForce)
+        {
+
         Vector2 movePos = playerInput.move * Vector2.right * runSpeed * Time.fixedDeltaTime;
             playerRigidbody.position = playerRigidbody.position + movePos;
+        }
         playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Run,true, playerInput.move * 5f);
     }
 
