@@ -43,6 +43,7 @@ public partial class PlayerAction
         {
             if (hit.gameObject.layer == LayerMask.NameToLayer(Common.layerEnvirments))
             {
+                isBoxHit = false;
                 if (!isGrounded && playerRigidbody.velocity == Vector2.zero)
                 {
                     InitJump();
