@@ -32,8 +32,13 @@ public class EnemySpawner : Spawner<SpawnerType.EnemyType, GameObject>, IRegist_
     #region Public Method
     public override void Instantiate(GameObject _GameObject, Vector3 _StandardPos, int _row, int _Cloum, Transform _ParentTransform)
     {
-        Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
-        SpawnObjects.Add(_GameObject);
+        var f_gameObject =  Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
+        
+        var f_tempTileObject = f_gameObject.GetComponent<Enemy>();
+
+        f_tempTileObject.Property_SpriteRenderer.enabled = false;
+
+        SpawnObjects.Add(f_gameObject);
     }
 
     public override void Add_Dictionary()

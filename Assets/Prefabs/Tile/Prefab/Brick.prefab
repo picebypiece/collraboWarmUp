@@ -209,7 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3458a6a0af3fbde419f5ca065c88919b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SettingPos: {x: 0, y: 0.04, z: 0}
+  m_Renderer: {fileID: 6198133342693676155}
+  SettingPos: {x: 0, y: 0, z: 0}
   m_Vector2Pos:
     row: 0
     colum: 0

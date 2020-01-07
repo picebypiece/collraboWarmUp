@@ -99,7 +99,7 @@ public class GameInputManager : SingletonMono<GameInputManager>
                         hAxisValue -= keyMap.SensetiveH * Time.deltaTime;
                         break;
                 }
-                Debug.Log($"xHorizontal = {hAxisValue} key info : {keyName.ToString()} {type.ToString()}");
+                //Debug.Log($"xHorizontal = {hAxisValue} key info : {keyName.ToString()} {type.ToString()}");
                 break;
             case InputEventType.UP:
                 switch (keyName)

@@ -10,7 +10,8 @@ public class Coin : Item
 {
     // Variable
     #region Variable
-    private int score;
+        [SerializeField]
+    SOGameData m_SOGameData;
     #endregion
 
     // Property
@@ -28,9 +29,10 @@ public class Coin : Item
     #region Private Method
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == Common.tagPlayer)
+        if(collision.CompareTag(Common.tagPlayer))
         {
             // GetScore
+            m_SOGameData.Coin++;
             gameObject.SetActive(false);
         }
     }
@@ -40,7 +42,7 @@ public class Coin : Item
     #region Protected Method
     protected override void doAwake()
     {
-        score = 10;
+        
     }
     #endregion
     // Public Method

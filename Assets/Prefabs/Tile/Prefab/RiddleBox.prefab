@@ -94,7 +94,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 98bd3f7c24f449f488389e34c0763547, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171a54b6bd20fc34fae971292b637d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Renderer: {fileID: 6198133342693676155}
   SettingPos: {x: 0, y: 0, z: 0}
   m_Vector2Pos:
     row: 0

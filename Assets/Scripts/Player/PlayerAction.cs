@@ -29,6 +29,7 @@ public class PlayerAction : MonoBehaviour
     private bool action = true;
     private bool isGrounded = false;
     private bool isJumping = false;
+    private bool isBoxHit = false;
     private int layerMask;
 
 
@@ -156,6 +157,7 @@ public class PlayerAction : MonoBehaviour
         {
             if(hit.gameObject.layer == LayerMask.NameToLayer(Common.tagEnvirments))
             {
+                isBoxHit = false;
                 if (!isGrounded && playerRigidbody.velocity == Vector2.zero)
                 {
                     InitJump();
@@ -239,8 +241,9 @@ public class PlayerAction : MonoBehaviour
         {
             // 벽돌
             case Common.tagEnvirments:
-                if (normal.y < 0)
+                if (normal.y < 0 && isBoxHit == false)
                 {
+                    isBoxHit = true;
                     TileObject tileObject = contactPoint.collider.GetComponent(typeof(TileObject)) as TileObject;
                     tileObject?.ActionCall();
                 }

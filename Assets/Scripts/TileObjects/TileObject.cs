@@ -10,9 +10,11 @@ abstract public class TileObject : MonoBehaviour
     // Variable
     #region Variable
     [SerializeField]
+    Renderer m_Renderer;
+    [SerializeField]
     protected Queue<SpawnerType.ItemType> m_PoketQueue;
     [SerializeField]
-    Vector3 SettingPos;
+    protected Vector3 SettingPos;
     [SerializeField]
     protected TilePos m_Vector2Pos;
     #endregion
@@ -29,6 +31,11 @@ abstract public class TileObject : MonoBehaviour
         get => m_Vector2Pos;
         set => m_Vector2Pos = value;
     }
+    public Renderer Renderer
+    {
+        get => m_Renderer;
+        set => m_Renderer = value;
+    }
     #endregion
 
     // MonoBehaviour
@@ -36,9 +43,13 @@ abstract public class TileObject : MonoBehaviour
 
     virtual public void Awake()
     {
+        RenderSetting();
+        Debug.Log(this.gameObject.tag);
+        //m_Render.enabled = false;
         m_PoketQueue = new Queue<SpawnerType.ItemType>();
         SettingPos = this.transform.position;
     }
+
     //abstract public void Start();
 
     //abstract public void OnCollisionEnter2D(Collision2D col);
@@ -75,7 +86,13 @@ abstract public class TileObject : MonoBehaviour
 
     // Private Method
     #region Private Method
-
+    void RenderSetting()
+    {
+        if (m_Renderer == null)
+        {
+            m_Renderer = this.gameObject.GetComponentInChildren<SpriteRenderer>();
+        }
+    }
     #endregion
 
     // Public Method

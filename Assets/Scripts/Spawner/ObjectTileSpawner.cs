@@ -43,6 +43,8 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
 
         var f_tempTileObject = f_tempObject.GetComponent<TileObject>();
 
+        f_tempTileObject.Renderer.enabled = false;
+
         if (f_tempTileObject != null)
         {
             f_tempTileObject.Initialized(_row, _Cloum);

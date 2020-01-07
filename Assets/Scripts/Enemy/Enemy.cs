@@ -35,6 +35,11 @@ public abstract class Enemy : MonoBehaviour
     // Property
     #region Property
 
+    public SpriteRenderer Property_SpriteRenderer
+    {
+        get => spriteRenderer;
+        set => spriteRenderer = value;
+    }
     #endregion
 
     // MonoBehaviour

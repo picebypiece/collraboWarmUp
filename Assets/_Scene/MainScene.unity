@@ -331,20 +331,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 883155635, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}
-      propertyPath: SpawnObjectList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 883155635, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}
-      propertyPath: SpawnObjectList.Array.data[0]
-      value: 
-      objectReference: {fileID: 9077543124221230584, guid: 62900d60de5455242987db385e0fa557,
-        type: 3}
-    - target: {fileID: 883155635, guid: ce211f0ae89594e4ebd66ca125e2b2e8, type: 3}
-      propertyPath: SpawnObjectList.Array.data[1]
-      value: 
-      objectReference: {fileID: 2012297802720456174, guid: eaae94e2d66c6004aa45db99b2d1cf7f,
-        type: 3}
     - target: {fileID: 2326182966840870220, guid: ce211f0ae89594e4ebd66ca125e2b2e8,
         type: 3}
       propertyPath: m_Name

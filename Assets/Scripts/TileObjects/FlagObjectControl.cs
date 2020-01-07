@@ -22,8 +22,9 @@ public class FlagObjectControl : TileObject
     #region MonoBehaviour
     public override void Awake()
     {
-        //base.Awake();
+        base.Awake();
         this.transform.position += new Vector3(0.16f, 0, 0);
+        SettingPos = this.transform.position;
     }
     //public override void Start()
     //{
