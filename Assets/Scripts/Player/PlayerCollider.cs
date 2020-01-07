@@ -94,8 +94,9 @@ public partial class PlayerAction
         {
             // 벽돌
             case Common.tagEnvirments:
-                if (normal.y < 0)
+                if (normal.y < 0 && !isBoxHit)
                 {
+                    isBoxHit = true;
                     TileObject tileObject = contactPoint.collider.GetComponent(typeof(TileObject)) as TileObject;
                     tileObject?.ActionCall();
                 }

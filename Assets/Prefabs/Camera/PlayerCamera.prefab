@@ -108,10 +108,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1228472722298217653}
-  - component: {fileID: 5999048542479953068}
   - component: {fileID: 3577359277671540398}
   - component: {fileID: 7115412332899298735}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: OnableCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,24 +131,6 @@ Transform:
   m_Father: {fileID: 2943062497224918390}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!68 &5999048542479953068
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5176349855369902313}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 1.95, y: 0.25}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 0, y: 1}
-  - {x: 0, y: -1.5}
 --- !u!114 &3577359277671540398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +180,7 @@ GameObject:
   - component: {fileID: 4594211215995795607}
   - component: {fileID: 4791164114833014902}
   - component: {fileID: 7644709277909430797}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: DisableCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
