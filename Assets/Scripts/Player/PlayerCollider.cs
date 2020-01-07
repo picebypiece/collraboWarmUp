@@ -61,12 +61,12 @@ public partial class PlayerAction
         {
             case MarioSize.Child:
                 SetIgnoreCollision(true, Common.layerEnemy, Common.layerEnvirments);
-                //playerAnimCtrl.PlayDeath();
+                playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Death);
                 Jump(true);
                 break;
             case MarioSize.Adult:
                 SetIgnoreCollision(true, Common.layerEnemy);
-                //playerAnimCtrl.PlayHit();
+                playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Hit);
                 break;
         }
     }
@@ -125,7 +125,7 @@ public partial class PlayerAction
             case Common.tagItem:
                 action = false;
                 SetIgnoreCollision(true,Common.layerEnemy);
-                //playerAnimCtrl.PlayGrowth();
+                playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Growth);
 
                 break;
         }

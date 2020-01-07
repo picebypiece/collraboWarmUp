@@ -70,7 +70,7 @@ public partial class PlayerAction : MonoBehaviour
     }
     private void OnDisable()
     {
-        //playerAnimCtrl.AnimEndEvent -= AnimEndCall;
+        playerAnimCtrl.AnimEndEvent -= AnimEndCall;
     }
     #endregion
 
@@ -84,7 +84,7 @@ public partial class PlayerAction : MonoBehaviour
         if (playerAnimCtrl != null)
             playerAnimCtrl.SetMarioSize(MarioSize.Child);
 
-        //playerAnimCtrl.AnimEndEvent += AnimEndCall;
+        playerAnimCtrl.AnimEndEvent += AnimEndCall;
 
         jumpForce = 200f;
         runSpeed = 1.5f;
@@ -111,12 +111,12 @@ public partial class PlayerAction : MonoBehaviour
         }
         else
         {
-            playerAnimCtrl.PlayRun(false, 1f);
+            playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Run,false, 1f);
             return;
         }
         Vector2 movePos = playerInput.move * Vector2.right * runSpeed * Time.fixedDeltaTime;
             playerRigidbody.position = playerRigidbody.position + movePos;
-        playerAnimCtrl.PlayRun(true, playerInput.move * 5f);
+        playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Run,true, playerInput.move * 5f);
     }
 
     /// <summary>
@@ -127,7 +127,7 @@ public partial class PlayerAction : MonoBehaviour
     {
         isGrounded = false;
         isJumping = true;
-        //playerAnimCtrl.PlayJump(true);
+        playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Jump,true);
 
         if (doForce)
         {
@@ -139,28 +139,28 @@ public partial class PlayerAction : MonoBehaviour
     /// 애니메이션 끝났을때 호출
     /// </summary>
     /// <param name="eventAnim"></param>
-    //private void AnimEndCall(PlayerAnimCtrl.EventAnim eventAnim)
-    //{
-    //    switch (eventAnim)
-    //    {
-    //        case PlayerAnimCtrl.EventAnim.Growth:
-    //            action = true;
-    //            SetIgnoreCollision(false, Common.layerEnemy) ;
-    //            break;
-    //        case PlayerAnimCtrl.EventAnim.Flag:
-    //            break;
-    //        case PlayerAnimCtrl.EventAnim.Hit:
-    //            action = true;
-    //            SetIgnoreCollision(false, Common.layerEnemy);
-    //            break;
-    //    }
-    //}
+    private void AnimEndCall(PlayerAnimCtrl.AnimKind eventAnim)
+    {
+        switch (eventAnim)
+        {
+            case PlayerAnimCtrl.AnimKind.Growth:
+                action = true;
+                SetIgnoreCollision(false, Common.layerEnemy);
+                break;
+            case PlayerAnimCtrl.AnimKind.Flag:
+                break;
+            case PlayerAnimCtrl.AnimKind.Hit:
+                action = true;
+                SetIgnoreCollision(false, Common.layerEnemy);
+                break;
+        }
+    }
     /// <summary>
     /// 점프가 가능하도록 초기화
     /// </summary>
     private void InitJump()
     {
-        //playerAnimCtrl.PlayJump(false);
+        playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Jump,false);
         isGrounded = true;
         isJumping = false;
     }
@@ -179,7 +179,7 @@ public partial class PlayerAction : MonoBehaviour
     {
         action = false;
         SetIgnoreCollision(true,Common.layerEnemy);
-        //playerAnimCtrl.PlayGrowth();
+        playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Growth);
     }
     #endregion
 }

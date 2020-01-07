@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class PlayerAnimCtrl : MonoBehaviour
 {
-    public enum TriggerAnim
+    public enum AnimKind
     {
         Death,
         Growth,
@@ -17,27 +17,16 @@ public class PlayerAnimCtrl : MonoBehaviour
         Flag,
         Run,
     }
-    public enum BoolAnim
-    {
-        Jump,
-        Flag,
-    }
-    public enum MultiplierAnim
-    {
-        Run,
-    }
     // Variable
     #region Variable
 
-    public const string paramNameDeath = "Death";
-    public const string paramNameGrowth = "Growth";
-    public const string paramNameHit = "Hit";
-
-    public const string paramNameJump = "Jump";
-    public const string paramNameFlag = "Flag";
-
-    public const string paramNameRun = "Run";
-    public const string paramNameRunSpeed = "RunSpeed";
+    public static int paramIDDeath      =    Animator.StringToHash("Death");
+    public static int paramIDGrowth     =    Animator.StringToHash("Growth");
+    public static int paramIDHit        =    Animator.StringToHash("Hit");
+    public static int paramIDJump       =    Animator.StringToHash("Jump");
+    public static int paramIDFlag       =    Animator.StringToHash("Flag");
+    public static int paramIDRun        =    Animator.StringToHash("Run");
+    public static int paramIDRunSpeed   =    Animator.StringToHash("RunSpeed");
 
     private Animator cntAnimator = null;
     private SpriteRenderer cntRenderer = null;
@@ -55,8 +44,8 @@ public class PlayerAnimCtrl : MonoBehaviour
     private SpriteRenderer AdultRenderer = null;
 
 
-    //public delegate void AnimEnd(EventAnim eventAnim);
-    //public event AnimEnd AnimEndEvent;
+    public delegate void AnimEnd(AnimKind eventAnim);
+    public event AnimEnd AnimEndEvent;
 
     #endregion
 
@@ -86,50 +75,50 @@ public class PlayerAnimCtrl : MonoBehaviour
     public void HitEnd()
     {
         SetMarioSize(MarioSize.Child);
-        //AnimEndEvent?.Invoke(EventAnim.Hit);
+        AnimEndEvent?.Invoke(AnimKind.Hit);
     }
     public void GrowthEnd()
     {
         SetMarioSize(MarioSize.Adult);
-        //AnimEndEvent?.Invoke(EventAnim.Growth);
+        AnimEndEvent?.Invoke(AnimKind.Growth);
     }
-    public void PlayAnim(TriggerAnim anim)
+    public void PlayAnim(AnimKind anim)
     {
         switch (anim)
         {
-            case TriggerAnim.Death:
-                cntAnimator.SetTrigger(paramNameDeath);
+            case AnimKind.Death:
+                cntAnimator.SetTrigger(paramIDDeath);
                 break;
-            case TriggerAnim.Growth:
-                cntAnimator.SetTrigger(paramNameGrowth);
+            case AnimKind.Growth:
+                cntAnimator.SetTrigger(paramIDGrowth);
                 break;
-            case TriggerAnim.Hit:
-                cntAnimator.SetTrigger(paramNameHit);
+            case AnimKind.Hit:
+                cntAnimator.SetTrigger(paramIDHit);
                 break;
         }
     }
-    public void PlayAnim(BoolAnim anim, bool value)
+    public void PlayAnim(AnimKind anim, bool value)
     {
         switch (anim)
         {
-            case BoolAnim.Jump:
-                cntAnimator.SetBool(paramNameJump, value);
+            case AnimKind.Jump:
+                cntAnimator.SetBool(paramIDJump, value);
                 break;
-            case BoolAnim.Flag:
-                cntAnimator.SetBool(paramNameFlag, value);
+            case AnimKind.Flag:
+                cntAnimator.SetBool(paramIDFlag, value);
                 break;
         }
     }
-    public void PlayAnim(MultiplierAnim anim, float value)
+    public void PlayAnim(AnimKind anim, bool bvalue, float fvalue)
     {
         switch (anim)
         {
-            case MultiplierAnim.Run:
-                //if (cntAnimator.GetBool(paramNameRun) != run)
-                //{
-                //    cntAnimator.SetBool(paramNameRun, run);
-                //}
-                cntAnimator.SetFloat(paramNameRunSpeed, value);
+            case AnimKind.Run:
+                if (cntAnimator.GetBool(paramIDRun) != bvalue)
+                {
+                    cntAnimator.SetBool(paramIDRun, bvalue);
+                }
+                cntAnimator.SetFloat(paramIDRunSpeed, fvalue);
                 break;
         }
     }
@@ -156,26 +145,11 @@ public class PlayerAnimCtrl : MonoBehaviour
                 break;
         }
     }
-    public void PlayFlag(bool play)
-    {
-        cntAnimator.SetBool(paramNameFlag, play);
-    }
+
+
     public void FlipSprite(bool flip)
     {
         cntRenderer.flipX = flip;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="run">true : 달림 , false : 멈춤</param>
-    public void PlayRun(bool run, float speed)
-    {
-        if(cntAnimator.GetBool(paramNameRun) != run)
-        {
-            cntAnimator.SetBool(paramNameRun, run);
-        }
-        cntAnimator.SetFloat(paramNameRunSpeed, speed);
     }
     
     public void SetFlipX(bool val)
