@@ -17,8 +17,8 @@ public class Goomba : Enemy
     private Rigidbody2D rbGoomba = null;
     private BoxCollider2D colGoomba = null;
     private float deathForce = 100f;
-    private bool change = false;
-    private bool move = true;
+    public bool change = false;
+    public bool move = true;
     #endregion
 
     // Property
@@ -44,25 +44,23 @@ public class Goomba : Enemy
     private void Move()
     {
         rbGoomba.MovePosition((Vector2)transform.position + (moveDirections[(int)nowDir] * moveSpeed * Time.fixedDeltaTime));
+        CheckDirection();
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    
+    private void CheckDirection()
     {
+        var hit = Physics2D.RaycastAll(transform.position, moveDirections[(int)nowDir], 0.1f);
+        Debug.DrawRay(transform.position, moveDirections[(int)nowDir] * 0.1f, Color.red);
+        for (int i = 0; i < hit.Length; i++)
+        {
+            if(hit[i].transform != this.transform && (hit[i].collider.CompareTag(Common.tagEnvirments) || hit[i].collider.CompareTag(Common.tagEnemy)))
+            {
 
-        if (!change && ( collision.collider.CompareTag(Common.tagEnvirments) || collision.collider.CompareTag(Common.tagEnemy)))
-        {
-            if (nowDir == Direction.Left)
-                nowDir = Direction.Right;
-            else
-                nowDir = Direction.Left;
-            change = true;
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (change && (collision.collider.CompareTag(Common.tagEnvirments) || collision.collider.CompareTag(Common.tagEnemy)))
-        {
-            change = false;
+                if (nowDir == Direction.Left)
+                    nowDir = Direction.Right;
+                else
+                    nowDir = Direction.Left;
+            }
         }
     }
     #endregion

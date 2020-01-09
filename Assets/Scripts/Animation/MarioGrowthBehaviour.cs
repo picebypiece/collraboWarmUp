@@ -22,7 +22,7 @@ public class MarioGrowthBehaviour : StateMachineBehaviour
         var playeranim = animator.gameObject.GetComponentInParent(typeof(PlayerAnimCtrl)) as PlayerAnimCtrl;
         if (playeranim != null)
         {
-            playeranim.HitEnd();
+            playeranim.GrowthEnd();
         }
     }
 
