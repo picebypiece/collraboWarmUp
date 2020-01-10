@@ -50,7 +50,7 @@ public class InvisibleBoxControl : TileObject
     {
         if (m_PoketQueue.Count != 0)
         {
-            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position + new Vector3(0, 0.16f, 0));
+            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position /*+ new Vector3(0, 0.16f, 0)*/) ;
             RenderAnimator.SetTrigger(m_AnimID.Hit);
         }
     }

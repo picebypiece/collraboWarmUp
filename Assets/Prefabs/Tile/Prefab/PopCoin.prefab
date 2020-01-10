@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6198133342693676155}
   - component: {fileID: 6609961842903946307}
   - component: {fileID: 4324685848037531782}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RenderImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 6412980229837139646}
   - component: {fileID: 775914251129828027}
   - component: {fileID: 7480659073601384383}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PopCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

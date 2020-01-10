@@ -209,6 +209,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171a54b6bd20fc34fae971292b637d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Animations:
+  - {fileID: 7400000, guid: 5d1e08281508b2e4d9a5ccf9948b08e4, type: 2}
+  - {fileID: 7400000, guid: 0bbde8a4bcefaa346abb9f40a73a598a, type: 2}
+  - {fileID: 7400000, guid: 44ddb03ca7dd14c4aac12342a458d886, type: 2}
   m_Renderer: {fileID: 6198133342693676155}
   SettingPos: {x: 0, y: 0, z: 0}
   m_Vector2Pos:

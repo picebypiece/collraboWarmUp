@@ -5,7 +5,7 @@ using UnityEngine;
 // 작성자   : 배형영
 // 간단설명 :
 
-public class EnemySpawner : Spawner<SpawnerType.EnemyType, GameObject>, IRegist_Dictionary
+public class EnemySpawner : Spawner<SpawnerType.EnemyType, GameObject, Transform>, IRegist_Dictionary
 {
     // Variable
     #region Variable

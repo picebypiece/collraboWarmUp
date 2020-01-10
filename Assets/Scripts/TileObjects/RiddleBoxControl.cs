@@ -18,6 +18,12 @@ public class RiddleBoxControl : TileObject
     }
     AnimID m_AnimID;
 
+    public struct AnimClipName
+    {
+        public int
+            popUp;
+    }
+    AnimClipName m_AnimClipName;
 
     //IEnumerator MoveUpDown;
     #endregion
@@ -33,16 +39,18 @@ public class RiddleBoxControl : TileObject
     {
         base.Awake();
 
-        AnimIDInit();
+        AnimInit();
     }
     #endregion
 
     // Private Method
     #region Private Method
-    void AnimIDInit()
+    void AnimInit()
     {
         m_AnimID.Pop = Animator.StringToHash("PopTrigger");
         m_AnimID.Empty = Animator.StringToHash("EmptyTrigger");
+
+        m_AnimClipName.popUp = 0;
     }
     #endregion
 
@@ -50,13 +58,61 @@ public class RiddleBoxControl : TileObject
     #region Public Method
     public override void ActionCall()
     {
-        //base.ActionCall();
+        StartCoroutine(this.ItemArriveCondition());
+        //if (m_PoketQueue.Count != 0)
+        //{
+        //    switch (m_PoketQueue.Peek())
+        //    {
+        //        case SpawnerType.ItemType.Coin:
+        //            break;
+        //        case SpawnerType.ItemType.GrowthMushroom:
+        //            Debug.Log(m_Animations[0].length);
+        //            break;
+        //        case SpawnerType.ItemType.PopCoin:
+        //            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position /*+ new Vector3(0, 0.16f, 0)*/);
+        //            RenderAnimator.SetTrigger(m_AnimID.Pop);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
+        
+        //if (m_PoketQueue.Count != 0)
+        //{
+        //    ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position/*+ new Vector3(0, 0.16f, 0)*/);
+         
+        //    RenderAnimator.SetTrigger(m_AnimID.Pop);
+        //}
+    }
+
+    /// <summary>
+    /// 아이템 출력 조건
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator ItemArriveCondition()
+    {
         if (m_PoketQueue.Count != 0)
         {
-            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position+ new Vector3(0, 0.16f, 0));
-         
             RenderAnimator.SetTrigger(m_AnimID.Pop);
+            switch (m_PoketQueue.Peek())
+            {
+                case SpawnerType.ItemType.Coin:
+                    break;
+                case SpawnerType.ItemType.GrowthMushroom:
+                    yield return new WaitForSeconds(m_Animations[m_AnimClipName.popUp].length);
+                    break;
+                case SpawnerType.ItemType.PopCoin:
+                    break;
+                default:
+                    break;
+            }
+            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position /*+ new Vector3(0, 0.16f, 0)*/);
         }
+        if(m_PoketQueue.Count == 0)
+        {
+            RenderAnimator.SetTrigger(m_AnimID.Empty);
+        }
+        yield return null;
     }
 
     public void SetEmptyBox()

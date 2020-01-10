@@ -7,12 +7,10 @@ using UnityEngine.Tilemaps;
 // 작성자   : 김세중
 // 간단설명 :
 
-public class TileSpawner : Spawner<SpawnerType.TileType, Tile>,IRegist_Dictionary
+public class TileSpawner : Spawner<SpawnerType.TileType, Tile, Tilemap>,IRegist_Dictionary
 {
     // Variable
     #region Variable
-    [SerializeField]
-    Tilemap m_Tilemap;
     #endregion
 
     // Property
@@ -32,9 +30,9 @@ public class TileSpawner : Spawner<SpawnerType.TileType, Tile>,IRegist_Dictionar
 
     // Public Method
     #region Public Method
-    override public void Instantiate(Tile _Tile, Vector3 _StandardPos, int _row, int _Cloum, Transform _ParentTransform)
+    override public void Instantiate(Tile _Tile, Vector3 _StandardPos, int _row, int _Cloum, Tilemap _Tilemap)
     {
-        m_Tilemap.SetTile(new Vector3Int(_row, _Cloum, 0), _Tile);
+        _Tilemap.SetTile(new Vector3Int(_row, _Cloum, 0), _Tile);
         SpawnObjects.Add(_Tile);
     }
 

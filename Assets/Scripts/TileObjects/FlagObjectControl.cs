@@ -37,7 +37,7 @@ public class FlagObjectControl : TileObject
 
     public override void ActionCall()
     {
-        //throw new System.NotImplementedException();
+        
     }
     #endregion
 

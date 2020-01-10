@@ -55,7 +55,7 @@ namespace SpawnerType
 {
     public enum TileType
     {
-        Ground, Stair
+        Ground, Stair, PipeBodyLeft, PipeBodyRight
     }
     public enum ForegroundType
     {
@@ -63,7 +63,7 @@ namespace SpawnerType
     }
     public enum ObjectTileType
     {
-        Flag, Brick, RiddleBox, PipeBodyLeft, PipeBodyRight, PipeDoorLeft, PipeDoorRight, InvisibleBox
+        Flag, Brick, RiddleBox, PipeDoorLeft, PipeDoorRight, InvisibleBox
     }
     public enum ItemType
     {

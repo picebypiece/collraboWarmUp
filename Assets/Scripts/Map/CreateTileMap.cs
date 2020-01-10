@@ -45,12 +45,21 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     BackGroundRenderControl m_BackGroundRenderController;
     int background_Counter;
 
-    [SerializeField]
-    private Tilemap
-    m_TileLayer,
-    m_GameObjectLayer,
-    m_ForgroundLayer;
+    //[SerializeField]
+    //private Tilemap
+    //m_TileLayer,
+    //m_GameObjectLayer,
+    //m_ForgroundLayer;
 
+    public struct TileMapLayerName
+    {
+        public int
+            TileLayer,
+            GameObjectActively,
+            GameObjectTile,
+            ForgoroundLayer;
+    }
+    public TileMapLayerName TileLayerName;
     [SerializeField]
     private Tilemap[]
     m_TileMapLayer;
@@ -60,6 +69,12 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
 
     // Property
     #region Property
+    public Tilemap[] TileMapLayer
+    {
+        get => m_TileMapLayer;
+        set => m_TileMapLayer = value;
+    }
+
     #endregion
 
     // MonoBehaviour
@@ -77,13 +92,15 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
             Regist.Contain_Dictionary();
         }
 
+        TileLayerName.TileLayer = 0;
+        TileLayerName.GameObjectActively = 1;
+        TileLayerName.GameObjectTile = 2;
+        TileLayerName.ForgoroundLayer = 3;
 
         background_Counter = 0;
-
         m_BackGroundRenderController = m_BackGround.GetComponent<BackGroundRenderControl>();
 
         m_MapData = MapData.Instance;
-
         //Map이름을 받아 어떤 맵파일을 가져올지 준비.
         MapData.Instance.FindMapList();
         MapData.Instance.FindMapInfo();
@@ -135,7 +152,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
                     m_ForgroundSpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_foregroundType, out m_Tile);
 
                     //m_TileLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), m_Tile);
-                    m_ForgroundSpawner.Instantiate(m_Tile, Vector3.zero, _i_row, _i_Cloum, null);
+                    m_ForgroundSpawner.Instantiate(m_Tile, Vector3.zero, _i_row, _i_Cloum, m_TileMapLayer[TileLayerName.ForgoroundLayer]);
                 }
                 break;
             case SpawnType.Tile:
@@ -145,7 +162,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
                     m_TileSpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_TileType, out m_Tile);
 
                     //m_TileLayer.SetTile(new Vector3Int(_i_row, _i_Cloum, 0), m_Tile);
-                    m_TileSpawner.Instantiate(m_Tile, Vector3.zero, _i_row, _i_Cloum, null);
+                    m_TileSpawner.Instantiate(m_Tile, Vector3.zero, _i_row, _i_Cloum, m_TileMapLayer[TileLayerName.TileLayer]);
                 }
                 break;
             case SpawnType.ObjectTile:
@@ -155,7 +172,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
                     m_ObjectTileSpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_objectType, out m_GameObject);
 
                     //Instantiate<GameObject>(m_GameObject, new Vector3(m_StandardVector3Pos.x + (0.16f * _i_row), m_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
-                    m_ObjectTileSpawner.Instantiate(m_GameObject, m_StandardVector3Pos, _i_row, _i_Cloum, m_GameObjectLayer.transform);
+                    m_ObjectTileSpawner.Instantiate(m_GameObject, m_StandardVector3Pos, _i_row, _i_Cloum, m_TileMapLayer[TileLayerName.GameObjectTile].transform);
                 }
                 break;
             case SpawnType.Enemy:
@@ -165,7 +182,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
                     m_EnemySpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_EnemyType, out m_GameObject);
 
                     //Instantiate<GameObject>(m_GameObject, new Vector3(m_StandardVector3Pos.x + (0.16f * _i_row), m_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
-                    m_EnemySpawner.Instantiate(m_GameObject, m_StandardVector3Pos, _i_row, _i_Cloum, m_GameObjectLayer.transform);
+                    m_EnemySpawner.Instantiate(m_GameObject, m_StandardVector3Pos, _i_row, _i_Cloum, m_TileMapLayer[TileLayerName.GameObjectActively].transform);
                 }
                 break;
             case SpawnType.Item:
@@ -175,7 +192,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
                     m_ItemSpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_ItemType, out m_GameObject);
 
                     //Instantiate<GameObject>(m_GameObject, new Vector3(m_StandardVector3Pos.x + (0.16f * _i_row), m_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
-                    m_ItemSpawner.Instantiate(m_GameObject, m_StandardVector3Pos, _i_row, _i_Cloum, m_GameObjectLayer.transform);
+                    m_ItemSpawner.Instantiate(m_GameObject, m_StandardVector3Pos, _i_row, _i_Cloum, m_TileMapLayer[TileLayerName.GameObjectActively].transform);
 
                 }
                 break;
@@ -186,7 +203,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
                     m_PlayerSpawner.Get_CompareEnumTypeDictionary.TryGetValue(f_PlayerType, out m_GameObject);
 
                     //Instantiate<GameObject>(m_GameObject, new Vector3(m_StandardVector3Pos.x + (0.16f * _i_row), m_StandardVector3Pos.y + (0.16f * _i_Cloum), 0), Quaternion.identity, m_GameObjectLayer.transform);
-                    m_PlayerSpawner.Instantiate(m_GameObject, m_StandardVector3Pos, _i_row, _i_Cloum, m_GameObjectLayer.transform);
+                    m_PlayerSpawner.Instantiate(m_GameObject, m_StandardVector3Pos, _i_row, _i_Cloum, m_TileMapLayer[TileLayerName.GameObjectActively].transform);
                 }
                 break;
             default:

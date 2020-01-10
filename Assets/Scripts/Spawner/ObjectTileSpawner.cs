@@ -8,7 +8,7 @@ using System;
 // 간단설명 : GameObject형 Tile을 Spawn해줌
 
 
-public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>,IRegist_Dictionary
+public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject, Transform>,IRegist_Dictionary
 {
     // Variable
     #region Variable
@@ -62,14 +62,6 @@ public class ObjectTileSpawner : Spawner<SpawnerType.ObjectTileType, GameObject>
             CompareEnumTypeDictionary.Add(f_ObjectTileType++, SpawnObjectList[ObjectTileindex++]);
         }
 
-        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.Flag, SpawnObjectList[ObjectTileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.Brick, SpawnObjectList[ObjectTileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.RiddleBox, SpawnObjectList[ObjectTileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeBodyLeft, SpawnObjectList[ObjectTileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeBodyRight, SpawnObjectList[ObjectTileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeDoorLeft, SpawnObjectList[ObjectTileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.PipeDoorRight, SpawnObjectList[ObjectTileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ObjectTileType.InvisibleBox, SpawnObjectList[ObjectTileindex++]);
     }
 
     public void Contain_Dictionary()

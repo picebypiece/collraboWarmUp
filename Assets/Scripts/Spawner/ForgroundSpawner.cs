@@ -7,12 +7,10 @@ using UnityEngine.Tilemaps;
 // 작성자   : 김세중
 // 간단설명 :
 
-public class ForgroundSpawner : Spawner<SpawnerType.ForegroundType, Tile>, IRegist_Dictionary
+public class ForgroundSpawner : Spawner<SpawnerType.ForegroundType, Tile, Tilemap>, IRegist_Dictionary
 {
     // Variable
     #region Variable
-    [SerializeField]
-    Tilemap m_Tilemap;
     #endregion
 
     // Property
@@ -42,9 +40,9 @@ public class ForgroundSpawner : Spawner<SpawnerType.ForegroundType, Tile>, IRegi
         CompareEnumTypeDictionary = new EnumDictionary<SpawnerType.ForegroundType, Tile>();
     }
 
-    public override void Instantiate(Tile _Tile, Vector3 _StandardPos, int _row, int _Cloum, Transform _ParentTransform)
+    public override void Instantiate(Tile _Tile, Vector3 _StandardPos, int _row, int _Cloum, Tilemap _TilemapTransform)
     {
-        m_Tilemap.SetTile(new Vector3Int(_row, _Cloum, 0), _Tile);
+        _TilemapTransform.SetTile(new Vector3Int(_row, _Cloum, 0), _Tile);
         SpawnObjects.Add(_Tile);
     }
 
@@ -63,6 +61,7 @@ public class ForgroundSpawner : Spawner<SpawnerType.ForegroundType, Tile>, IRegi
         //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.Calse, SpawnObjectList[Tileindex++]);
         //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.CalseDoor, SpawnObjectList[Tileindex++]);
     }
+
     #endregion
-   
+
 }

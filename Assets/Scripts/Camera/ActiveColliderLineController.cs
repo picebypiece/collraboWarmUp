@@ -28,7 +28,7 @@ public class ActiveColliderLineController : MonoBehaviour
         {
             if (collision.gameObject.CompareTag(Common.tagEnvirments))
             {
-                collision.gameObject.GetComponent<TileObject>().Renderer.enabled = true; 
+                collision.gameObject.GetComponent<TileObject>().Renderer.enabled = true;
             }
             else if (collision.gameObject.CompareTag(Common.tagEnemy))
             {

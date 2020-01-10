@@ -30,6 +30,10 @@ public class PipleController : TileObject
 
     // Public Method
     #region Public Method
-
+    public override void ActionCall()
+    {
+       
+    }
     #endregion
+   
 }

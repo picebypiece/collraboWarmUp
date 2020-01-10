@@ -11,6 +11,24 @@ public class Mushroom : Item
     // Variable
     #region Variable
 
+    [SerializeField]
+    Collider2D m_Collider;
+    [SerializeField]
+    Rigidbody2D m_Rigidbody2D;
+    [SerializeField]
+    Vector2 SettingPos;
+    [SerializeField]
+    Vector3 MoveForce;
+    [SerializeField]
+    Animator m_Animator;
+
+    struct AnimID
+    {
+        public int
+            PopUp;
+    }
+    AnimID m_AnimID;
+
     #endregion
 
     // Property
@@ -21,6 +39,18 @@ public class Mushroom : Item
     // MonoBehaviour
     #region MonoBehaviour
 
+    //private void Start()
+    //{
+    //    SettingPos = this.transform.position;
+
+    //    m_Animator.SetTrigger(m_AnimID.PopUp);
+    //}
+    private void OnEnable()
+    {
+        SettingPos = this.transform.position;
+
+        m_Animator.SetTrigger(m_AnimID.PopUp);
+    }
     #endregion
 
     // Private Method
@@ -32,12 +62,48 @@ public class Mushroom : Item
     #region Protected Method
     protected override void doAwake()
     {
-        
+        m_AnimID.PopUp = Animator.StringToHash("Hit");
+    }
+    //public void SetTrigger(int _AnimID)
+    //{
+    //    m_Animator.ResetTrigger(_AnimID);
+    //}
+    public void ResetTriggerPopUp()
+    {
+        m_Animator.ResetTrigger(m_AnimID.PopUp);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Common.tagPlayer))
+        {
+            // GetScore
+            gameObject.SetActive(false);
+        }
     }
     #endregion
 
     // Public Method
     #region Public Method
+
+    //IEnumerator HitMove()
+    //{
+    //    while (true)
+    //    {
+    //        while (this.transform.position.y < SettingPos.y + 0.04f)
+    //        {
+    //            this.transform.position += MoveForce;
+    //            yield return new WaitForSeconds(0.15f);
+    //        }
+    //        while (SettingPos.y < this.transform.position.y)
+    //        {
+    //            this.transform.position -= MoveForce;
+    //            yield return new WaitForSeconds(0.15f);
+    //        }
+    //        StopCoroutine(MoveUpDown);
+    //        this.transform.position = new Vector3(SettingPos.x, (float)SettingPos.y, SettingPos.z);
+    //        yield return null;
+    //    }
+    //}
 
     #endregion
 }

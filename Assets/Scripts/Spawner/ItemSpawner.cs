@@ -6,7 +6,7 @@ using UnityEngine;
 // 작성자   : 김세중
 // 간단설명 :
 
-public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject>, IRegist_Dictionary
+public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject,Transform>, IRegist_Dictionary
 {
     // Variable
     #region Variable
@@ -43,7 +43,8 @@ public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject>, IRegist_Di
         for (int i = 0; i < _CreateNum; i++)
         {
             CompareEnumTypeDictionary.TryGetValue(_ItemType,out f_gameObject);
-
+            //Instantiate(f_gameObject, this.transform).SetActive(false);
+            //f_gameObject.SetActive(false);
             m_tempPoolList.Add(Instantiate(f_gameObject, this.transform));
             m_tempPoolList[i].SetActive(false);
         }
@@ -64,6 +65,7 @@ public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject>, IRegist_Di
         {
             if (m_tempPoolList[i_PoolItem].activeSelf == false)
             {
+                m_tempPoolList[i_PoolItem].transform.SetParent(m_CreateTileMap.TileMapLayer[m_CreateTileMap.TileLayerName.GameObjectActively].transform);
                 m_tempPoolList[i_PoolItem].transform.position = _SetPosition;
                 m_tempPoolList[i_PoolItem].SetActive(true);
                 break;

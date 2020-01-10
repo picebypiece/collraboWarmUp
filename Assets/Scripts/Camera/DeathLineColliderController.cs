@@ -27,20 +27,14 @@ public class DeathLineColliderController : MonoBehaviour
             collision.gameObject.SetActive(false);
         }
     }
-
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
     //    if (!collision.collider.CompareTag(Common.tagGround))
     //    {
-    //    Debug.Log(collision.gameObject.name);
     //        collision.gameObject.SetActive(false);
     //    }
-    //    //else if(collision.collider.CompareTag(Common.tagPlayer))
-    //    //{
-
-    //    //}
-
     //}
+
     #endregion
 
     // Private Method

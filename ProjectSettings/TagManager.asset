@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Box
   - Ground
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Player
   - Enemy
   - Envirments
-  - 
+  - Item
   - 
   - 
   - 
@@ -47,6 +48,9 @@ TagManager:
     locked: 0
   - name: Tile
     uniqueID: 3324971477
+    locked: 0
+  - name: ObjectActively
+    uniqueID: 3485907851
     locked: 0
   - name: ObjectTile
     uniqueID: 3668274725

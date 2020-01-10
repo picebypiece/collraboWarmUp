@@ -48,10 +48,44 @@ public class BrickObjectControl : TileObject
 
     // Public Method
     #region Public Method
-
+    void PoketCheck()
+    {
+        if (m_PoketQueue.Count != 0)
+        {
+            switch (m_PoketQueue.Peek())
+            {
+                case SpawnerType.ItemType.Coin:
+                    break;
+                case SpawnerType.ItemType.GrowthMushroom:
+                    //m_Animations[0]
+                    break;
+                case SpawnerType.ItemType.PopCoin:
+                    ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position /*+ new Vector3(0, 0.16f, 0)*/);
+                    m_RenderAnimator.SetTrigger(m_AnimID.Hit);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     public override void ActionCall()
     {
-        base.ActionCall();
+        if (m_PoketQueue.Count != 0)
+        {
+            switch (m_PoketQueue.Peek())
+            {
+                case SpawnerType.ItemType.Coin:
+                    break;
+                case SpawnerType.ItemType.GrowthMushroom:
+                    Debug.Log(m_Animations[0].length);
+                    break;
+                case SpawnerType.ItemType.PopCoin:
+                    ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position /*+ new Vector3(0, 0.16f, 0)*/);
+                    break;
+                default:
+                    break;
+            }
+        }
         m_RenderAnimator.SetTrigger(m_AnimID.Hit);
     }
     public void ReSetTriggerHit()

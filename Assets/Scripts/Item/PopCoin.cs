@@ -22,6 +22,10 @@ public class PopCoin : Item
     // MonoBehaviour
     #region MonoBehaviour
 
+    private void Start()
+    {
+        m_SOGameData.Coin++;
+    }
     #endregion
 
     // Private Method
@@ -33,11 +37,6 @@ public class PopCoin : Item
     #region Public Method
     protected override void doAwake()
     {
-    }
-
-    private void OnDisable()
-    {
-        m_SOGameData.Coin++;
     }
     #endregion
 }

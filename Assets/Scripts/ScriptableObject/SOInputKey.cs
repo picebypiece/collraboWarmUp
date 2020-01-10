@@ -32,7 +32,7 @@ public class SOInputKey : ScriptableObject
     {
         allKeys = new string[]
         {
-            escapeKey, GameUpKey, GameDownKey, GameRightKey, GameLeftKey, JumpKey, DashKey
+            EscapeKey, GameUpKey, GameDownKey, GameRightKey, GameLeftKey, JumpKey, DashKey
         };
     }
 

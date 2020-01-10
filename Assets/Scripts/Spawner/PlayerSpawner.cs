@@ -7,7 +7,7 @@ using UnityEngine;
 // 간단설명 :
 
 
-public class PlayerSpawner : Spawner<SpawnerType.PlayerType, GameObject>,IRegist_Dictionary
+public class PlayerSpawner : Spawner<SpawnerType.PlayerType, GameObject, Transform>,IRegist_Dictionary
 {
     // Variable
     #region Variable
