@@ -88,7 +88,7 @@ public partial class PlayerAction : MonoBehaviour
 
         playerAnimCtrl.AnimEndEvent += AnimEndCall;
 
-        jumpForce = 200f;
+        jumpForce = 220f;
         runSpeed = 1.5f;
         counterForce = 50f;
         counterJumpForce = Vector2.down * counterForce;

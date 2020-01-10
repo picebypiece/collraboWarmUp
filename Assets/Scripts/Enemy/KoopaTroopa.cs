@@ -54,6 +54,7 @@ public class KoopaTroopa : Enemy
     private void Move()
     {
         rbKoopaTroopa.MovePosition((Vector2)transform.position + (moveDirections[(int)nowDir] * moveSpeed * Time.fixedDeltaTime));
+        CheckDirection();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -63,25 +64,10 @@ public class KoopaTroopa : Enemy
         {
             if(col.CompareTag(Common.tagEnemy))
             {
-                var enemy = collision.collider.GetComponent(typeof(Enemy)) as Enemy;
+                var enemy = col.GetComponent(typeof(Enemy)) as Enemy;
                 enemy?.Hit(false, Vector2.zero);
                 return;
             }
-        }
-        if (!change && (col.CompareTag(Common.tagEnvirments) || col.CompareTag(Common.tagEnemy)))
-        {
-            if (nowDir == Direction.Left)
-                SetDirection(Direction.Right);
-            else
-                SetDirection(Direction.Left);
-            change = true;
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (change && (collision.collider.CompareTag(Common.tagEnvirments) || collision.collider.CompareTag(Common.tagEnemy)))
-        {
-            change = false;
         }
     }
     private void SetState(Vector2 hit)
@@ -124,6 +110,22 @@ public class KoopaTroopa : Enemy
         else
             spriteRenderer.flipX = false;
 
+    }
+    private void CheckDirection()
+    {
+        var hit = Physics2D.RaycastAll(transform.position, moveDirections[(int)nowDir], 0.1f);
+        Debug.DrawRay(transform.position, moveDirections[(int)nowDir] * 0.1f, Color.red);
+        for (int i = 0; i < hit.Length; i++)
+        {
+            if (hit[i].transform != this.transform && (hit[i].collider.CompareTag(Common.tagEnvirments) || hit[i].collider.CompareTag(Common.tagEnemy)))
+            {
+
+                if (nowDir == Direction.Left)
+                    nowDir = Direction.Right;
+                else
+                    nowDir = Direction.Left;
+            }
+        }
     }
     #endregion
 
