@@ -19,7 +19,14 @@ public class InvisibleBoxControl : TileObject
             Hit;
     }
     AnimID m_AnimID;
-
+    public struct AnimClipName
+    {
+        public int
+            popUp;
+        public WaitForSeconds
+            popUplength;
+    }
+    AnimClipName m_AnimClipName;
     #endregion
 
     // Property
@@ -41,6 +48,9 @@ public class InvisibleBoxControl : TileObject
     void AnimIDInit()
     {
         m_AnimID.Hit = Animator.StringToHash("Hit");
+
+        m_AnimClipName.popUp = 0;
+        m_AnimClipName.popUplength = new WaitForSeconds(m_Animations[m_AnimClipName.popUp].length);
     }
     #endregion
 
@@ -48,10 +58,37 @@ public class InvisibleBoxControl : TileObject
     #region Public Method
     public override void ActionCall()
     {
+        StartCoroutine(ItemArriveCondition());
+    }
+
+    IEnumerator ItemArriveCondition()
+    {
+        //주머니 큐가 비어있지 않다면,
         if (m_PoketQueue.Count != 0)
         {
-            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position /*+ new Vector3(0, 0.16f, 0)*/) ;
+            //Anim Hit Trigger 동작
             RenderAnimator.SetTrigger(m_AnimID.Hit);
+            //큐의 Out 값 분류
+            switch (m_PoketQueue.Peek())
+            {
+                case SpawnerType.ItemType.Coin:
+                    break;
+                case SpawnerType.ItemType.GrowthMushroom:
+                    yield return m_AnimClipName.popUplength;
+                    break;
+                case SpawnerType.ItemType.PopCoin:
+                    break;
+                default:
+                    break;
+            }
+            //ItemPool에서 Pooling 호출
+            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position /*+ new Vector3(0, 0.16f, 0)*/);
+        }
+        //주머니 큐가 비어있다면
+        if (m_PoketQueue.Count == 0)
+        {
+            //빈상자 Trigger 동작
+            //  RenderAnimator.SetTrigger(m_AnimID.Empty);
         }
     }
     #endregion

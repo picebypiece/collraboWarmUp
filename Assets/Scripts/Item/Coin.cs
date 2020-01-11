@@ -10,7 +10,7 @@ public class Coin : Item
 {
     // Variable
     #region Variable
-        [SerializeField]
+    [SerializeField]
     SOGameData m_SOGameData;
     #endregion
 
@@ -21,12 +21,6 @@ public class Coin : Item
 
     // MonoBehaviour
     #region MonoBehaviour
-
-
-    #endregion
-
-    // Private Method
-    #region Private Method
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag(Common.tagPlayer))
@@ -36,6 +30,12 @@ public class Coin : Item
             gameObject.SetActive(false);
         }
     }
+
+
+    #endregion
+
+    // Private Method
+    #region Private Method
     #endregion
 
     // Protected Method

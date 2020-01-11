@@ -101,6 +101,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
         m_BackGroundRenderController = m_BackGround.GetComponent<BackGroundRenderControl>();
 
         m_MapData = MapData.Instance;
+
         //Map이름을 받아 어떤 맵파일을 가져올지 준비.
         MapData.Instance.FindMapList();
         MapData.Instance.FindMapInfo();

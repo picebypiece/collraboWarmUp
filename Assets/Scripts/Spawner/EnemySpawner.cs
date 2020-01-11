@@ -49,8 +49,6 @@ public class EnemySpawner : Spawner<SpawnerType.EnemyType, GameObject, Transform
         {
             CompareEnumTypeDictionary.Add(f_EnemyType++, SpawnObjectList[EnemyIndex++]);
         }
-        //CompareEnumTypeDictionary.Add(SpawnerType.EnemyType.Goomba, SpawnObjectList[EnemyIndex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.EnemyType.KoopaTroopa, SpawnObjectList[EnemyIndex++]);
     }
 
     public void Contain_Dictionary()

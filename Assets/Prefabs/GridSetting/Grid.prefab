@@ -166,7 +166,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CreateTileMap: {fileID: 2058282242}
   SpawnObjectList:
-  - {fileID: 7343402285217916722, guid: ac5b59533badda24da8099e98721a6f0, type: 3}
   - {fileID: 7343402285217916722, guid: b9c6b4a168d8fde408aefed828404883, type: 3}
   - {fileID: 7343402285217916722, guid: 0c447a0e91193324e9fa11a6bc65761c, type: 3}
   - {fileID: 7343402285217916722, guid: 23b606f084e4ac2468407bf8c3827152, type: 3}
@@ -207,6 +206,7 @@ MonoBehaviour:
   - {fileID: 7343402285217916722, guid: 4f809073bfd4b9e418394b8b07365c6d, type: 3}
   - {fileID: 7343402285217916722, guid: da4088e86c5a9c94bbb4fd00b08e909c, type: 3}
   - {fileID: 7343402285217916722, guid: 60a4cfbc797b5dc43af2285917ce8a5e, type: 3}
+  - {fileID: 7343402285217916722, guid: ac5b59533badda24da8099e98721a6f0, type: 3}
   SpawnObjects: []
 --- !u!114 &1625837273
 MonoBehaviour:
@@ -298,9 +298,6 @@ MonoBehaviour:
   m_ForgroundSpawner: {fileID: 1625837273}
   m_BackGround: {fileID: 2750445711894177753, guid: cc8c4b73ad2fbff49830aeee55634449,
     type: 3}
-  m_TileLayer: {fileID: 2326182967069482448}
-  m_GameObjectLayer: {fileID: 2121886097}
-  m_ForgroundLayer: {fileID: 2885347004904283210}
   m_TileMapLayer:
   - {fileID: 2326182967069482448}
   - {fileID: 289393613586073050}

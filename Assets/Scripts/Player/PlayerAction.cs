@@ -47,7 +47,7 @@ public partial class PlayerAction : MonoBehaviour
     {
         InitData();
     }
-    private void FixedUpdate()
+    private void /*Fixed*/Update()
     {
         if (!action)
             return;

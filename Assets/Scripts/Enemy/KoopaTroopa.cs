@@ -117,7 +117,7 @@ public class KoopaTroopa : Enemy
         Debug.DrawRay(transform.position, moveDirections[(int)nowDir] * 0.1f, Color.red);
         for (int i = 0; i < hit.Length; i++)
         {
-            if (hit[i].transform != this.transform && (hit[i].collider.CompareTag(Common.tagEnvirments) || hit[i].collider.CompareTag(Common.tagEnemy)))
+            if (hit[i].transform != this.transform && (hit[i].collider.CompareTag(Common.tagGround) || hit[i].collider.CompareTag(Common.tagEnemy)))
             {
 
                 if (nowDir == Direction.Left)

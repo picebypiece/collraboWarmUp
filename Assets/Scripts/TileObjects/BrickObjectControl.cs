@@ -16,6 +16,15 @@ public class BrickObjectControl : TileObject
             Hit;
     }
     public AnimID m_AnimID;
+    public struct AnimClipName
+    {
+        public int
+            Hit;
+
+        public WaitForSeconds
+            Hitlength;
+    }
+    AnimClipName m_AnimClipName;
     #endregion
 
     // Property
@@ -33,7 +42,6 @@ public class BrickObjectControl : TileObject
     public override void Awake()
     {
         base.Awake();
-        m_PoketQueue = new Queue<SpawnerType.ItemType>();
         AnimIDInit();
     }
     #endregion
@@ -43,55 +51,53 @@ public class BrickObjectControl : TileObject
     void AnimIDInit()
     {
         m_AnimID.Hit = Animator.StringToHash("Hit");
+
+        m_AnimClipName.Hit = 0;
+        m_AnimClipName.Hitlength = new WaitForSeconds(m_Animations[m_AnimClipName.Hit].length);
     }
     #endregion
 
     // Public Method
     #region Public Method
-    void PoketCheck()
-    {
-        if (m_PoketQueue.Count != 0)
-        {
-            switch (m_PoketQueue.Peek())
-            {
-                case SpawnerType.ItemType.Coin:
-                    break;
-                case SpawnerType.ItemType.GrowthMushroom:
-                    //m_Animations[0]
-                    break;
-                case SpawnerType.ItemType.PopCoin:
-                    ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position /*+ new Vector3(0, 0.16f, 0)*/);
-                    m_RenderAnimator.SetTrigger(m_AnimID.Hit);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
     public override void ActionCall()
     {
-        if (m_PoketQueue.Count != 0)
-        {
-            switch (m_PoketQueue.Peek())
-            {
-                case SpawnerType.ItemType.Coin:
-                    break;
-                case SpawnerType.ItemType.GrowthMushroom:
-                    Debug.Log(m_Animations[0].length);
-                    break;
-                case SpawnerType.ItemType.PopCoin:
-                    ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position /*+ new Vector3(0, 0.16f, 0)*/);
-                    break;
-                default:
-                    break;
-            }
-        }
-        m_RenderAnimator.SetTrigger(m_AnimID.Hit);
+        StartCoroutine(ItemArriveCondition());
     }
     public void ReSetTriggerHit()
     {
         RenderAnimator.ResetTrigger(m_AnimID.Hit);
     }
+
+    IEnumerator ItemArriveCondition()
+    {
+        //주머니 큐가 비어있지 않다면,
+        if (m_PoketQueue.Count != 0)
+        {
+            //Hit Trigger 동작
+            m_RenderAnimator.SetTrigger(m_AnimID.Hit);
+            //큐의 Out 값 분류
+            switch (m_PoketQueue.Peek())
+            {
+                case SpawnerType.ItemType.Coin:
+                    break;
+                case SpawnerType.ItemType.GrowthMushroom:
+                    yield return m_AnimClipName.Hitlength;
+                    break;
+                case SpawnerType.ItemType.PopCoin:
+                    break;
+                default:
+                    break;
+            }
+            //ItemPool에서 Pooling 호출
+            ItemSpawner.Instance.Pooling(1, m_PoketQueue.Dequeue(), this.transform.position /*+ new Vector3(0, 0.16f, 0)*/);
+        }
+        //주머니 큐가 비어있다면
+        else if (m_PoketQueue.Count == 0)
+        {
+            m_RenderAnimator.SetTrigger(m_AnimID.Hit);
+        }
+    }
+
     #endregion
 
 

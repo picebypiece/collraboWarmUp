@@ -9,6 +9,7 @@ TagManager:
   - Box
   - Ground
   - Item
+  - Camera
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Enemy
   - Envirments
   - Item
-  - 
+  - Camera
   - 
   - 
   - 

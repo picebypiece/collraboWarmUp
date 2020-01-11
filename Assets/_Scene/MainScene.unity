@@ -187,6 +187,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 8274725096233819879, guid: a940b6250f2a1994ca634300e3d9750b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a940b6250f2a1994ca634300e3d9750b, type: 3}
 --- !u!1 &1727160998
