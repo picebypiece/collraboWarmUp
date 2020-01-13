@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1542756227019710939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7558081369959352621}
+  m_Layer: 0
+  m_Name: OnableStartRayPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7558081369959352621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542756227019710939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5, y: -1.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1228472722298217653}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2943062497224918393
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 2943062497224918391}
+  CameraWidthHeight: {x: 5, y: 2.5}
 --- !u!1 &4383972390407217255
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,9 +140,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1869732558850597237}
   m_Layer: 12
-  m_Name: StartRayPos
+  m_Name: DisableStartRayPos
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -123,7 +154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4383972390407217255}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.83, y: -1.2, z: 0}
+  m_LocalPosition: {x: -2.8, y: -1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4594211215995795607}
@@ -157,7 +188,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7558081369959352621}
   m_Father: {fileID: 2943062497224918390}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -173,6 +205,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b27183ea7df3e4293c608ec365971c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RayDistance:
+  - 2.5
+  m_OriginTransfrom:
+  - {fileID: 7558081369959352621}
+  m_Camera: {fileID: 2943062497224918391}
 --- !u!61 &7115412332899298735
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -180,7 +217,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5176349855369902313}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

@@ -13,6 +13,8 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField]
     Camera m_Camera;
     private Transform player = null;
+    [SerializeField]
+    Vector2 CameraWidthHeight;
     #endregion
 
     // Property
@@ -22,17 +24,25 @@ public class PlayerCamera : MonoBehaviour
 
     // MonoBehaviour
     #region MonoBehaviour
+    private void Awake()
+    {
+        m_Camera.orthographic = true;
+        m_Camera.orthographicSize = 1.2f;
+        CameraWidthHeight.y = 2 * m_Camera.orthographicSize;
+        CameraWidthHeight.x = CameraWidthHeight.y * m_Camera.aspect;
+    }
+    private void Start()
+    {
+        FirstCameraRender();
+    }
 
-    //private void Awake()
-    //{
-    //    Ray f_ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-    //    RaycastHit2D f_hit = Physics2D.Raycast(this.transform.position, -Vector2.up);
-
-    //    if (f_hit.collider != null)
-    //    {
-    //        f_hit.collider.gameObject.GetComponent<TileObject>().Renderer.enabled = true;
-    //    }
-    //}
+    #if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(this.transform.position, CameraWidthHeight);
+    }
+    #endif
 
     private void LateUpdate()
     {
@@ -58,15 +68,43 @@ public class PlayerCamera : MonoBehaviour
 
     // Private Method
     #region Private Method
+    /// <summary>
+    /// 최초 카메라 렌더링
+    /// </summary>
+    void FirstCameraRender()
+    {
+        Collider2D[] CameraBoxHit = Physics2D.OverlapBoxAll(this.transform.position, CameraWidthHeight, 0);
 
-    #endregion
+        if (CameraBoxHit != null)
+        {
+            foreach (var Object in CameraBoxHit)
+            {
+                Collider2D f_Collider2D = Object;
+                if (!f_Collider2D.CompareTag(Common.tagGround) && !f_Collider2D.CompareTag(Common.tagCamera))
+                {
+                    GameObject f_GameObject = f_Collider2D.gameObject;
+
+                    if (f_GameObject.CompareTag(Common.tagEnvirments))
+                    {
+                        f_GameObject.GetComponent<TileObject>().Renderer.enabled = true;
+                    }
+                    else if (f_GameObject.CompareTag(Common.tagEnemy))
+                    {
+                        f_GameObject.GetComponent<Enemy>().Property_SpriteRenderer.enabled = true;
+                        f_GameObject.GetComponent<Enemy>().enabled = true;
+                    }
+                }
+            }
+        }
+    }
+#endregion
 
     // Public Method
-    #region Public Method
+#region Public Method
 
     public void SetPlayer(Transform player)
     {
         this.player = player;
     }
-    #endregion
+#endregion
 }

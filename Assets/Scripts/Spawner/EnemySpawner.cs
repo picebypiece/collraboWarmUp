@@ -36,8 +36,9 @@ public class EnemySpawner : Spawner<SpawnerType.EnemyType, GameObject, Transform
         
         var f_tempTileObject = f_gameObject.GetComponent<Enemy>();
 
+        //f_gameObject.SetActive(false);
         f_tempTileObject.Property_SpriteRenderer.enabled = false;
-
+        f_tempTileObject.enabled = false;
         SpawnObjects.Add(f_gameObject);
     }
 
