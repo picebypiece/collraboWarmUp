@@ -32,7 +32,7 @@ public partial class PlayerAction : MonoBehaviour
     private bool isBoxHit = false;
     private bool ignoreMoveForce = false;
     private int layerMask;
-
+    
 
     #endregion
 
@@ -47,12 +47,11 @@ public partial class PlayerAction : MonoBehaviour
     {
         InitData();
     }
-    private void /*Fixed*/Update()
+    private void FixedUpdate()
     {
         if (!action)
             return;
         Move();
-        //CheckHorizontal();
         CheckGround();
 
         
@@ -82,7 +81,7 @@ public partial class PlayerAction : MonoBehaviour
     private void InitData()
     {
         playerRigidbody = GetComponent(typeof(Rigidbody2D)) as Rigidbody2D;
-
+        
         if (playerAnimCtrl != null)
             playerAnimCtrl.SetMarioSize(MarioSize.Child);
 
@@ -157,7 +156,7 @@ public partial class PlayerAction : MonoBehaviour
                 break;
             case PlayerAnimCtrl.AnimKind.Hit:
                 action = true;
-                SetIgnoreCollision(false, Common.layerEnemy);
+                StartCoroutine(Invincibility());
                 break;
         }
     }
@@ -169,6 +168,20 @@ public partial class PlayerAction : MonoBehaviour
         playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Jump,false);
         isGrounded = true;
         isJumping = false;
+    }
+
+    private IEnumerator Invincibility()
+    {
+        int count = 0;
+        while(count < 5)
+        {
+            yield return new WaitForSeconds(0.15f);
+            playerAnimCtrl.SetAlpha(0);
+            yield return new WaitForSeconds(0.15f);
+            playerAnimCtrl.SetAlpha(1);
+            count++;
+        }
+        SetIgnoreCollision(false, Common.layerEnemy);
     }
     #endregion
 

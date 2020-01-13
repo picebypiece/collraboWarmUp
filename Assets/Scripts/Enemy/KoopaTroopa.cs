@@ -121,9 +121,9 @@ public class KoopaTroopa : Enemy
             {
 
                 if (nowDir == Direction.Left)
-                    nowDir = Direction.Right;
+                    SetDirection(Direction.Right);
                 else
-                    nowDir = Direction.Left;
+                    SetDirection(Direction.Left);
             }
         }
     }

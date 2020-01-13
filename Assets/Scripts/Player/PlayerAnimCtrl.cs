@@ -47,6 +47,7 @@ public class PlayerAnimCtrl : MonoBehaviour
     public delegate void AnimEnd(AnimKind eventAnim);
     public event AnimEnd AnimEndEvent;
 
+
     #endregion
 
     // Property
@@ -59,9 +60,6 @@ public class PlayerAnimCtrl : MonoBehaviour
 
     // MonoBehaviour
     #region MonoBehaviour
-    private void Awake()
-    {
-    }
     #endregion
 
     // Private Method
@@ -156,6 +154,11 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         if (cntRenderer.flipX != val)
             cntRenderer.flipX = val;
+    }
+    public void SetAlpha(float val)
+    {
+        Color color = cntRenderer.color;
+        cntRenderer.color = new Color(color.r, color.g, color.b, val);
     }
     #endregion
 }
