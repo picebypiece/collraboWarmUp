@@ -85,8 +85,8 @@ public class Goomba : Enemy
     public override void Init(Direction direction)
     {
         nowDir = direction;
-        colGoomba.enabled = true;
-        animator.enabled = true;
+        //colGoomba.enabled = true;
+        //animator.enabled = true;
     }
 
     /// <summary>

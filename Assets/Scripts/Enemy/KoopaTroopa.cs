@@ -166,8 +166,8 @@ public class KoopaTroopa : Enemy
     {
         SetDirection(direction);
         state = State.Normal;
-        colKoopaTroopa.enabled = true;
-        animator.enabled = true;
+        //colKoopaTroopa.enabled = true;
+        //animator.enabled = true;
     }
 
     public override void Stop()

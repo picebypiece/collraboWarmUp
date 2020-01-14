@@ -27,9 +27,20 @@ abstract public class Spawner<TEnum, TSpawnType, TSpawnPos> : SingletonMono<Spaw
     [SerializeField]
     protected EnumDictionary<TEnum, TSpawnType> CompareEnumTypeDictionary;
 
+    /// <summary>
+    /// EnumDictionary<TEnum, TSpawnType> Get 프로퍼티 
+    /// </summary>
     public EnumDictionary<TEnum, TSpawnType> Get_CompareEnumTypeDictionary
     {
         get => CompareEnumTypeDictionary;
+    }
+
+    /// <summary>
+    /// List<TSpawnType> Get 프로퍼티
+    /// </summary>
+    public List<TSpawnType> Get_SpawnObjects
+    {
+        get => SpawnObjects;
     }
 
     /// <summary>

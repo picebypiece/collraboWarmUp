@@ -95,38 +95,9 @@ abstract public class TileObject : MonoBehaviour
     virtual public void Initialized(int _row, int _Cloum)
     {
         this.Vector2Pos = new TilePos(_row, _Cloum);
-        TileInfoSet();
     }
 
-    /// <summary>
-    /// TileOjbect에 추가로 필요한 정보 입력
-    /// </summary>
-    virtual public void TileInfoSet()
-    {
-        //TileMatrixInfo 에 적혀있는 TileObject의 행 값을 담은 임시변수
-        string[] tempstring = MapData.Instance.TileMatrixInfo[m_ProcessionVector2.colum];
-        //정수형으로 받아와진 데이터를 담기 위해 임시변수
-        int f_parserNum;
-
-        //정보가 숫자로 변환된다면(숫자라면) 타일의 주머니에 동전을 숫자만큼 넣기 위해 작성
-        if (int.TryParse(tempstring[m_ProcessionVector2.row], out f_parserNum))
-        {
-            for (int i_coin = 0; i_coin < f_parserNum; i_coin++)
-            {
-                this.GetComponent<TileObject>().PoketQueue.Enqueue(SpawnerType.ItemType.PopCoin);
-            }
-        }
-        //문자열 정보에 맞춰 해당 타일의 주머니에 Item 넣기
-        else
-        {
-            SpawnerType.ItemType f_ItemType;
-            if (Enum.TryParse<SpawnerType.ItemType>(tempstring[m_ProcessionVector2.row], out f_ItemType))
-            {
-                this.GetComponent<TileObject>().PoketQueue.Enqueue(f_ItemType);
-            }
-        }
-
-    }
+   
 
 
     #endregion
