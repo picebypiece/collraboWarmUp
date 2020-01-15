@@ -23,7 +23,7 @@ public abstract class Enemy : MonoBehaviour
     protected SpriteRenderer spriteRenderer = null;
     [SerializeField]
     protected Animator animator = null;
-
+    [SerializeField]
     protected Direction nowDir = Direction.Left;
     protected Vector2[] moveDirections =
     {

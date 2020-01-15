@@ -54,12 +54,6 @@ public class ForgroundSpawner : Spawner<SpawnerType.ForegroundType, Tile, Tilema
         {
             CompareEnumTypeDictionary.Add(f_ForegroundType++, SpawnObjectList[Tileindex++]);
         }
-        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.FlagBody, SpawnObjectList[Tileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.FlagTop, SpawnObjectList[Tileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.CalseFlag, SpawnObjectList[Tileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.CalseTop, SpawnObjectList[Tileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.Calse, SpawnObjectList[Tileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ForegroundType.CalseDoor, SpawnObjectList[Tileindex++]);
     }
 
     #endregion

@@ -44,8 +44,6 @@ public class TileSpawner : Spawner<SpawnerType.TileType, Tile, Tilemap>,IRegist_
         {
             CompareEnumTypeDictionary.Add(f_TileType++, SpawnObjectList[Tileindex++]);
         }
-        //CompareEnumTypeDictionary.Add(SpawnerType.TileType.Ground, SpawnObjectList[Tileindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.TileType.Stair, SpawnObjectList[Tileindex++]);
     }
 
     public void Contain_Dictionary()

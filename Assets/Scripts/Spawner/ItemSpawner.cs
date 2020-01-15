@@ -87,9 +87,6 @@ public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject,Transform>, 
         {
             CompareEnumTypeDictionary.Add(f_ItemType++, SpawnObjectList[Itemindex++]);
         }
-        //CompareEnumTypeDictionary.Add(SpawnerType.ItemType.Coin, SpawnObjectList[Itemindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ItemType.GrowthMushroom, SpawnObjectList[Itemindex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.ItemType.PopCoin, SpawnObjectList[Itemindex++]);
     }
 
     public void Contain_Dictionary()

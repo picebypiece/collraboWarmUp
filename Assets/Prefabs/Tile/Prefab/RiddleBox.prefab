@@ -126,7 +126,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6412980229837139646}
   - component: {fileID: 775914251129828027}
-  - component: {fileID: 5091565881371323097}
   - component: {fileID: 7293150958006961954}
   m_Layer: 10
   m_Name: RiddleBox
@@ -176,27 +175,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
---- !u!50 &5091565881371323097
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7343402285217916722}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &7293150958006961954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,13 +187,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171a54b6bd20fc34fae971292b637d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SettingPos: {x: 0, y: 0, z: 0}
+  m_ProcessionVector2:
+    row: 0
+    colum: 0
+  m_Renderer: {fileID: 6198133342693676155}
   m_Animations:
   - {fileID: 7400000, guid: 5d1e08281508b2e4d9a5ccf9948b08e4, type: 2}
   - {fileID: 7400000, guid: 0bbde8a4bcefaa346abb9f40a73a598a, type: 2}
   - {fileID: 7400000, guid: 44ddb03ca7dd14c4aac12342a458d886, type: 2}
-  m_Renderer: {fileID: 6198133342693676155}
-  SettingPos: {x: 0, y: 0, z: 0}
-  m_Vector2Pos:
-    row: 0
-    colum: 0
   RenderAnimator: {fileID: 1177096340880768882}

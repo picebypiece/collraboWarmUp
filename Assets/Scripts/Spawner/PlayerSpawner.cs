@@ -46,8 +46,6 @@ public class PlayerSpawner : Spawner<SpawnerType.PlayerType, GameObject, Transfo
         {
             CompareEnumTypeDictionary.Add(f_PlayerType++, SpawnObjectList[playerIndex++]);
         }
-        //CompareEnumTypeDictionary.Add(SpawnerType.PlayerType.Player, SpawnObjectList[playerIndex++]);
-        //CompareEnumTypeDictionary.Add(SpawnerType.PlayerType.Mario, SpawnObjectList[playerIndex++]);
     }
 
     public void Contain_Dictionary()

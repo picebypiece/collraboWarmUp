@@ -41,28 +41,17 @@ public partial class PlayerAction
 
         if (hit != null)
         {
-                isBoxHit = false;
-                if (!isGrounded/* && playerRigidbody.velocity == Vector2.zero*/)
-                {
-                    InitJump();
-                }
+            isBoxHit = false;
+            if (!isGrounded/* && playerRigidbody.velocity == Vector2.zero*/)
+            {
+                InitJump();
+            }
+        }
+        else
+        {
+            Jump(false);
         }
     }
-
-    private void CheckHorizontal()
-    {
-        //var hit = Physics2D.Raycast(transform.position + new Vector3(0,0.15f,0) , Vector2.right, 0.08f,LayerMask.NameToLayer("Water"));
-        //Debug.DrawRay(transform.position + new Vector3(0, 0.15f, 0), Vector2.right, Color.red, 0.08f);
-        //    //IsTouchingLayers(GetComponentInChildren<BoxCollider2D>(), LayerMask.NameToLayer("Water"));
-        //if (hit.collider != null )
-        //{
-        //    Debug.Log("asfasfas");
-        //    ignoreMoveForce = true;
-        //}
-        //else
-        //    ignoreMoveForce = false;
-    }
-
     /// <summary>
     /// 적한테 맞았을때
     /// </summary>
@@ -142,9 +131,16 @@ public partial class PlayerAction
         switch (collision.tag)
         {
             case Common.tagItem:
-                action = false;
-                SetIgnoreCollision(true,Common.layerEnemy);
-                playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Growth);
+                switch (playerAnimCtrl.marioSize)
+                {
+                    case MarioSize.Child:
+                        action = false;
+                        SetIgnoreCollision(true, Common.layerEnemy);
+                        playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Growth);
+                        break;
+                    case MarioSize.Adult:
+                        break;
+                }
 
                 break;
         }

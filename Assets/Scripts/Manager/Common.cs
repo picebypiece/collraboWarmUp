@@ -17,6 +17,7 @@ public static class Common
     public const string tagEnemy = "Enemy";
     public const string tagItem = "Item";
     public const string tagPlayer = "Player";
+    public const string tagCamera = "Camera";
 
     // 레이어
     public const string layerPlayer = "Player";
@@ -54,11 +55,26 @@ public struct TilePos
         colum = c;
     }
 }
+
+/// <summary>
+/// 딕셔너리 등록시 필요할 메소드들을 한번에 정의 한 인터페이스
+/// </summary>
 public interface IRegist_Dictionary
 {
+    /// <summary>
+    /// 딕셔너리 초기화
+    /// </summary>
     void Dictionary_Init();
+    /// <summary>
+    /// 딕셔너리 추가
+    /// </summary>
     void Contain_Dictionary();
 }
+
+
+/// <summary>
+/// Spawner의 Type 모음
+/// </summary>
 namespace SpawnerType
 {
     public enum TileType
@@ -71,11 +87,11 @@ namespace SpawnerType
     }
     public enum ObjectTileType
     {
-        Flag, Brick, RiddleBox, PipeDoorLeft, PipeDoorRight, InvisibleBox
+        Brick, RiddleBox, PipeDoorLeft, PipeDoorRight, InvisibleBox
     }
     public enum ItemType
     {
-        Coin, GrowthMushroom, PopCoin//, LifeMushroom, Flower
+        Coin, GrowthMushroom, PopCoin, Flag
     }
     public enum PlayerType
     {

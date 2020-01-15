@@ -193,9 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e0fb4d01309ae4aa8187ceef6f46a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Renderer: {fileID: 6198133342693676155}
   SettingPos: {x: 0, y: 0, z: 0}
-  m_Vector2Pos:
+  m_ProcessionVector2:
     row: 0
     colum: 0
+  m_Renderer: {fileID: 6198133342693676155}
+  m_Animations:
+  - {fileID: 7400000, guid: 195c7642afdf430408cd61890de10b5b, type: 2}
   RenderAnimator: {fileID: 4045049560291754246}

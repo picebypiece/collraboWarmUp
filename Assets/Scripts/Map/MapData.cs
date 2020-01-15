@@ -95,7 +95,7 @@ public class MapData :SingletonManager<MapData>, IDisposable
     /// <summary>
     /// MapList가 담긴 파일 위치를 찾아 읽어오기(인자값에 List<string>으로 MapList 가져올것)
     /// </summary>
-    /// <param name="_MapNameList"></param>
+    /// <param name="_MapNameList">MapList</param>
     public void FindMapList(ref List<string> _MapNameList)
     {
         m_fileFinder.FileName2List(FilePath.ExternalMapDataPath, ".csv", ref _MapNameList);
@@ -109,6 +109,9 @@ public class MapData :SingletonManager<MapData>, IDisposable
 #endif
     }
 
+    /// <summary>
+    /// MapInfo가 담김 파일 위치를 찾아 읽어오기(MapDataClass's  m_MapInfoList으로 가져올것)
+    /// </summary>
     public void FindMapInfo()
     {
         m_fileFinder.FileName2List(FilePath.ExternalMapInfoPath, ".csv", ref m_MapInfoList);
@@ -121,7 +124,10 @@ public class MapData :SingletonManager<MapData>, IDisposable
         Debug.Log("맵정보 읽어오기 <b><color=Green>Complete</color></b>");
 #endif
     }
-
+    /// <summary>
+    /// MapInfo가 담긴 파일 위치를 찾아 읽어오기(인자값에 List<string>으로 MapInfo 가져올것)
+    /// </summary>
+    /// <param name="_MapInfoList"></param>
     public void FindMapInfo(ref List<string> _MapInfoList)
     {
         m_fileFinder.FileName2List(FilePath.ExternalMapInfoPath, ".csv", ref _MapInfoList);
