@@ -8,24 +8,36 @@ using UnityEngine;
 
 public class GameManger : SingletonMono<GameManger>
 {
+    
     // Variable
     #region Variable
-    
+    public StageData stageData = null;
+
+
     #endregion
-    
+
     // Property
     #region Property
-    
+    static public StageData StageData
+    {
+        get
+        {
+            return Instance.stageData;
+        }
+    }
     #endregion
 
     // MonoBehaviour
     #region MonoBehaviour
-    
+    private void Awake()
+    {
+        stageData = new StageData();
+    }
     #endregion
 
     // Private Method
     #region Private Method
-    
+
     #endregion
 
     // Public Method

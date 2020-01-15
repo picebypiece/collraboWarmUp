@@ -11,7 +11,7 @@ public class Coin : Item
     // Variable
     #region Variable
         [SerializeField]
-    SOGameData m_SOGameData;
+    StageData m_GameData;
     #endregion
 
     // Property
@@ -21,7 +21,10 @@ public class Coin : Item
 
     // MonoBehaviour
     #region MonoBehaviour
-
+    private void Awake()
+    {
+        m_GameData = GameManger.StageData;
+    }
 
     #endregion
 
@@ -32,7 +35,7 @@ public class Coin : Item
         if(collision.CompareTag(Common.tagPlayer))
         {
             // GetScore
-            m_SOGameData.Coin++;
+            m_GameData.Coin++;
             gameObject.SetActive(false);
         }
     }

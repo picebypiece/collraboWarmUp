@@ -31,8 +31,16 @@ public static class Common
 
     // Public Method
     #region Public Method
-        
+
     #endregion
+}
+
+public class SceneName
+{
+    public const string Title = "SceneTitle";
+    public const string Stage = "SceneStage";
+    public const string Option = "SceneOption";
+    public const string StageUI = "StageUI";
 }
 
 

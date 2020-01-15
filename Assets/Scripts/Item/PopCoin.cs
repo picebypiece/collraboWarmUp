@@ -10,8 +10,7 @@ public class PopCoin : Item
 {
     // Variable
     #region Variable
-        [SerializeField]
-    SOGameData m_SOGameData;
+    StageData m_GameData;
     #endregion
 
     // Property
@@ -24,7 +23,8 @@ public class PopCoin : Item
 
     private void Start()
     {
-        m_SOGameData.Coin++;
+        m_GameData = GameManger.StageData;
+        m_GameData.Coin++;
     }
     #endregion
 
