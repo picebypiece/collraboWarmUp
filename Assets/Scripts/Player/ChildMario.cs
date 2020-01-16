@@ -10,8 +10,6 @@ public class ChildMario : MonoBehaviour
 {
     // Variable
     #region Variable
-    [SerializeField]
-    GameObject m_TopBody;
     #endregion
 
     // Property
@@ -27,7 +25,7 @@ public class ChildMario : MonoBehaviour
     }
     private void OnDisable()
     {
-        m_TopBody.SetActive(false);
+        
     }
     #endregion
 

@@ -62,6 +62,10 @@ public class DeathLineController : MonoBehaviour
             {
                 if (!Object.collider.CompareTag(Common.tagGround) && !Object.collider.CompareTag(Common.tagCamera))
                 {
+                    if (Object.collider.CompareTag(Common.tagPlayer))
+                    {
+                        Object.collider.gameObject.transform.parent.gameObject.SetActive(false);
+                    }
                     Object.collider.gameObject.SetActive(false);
                 }
             }

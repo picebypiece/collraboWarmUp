@@ -21,18 +21,10 @@ public class Coin : Item
 
     // MonoBehaviour
     #region MonoBehaviour
-<<<<<<< HEAD
     private void Awake()
     {
         m_GameData = GameManger.StageData;
     }
-
-    #endregion
-
-    // Private Method
-    #region Private Method
-=======
->>>>>>> 0aaee1d7b6814c95a29362b4b1d2dc6a1d5f2cf5
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag(Common.tagPlayer))
@@ -42,8 +34,10 @@ public class Coin : Item
             gameObject.SetActive(false);
         }
     }
+    #endregion
 
-
+    // Private Method
+    #region Private Method
     #endregion
 
     // Private Method
@@ -57,6 +51,7 @@ public class Coin : Item
         
     }
     #endregion
+
     // Public Method
     #region Public Method
 

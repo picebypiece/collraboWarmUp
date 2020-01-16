@@ -301,6 +301,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RayDistance:
   - 2.5
-  - 5
+  - 7
   m_OriginTransfrom:
   - {fileID: 1869732558850597237}

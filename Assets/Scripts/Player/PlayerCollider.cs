@@ -52,27 +52,6 @@ public partial class PlayerAction
         }
     }
     /// <summary>
-    /// 적한테 맞았을때
-    /// </summary>
-    private void Hit()
-    {
-        action = false;
-        switch (playerAnimCtrl.marioSize)
-        {
-            case MarioSize.Child:
-                SetIgnoreCollision(true, Common.layerEnemy, Common.layerEnvirments);
-                playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Death);
-                Jump(true);
-                StartCoroutine(DelaySetActiveFalseGameObject());
-                break;
-            case MarioSize.Adult:
-                SetIgnoreCollision(true, Common.layerEnemy);
-                playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Hit);
-                break;
-        }
-    }
-
-    /// <summary>
     /// 충돌무시 레이어 설정
     /// </summary>
     /// <param name="val"></param>
@@ -82,6 +61,27 @@ public partial class PlayerAction
         for (int i = 0; i < LayerName.Length; ++i)
         {
             Physics2D.IgnoreLayerCollision(player, LayerMask.NameToLayer(LayerName[i]), val);
+        }
+    }
+
+    /// <summary>
+    /// 적한테 맞았을때
+    /// </summary>
+    private void Hit()
+    {
+        action = false;
+        switch (playerAnimCtrl.marioSize)
+        {
+            case MarioSize.Child:
+                SetIgnoreCollision(true, Common.layerEnemy, Common.layerEnvirments);
+                playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Death);
+                Jump(true);
+                StartCoroutine(DelaySetActiveFalseGameObject());
+                break;
+            case MarioSize.Adult:
+                SetIgnoreCollision(true, Common.layerEnemy);
+                playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Hit);
+                break;
         }
     }
 
@@ -144,12 +144,10 @@ public partial class PlayerAction
                 break;
         }
     }
-
-
     #endregion
 
     // Public Method
     #region Public Method
-
+   
     #endregion
 }
