@@ -67,6 +67,7 @@ public class Goomba : Enemy
     // Protected Method
     #region Protected Method
     protected override void DoAwake() {
+        base.DoAwake();
         rbGoomba = GetComponent(typeof(Rigidbody2D)) as Rigidbody2D;
         colGoomba = GetComponent(typeof(BoxCollider2D)) as BoxCollider2D;
     }
@@ -77,6 +78,7 @@ public class Goomba : Enemy
         animator.enabled = false;
 
         rbGoomba.AddForce(Vector2.up * deathForce, ForceMode2D.Force);
+        StartCoroutine(DelayFalseGameObject());
     }
     #endregion
 
@@ -85,8 +87,6 @@ public class Goomba : Enemy
     public override void Init(Direction direction)
     {
         nowDir = direction;
-        //colGoomba.enabled = true;
-        //animator.enabled = true;
     }
 
     /// <summary>

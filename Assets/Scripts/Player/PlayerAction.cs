@@ -19,6 +19,9 @@ public partial class PlayerAction : MonoBehaviour
     private LayerMask overlapCheckLayer;
     [SerializeField]
     private Vector2 overlapBoxSize;
+    [SerializeField]
+    protected float DelayActiveFalseValue;
+    WaitForSeconds DelayActiveFalse;
 
     private Rigidbody2D playerRigidbody = null;
     private float jumpForce; // 점프 힘
@@ -81,7 +84,7 @@ public partial class PlayerAction : MonoBehaviour
     private void InitData()
     {
         playerRigidbody = GetComponent(typeof(Rigidbody2D)) as Rigidbody2D;
-        
+
         if (playerAnimCtrl != null)
             playerAnimCtrl.SetMarioSize(MarioSize.Child);
 
@@ -95,13 +98,14 @@ public partial class PlayerAction : MonoBehaviour
         isGrounded = false;
         isJumping = false;
 
+        DelayActiveFalse = new WaitForSeconds(DelayActiveFalseValue);
+
     }
     /// <summary>
     /// 움직이기
     /// </summary>
     private void Move()
     {
-
         if (playerInput.move > 0)
         {
             playerAnimCtrl.SetFlipX(false);
@@ -182,6 +186,16 @@ public partial class PlayerAction : MonoBehaviour
             count++;
         }
         SetIgnoreCollision(false, Common.layerEnemy);
+    }
+
+    /// <summary>
+    /// Player Game
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator DelaySetActiveFalseGameObject()
+    {
+        yield return DelayActiveFalse;
+        this.gameObject.SetActive(false);
     }
     #endregion
 

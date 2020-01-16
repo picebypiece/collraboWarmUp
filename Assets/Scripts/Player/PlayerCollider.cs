@@ -20,7 +20,6 @@ public partial class PlayerAction
 
     // MonoBehaviour
     #region MonoBehaviour
-
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, overlapBoxSize);
@@ -64,6 +63,7 @@ public partial class PlayerAction
                 SetIgnoreCollision(true, Common.layerEnemy, Common.layerEnvirments);
                 playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Death);
                 Jump(true);
+                StartCoroutine(DelaySetActiveFalseGameObject());
                 break;
             case MarioSize.Adult:
                 SetIgnoreCollision(true, Common.layerEnemy);
@@ -84,7 +84,6 @@ public partial class PlayerAction
             Physics2D.IgnoreLayerCollision(player, LayerMask.NameToLayer(LayerName[i]), val);
         }
     }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -145,6 +144,8 @@ public partial class PlayerAction
                 break;
         }
     }
+
+
     #endregion
 
     // Public Method

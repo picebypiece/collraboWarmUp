@@ -195,6 +195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.3
+  DelayActiveFalseValue: 1
   spriteRenderer: {fileID: 885035517945746754}
   animator: {fileID: 3263218694221312114}
+  nowDir: 0
   spHit: {fileID: 8437687605169689905, guid: 80e5214ff62b8bc4ebb114f1e2864ae9, type: 3}

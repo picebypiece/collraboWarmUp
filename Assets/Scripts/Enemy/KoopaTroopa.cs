@@ -38,7 +38,10 @@ public class KoopaTroopa : Enemy
 
     // MonoBehaviour
     #region MonoBehaviour
-
+    private void Awake()
+    {
+        DoAwake();
+    }
     private void FixedUpdate()
     {
         if (move)
@@ -133,6 +136,7 @@ public class KoopaTroopa : Enemy
     #region Protected Method
     protected override void DoAwake()
     {
+        base.DoAwake();
         rbKoopaTroopa = GetComponent(typeof(Rigidbody2D)) as Rigidbody2D;
         colKoopaTroopa = GetComponent(typeof(BoxCollider2D)) as BoxCollider2D;
     }
@@ -143,6 +147,7 @@ public class KoopaTroopa : Enemy
         animator.enabled = false;
 
         rbKoopaTroopa.AddForce(Vector2.up * deathForce, ForceMode2D.Force);
+        StartCoroutine(DelayFalseGameObject()); 
     }
     #endregion
 

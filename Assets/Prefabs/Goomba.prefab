@@ -94,9 +94,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.3
+  DelayActiveFalseValue: 1
   spriteRenderer: {fileID: 9077543124422129373}
   animator: {fileID: 5814400567626850152}
+  nowDir: 0
   spDeath: {fileID: 6955017614301310126, guid: cf87358665e55c14c863a58b4c7fecd3, type: 3}
+  change: 0
+  move: 1
 --- !u!1 &9077543124422129363
 GameObject:
   m_ObjectHideFlags: 0

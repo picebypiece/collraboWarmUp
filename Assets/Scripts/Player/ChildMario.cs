@@ -10,26 +10,34 @@ public class ChildMario : MonoBehaviour
 {
     // Variable
     #region Variable
-    
+    [SerializeField]
+    GameObject m_TopBody;
     #endregion
-    
+
     // Property
     #region Property
-    
+
     #endregion
 
     // MonoBehaviour
     #region MonoBehaviour
-    
+    private void OnEnable()
+    {
+
+    }
+    private void OnDisable()
+    {
+        m_TopBody.SetActive(false);
+    }
     #endregion
 
     // Private Method
     #region Private Method
-    
+
     #endregion
 
     // Public Method
     #region Public Method
-    
+
     #endregion
 }

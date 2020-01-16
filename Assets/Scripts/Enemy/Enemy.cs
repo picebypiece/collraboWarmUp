@@ -18,7 +18,9 @@ public abstract class Enemy : MonoBehaviour
     [Header("Enemy")]
     [SerializeField]
     protected float moveSpeed = 0f;
-
+    [SerializeField]
+    protected float DelayActiveFalseValue;
+    WaitForSeconds DelayActiveFalse;
     [SerializeField]
     protected SpriteRenderer spriteRenderer = null;
     [SerializeField]
@@ -57,8 +59,17 @@ public abstract class Enemy : MonoBehaviour
 
     // Protected Method
     #region Protected Method
-    protected virtual void DoAwake() { }
+    protected virtual void DoAwake() 
+    {
+        DelayActiveFalse = new WaitForSeconds(DelayActiveFalseValue);
+    }
     protected abstract void Death();
+
+    protected IEnumerator DelayFalseGameObject()
+    {
+        yield return DelayActiveFalse;
+        this.gameObject.SetActive(false);
+    }
     #endregion
 
     // Public Method
