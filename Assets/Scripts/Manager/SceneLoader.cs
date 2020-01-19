@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 // 작성자  : 최태욱
 // 간단설명 : 씬 로드 관리
 
-public class SceneLoader : SingletonManager<SceneLoader>
+public class SceneLoader : SingletonMono<SceneLoader>
 {
 
     // Variable
@@ -27,6 +27,7 @@ public class SceneLoader : SingletonManager<SceneLoader>
     {
         CurrentScene = PrevScene = SceneManager.GetActiveScene();
         SceneManager.sceneLoaded += SceneLoaded;
+        DontDestroyOnLoad(this);
     }
 
     void OnDestroy()

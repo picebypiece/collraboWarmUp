@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // 작성일자 : 2020-01-13-PM-8-39
 // 작성자   : 최태욱
 // 간단설명 : UI들 로드및 임시 저장담당
 
-public class UIManager : MonoBehaviour
+public class UIManager : SingletonMono<UIManager>
 {
     const string UIAssetPath = "Prefabs/UI/";
     const string CachedString = "(CashedObj)";
@@ -19,11 +20,31 @@ public class UIManager : MonoBehaviour
     #region MonoBehaviour
     private void Awake()
     {
+        DontDestroyOnLoad(this);
         cacheDic = new Dictionary<string, GameObject>();
+        SceneManager.sceneLoaded += UISceneLoadedEvent;
     }
     #endregion
 
     #region Private Method
+
+    /// <summary>
+    /// 씬이 로드 될때 종류에 따라서 ui 정렬
+    /// </summary>
+    void UISceneLoadedEvent(Scene scene, LoadSceneMode mode)
+    {
+        switch (scene.name)
+        {
+            case SceneName.Title:
+
+                break;
+            case SceneName.Stage:
+                SceneLoader.Instance.LoadScene(SceneName.StageUI, LoadSceneMode.Additive);
+                break;
+            default:
+                break;
+        }
+    }
 
     #endregion
 
