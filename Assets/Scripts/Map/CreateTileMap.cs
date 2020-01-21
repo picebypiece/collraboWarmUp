@@ -12,8 +12,8 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     // Variable
     #region Variable
 
+    [Header("Spawners")]
     IRegist_Dictionary[] m_Dictionary_Register;
-
     [SerializeField]
     EnemySpawner m_EnemySpawner;
     [SerializeField]
@@ -27,30 +27,32 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     [SerializeField]
     ForgroundSpawner m_ForgroundSpawner;
 
+    /// <summary>
+    /// 맵의 최대 행렬 갯수를 담은 구조체
+    /// </summary>
+    [System.Serializable]
+    public struct MaxMapprocession
+    {
+        public int 
+            Row, Colum;
+    }
+    public MaxMapprocession m_MaxMapprocession;
+
+    /// <summary>
+    /// 0,0 좌표에 해당하는 벡터 값
+    /// </summary>
+    Vector3 m_StandardVector3Pos = new Vector3(0.08f, 0.08f, 0);
+
     public enum SpawnType
     {
         Default,
 
-        Player,Tile, ForegroundType, ObjectTile, Enemy, Item,
+        Player, Tile, ForegroundType, ObjectTile, Enemy, Item,
 
         //항상 마지막에 사용할 Enum
         EndSpawnType
     }
-    Tile m_Tile;
-    GameObject m_GameObject;
-    Vector3 m_StandardVector3Pos = new Vector3(0.08f, 0.08f, 0);
-
-    [SerializeField]
-    private GameObject m_BackGround;
-    BackGroundRenderControl m_BackGroundRenderController;
-    int background_Counter;
-
-    //[SerializeField]
-    //private Tilemap
-    //m_TileLayer,
-    //m_GameObjectLayer,
-    //m_ForgroundLayer;
-
+    [System.Serializable]
     public struct TileMapLayerName
     {
         public int
@@ -60,11 +62,20 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
             ForgoroundLayer;
     }
     public TileMapLayerName TileLayerName;
+
     [SerializeField]
-    private Tilemap[]
-    m_TileMapLayer;
+    private GameObject m_BackGround;
+    BackGroundRenderControl m_BackGroundRenderController;
+    int background_Counter;
+
+    [SerializeField]
+    private Tilemap[] m_TileMapLayer;
 
     private MapData m_MapData;
+
+    //Map을 만들때 필요한 변수
+    Tile m_Tile;
+    GameObject m_GameObject;
     #endregion
 
     // Property
@@ -81,17 +92,20 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     #region MonoBehaviour
     private void Awake()
     {
+        //스포너들의 IRegist_Dictionary 등록
         m_Dictionary_Register = new IRegist_Dictionary[]
         {
             m_EnemySpawner,m_ItemSpawner,m_ObjectTileSpawner,m_PlayerSpawner,m_TileSpawner,m_ForgroundSpawner
         };
 
+        //IRegist_Dictionary 메소드 호출
         foreach (IRegist_Dictionary Regist in m_Dictionary_Register)
         {
             Regist.Dictionary_Init();
             Regist.Contain_Dictionary();
         }
 
+        //타일맵 레이어 이름을 int형 변수에 매칭
         TileLayerName.TileLayer = 0;
         TileLayerName.GameObjectActively = 1;
         TileLayerName.GameObjectTile = 2;
@@ -130,7 +144,11 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
 
         for (int i_Counter = 0; i_Counter < BackgroundCounter; i_Counter++)
         {
-            Instantiate<GameObject>(m_BackGround, new Vector3(m_BackGroundRenderController.StartPos.x + (7.68f * background_Counter++), m_BackGroundRenderController.StartPos.y, m_BackGroundRenderController.StartPos.z), Quaternion.identity);
+            Instantiate<GameObject>(m_BackGround,
+                new Vector3(m_BackGroundRenderController.StartPos.x + (7.68f * background_Counter++),
+                m_BackGroundRenderController.StartPos.y, m_BackGroundRenderController.StartPos.z),
+                Quaternion.identity);
+
             m_BackGroundRenderController.Background_Roulette(m_BackGroundRenderController.m_BackgroundSheet.OverWorld);
         }
     }
@@ -221,22 +239,26 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     #region Public Method
     /// <summary>
     /// 맵 생성 메소드
+    /// 행(Row) : 높이,
+    /// 렬(colum) : 넓이
     /// </summary>
     public void CreateMap()
     {
         if (m_MapData.TileMatrix != null)
         {
-            int MaxRow = m_MapData.TileMatrix[0].Length;
-            BackGroundCreater(MaxRow, 50);
+            m_MaxMapprocession.Row = m_MapData.TileMatrix[0].Length;
+            m_MaxMapprocession.Colum = m_MapData.TileMatrix.Count;
+
+            BackGroundCreater(m_MaxMapprocession.Row, 50);
 
             SpawnType f_SpawnType = SpawnType.Default;
             ++f_SpawnType;
 
             while (f_SpawnType != SpawnType.EndSpawnType)
             {
-                for (int i_Cloum = 0; i_Cloum < m_MapData.TileMatrix.Count; i_Cloum++)
+                for (int i_Cloum = 0; i_Cloum < m_MaxMapprocession.Colum; i_Cloum++)
                 {
-                    for (int i_row = 0; i_row < MaxRow; i_row++)
+                    for (int i_row = 0; i_row < m_MaxMapprocession.Row; i_row++)
                     {
                         string[] tempRow = m_MapData.TileMatrix[i_Cloum];
 

@@ -10,7 +10,8 @@ public class Flag : Item
 {
     // Variable
     #region Variable
-
+    [SerializeField]
+    Animator m_Animator;
     #endregion
 
     // Property
@@ -24,6 +25,20 @@ public class Flag : Item
     {
         
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Common.tagPlayer))
+        {
+            m_Animator.SetTrigger("EndGame");
+        }
+    }
+    //private void OnCollisionEnter2D(Collider2D _Collider)
+    //{
+    //    if (_Collider.CompareTag(Common.tagPlayer))
+    //    {
+    //        m_Animator.SetTrigger("EndGame");
+    //    }
+    //}
     #endregion
 
     // Private Method

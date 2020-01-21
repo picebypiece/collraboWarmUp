@@ -15,7 +15,7 @@ public class DeathLineController : MonoBehaviour
     Ray[] m_DeathRay;
     RaycastHit2D[] m_DeathRayHit;
     [SerializeField]
-    float[] RayDistance;
+    float[] m_RayDistance;
     [SerializeField]
     Transform[] m_OriginTransfrom;
 
@@ -23,7 +23,11 @@ public class DeathLineController : MonoBehaviour
 
     // Property
     #region Property
-
+    public float[] RayDistance
+    {
+        get => m_RayDistance;
+        set => m_RayDistance = value;
+    }
     #endregion
 
     // MonoBehaviour
@@ -43,13 +47,19 @@ public class DeathLineController : MonoBehaviour
     {
         m_DeathRay[0].origin = m_OriginTransfrom[0].position;
         m_DeathRay[1].origin = m_OriginTransfrom[0].position;
-        ActiveFalseRayMethod(m_DeathRay[0].origin, m_DeathRay[0].direction, RayDistance[0]);
-        ActiveFalseRayMethod(m_DeathRay[1].origin, m_DeathRay[1].direction, RayDistance[1]);
+        ActiveFalseRayMethod(m_DeathRay[0].origin, m_DeathRay[0].direction, m_RayDistance[0]);
+        ActiveFalseRayMethod(m_DeathRay[1].origin, m_DeathRay[1].direction, m_RayDistance[1]);
     }
     #endregion
 
     // Private Method
     #region Private Method
+    /// <summary>
+    /// 비활성화 Ray를 사용하기 위한 메소드
+    /// </summary>
+    /// <param name="_origin">기준 좌표</param>
+    /// <param name="_dir">방향</param>
+    /// <param name="_distance">거리</param>
     void ActiveFalseRayMethod(Vector3 _origin, Vector3 _dir, float _distance)
     {
 #if UNITY_EDITOR

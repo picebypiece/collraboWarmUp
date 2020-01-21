@@ -18,7 +18,10 @@ public abstract class Item : MonoBehaviour
 
     // Property
     #region Property
-
+    public SpawnerType.ItemType Get_ItemKind
+    {
+        get => itemKind;
+    }
     #endregion
 
     // MonoBehaviour

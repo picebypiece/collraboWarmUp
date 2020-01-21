@@ -23,6 +23,9 @@ public static class Common
     public const string layerPlayer = "Player";
     public const string layerEnemy = "Enemy";
     public const string layerEnvirments = "Envirments";
+
+    //계층구조 내 오브젝트 이름
+    public const string TileGrideName = "Grid";
     #endregion
 
     // Property
@@ -91,7 +94,7 @@ namespace SpawnerType
     }
     public enum ItemType
     {
-        Coin, GrowthMushroom, PopCoin, Flag
+        Coin, GrowthMushroom, PopCoin, Flag, CalseEnter
     }
     public enum PlayerType
     {

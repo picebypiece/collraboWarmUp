@@ -130,17 +130,28 @@ public partial class PlayerAction
         switch (collision.tag)
         {
             case Common.tagItem:
-                switch (playerAnimCtrl.marioSize)
+                SpawnerType.ItemType t_ItemType = collision.gameObject.GetComponent<Item>().Get_ItemKind;
+                if (t_ItemType == SpawnerType.ItemType.GrowthMushroom)
                 {
-                    case MarioSize.Child:
-                        action = false;
-                        SetIgnoreCollision(true, Common.layerEnemy);
-                        playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Growth);
-                        break;
-                    case MarioSize.Adult:
-                        break;
+                    switch (playerAnimCtrl.marioSize)
+                    {
+                        case MarioSize.Child:
+                            action = false;
+                            SetIgnoreCollision(true, Common.layerEnemy);
+                            playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Growth);
+                            break;
+                        case MarioSize.Adult:
+                            break;
+                    }
                 }
-
+                else if (t_ItemType == SpawnerType.ItemType.Flag)
+                {
+                    PlayerStop();
+                }
+                else if (t_ItemType == SpawnerType.ItemType.CalseEnter)
+                {
+                    this.gameObject.SetActive(false);
+                }
                 break;
         }
     }

@@ -11,10 +11,21 @@ public class PlayerCamera : MonoBehaviour
     // Variable
     #region Variable
     [SerializeField]
+    CreateTileMap m_CreateTileMap;
+    [SerializeField]
+    DeathLineController m_DeathLineController;
+    [SerializeField]
+    ActiveColliderLineController m_ActiveColliderLineController;
+    [SerializeField]
+    EdgeCollider2D m_CameraCollider;
+    [SerializeField]
     Camera m_Camera;
+    [SerializeField]
     private Transform player = null;
     [SerializeField]
     Vector2 CameraWidthHeight;
+    [SerializeField]
+    Vector2 ColliderProcession;
     #endregion
 
     // Property
@@ -26,6 +37,11 @@ public class PlayerCamera : MonoBehaviour
     #region MonoBehaviour
     private void Awake()
     {
+        if (m_CreateTileMap == null)
+        {
+            m_CreateTileMap = GameObject.Find(Common.TileGrideName).GetComponent<CreateTileMap>();
+        }
+
         m_Camera.orthographic = true;
         m_Camera.orthographicSize = 1.2f;
         CameraWidthHeight.y = 2 * m_Camera.orthographicSize;
@@ -33,16 +49,24 @@ public class PlayerCamera : MonoBehaviour
     }
     private void Start()
     {
+        //    ColliderProcession.x = m_CreateTileMap.m_MaxMapprocession.Colum-1* 0.16f;
+        //    ColliderProcession.y = m_CreateTileMap.m_MaxMapprocession.Row * 0.16f;
+        //    m_CameraCollider.offset = ColliderProcession;
+        //m_CameraCollider.offset = m_CreateTileMap.m_MaxMapprocession.Colum * 0.16f;
+        //m_CameraCollider.offset.y = m_CreateTileMap.m_MaxMapprocession.Row * 0.16f;
+        m_DeathLineController.RayDistance[0] = m_CreateTileMap.m_MaxMapprocession.Colum * 0.16f;
+        m_DeathLineController.RayDistance[1] = m_CreateTileMap.m_MaxMapprocession.Row * 0.16f;
+        m_ActiveColliderLineController.RayDistance[0] = m_CreateTileMap.m_MaxMapprocession.Colum * 0.16f;
         FirstCameraRender();
     }
 
-    #if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(this.transform.position, CameraWidthHeight);
-    }
-    #endif
+#if UNITY_EDITOR
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireCube(this.transform.position, CameraWidthHeight);
+    //}
+#endif
 
     private void LateUpdate()
     {

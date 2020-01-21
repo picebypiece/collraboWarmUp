@@ -15,13 +15,22 @@ public class ActiveColliderLineController : MonoBehaviour
     Ray[] m_Ray;
     RaycastHit2D[] m_RayHit;
     [SerializeField]
-    float[] RayDistance;
-    [SerializeField]
     Transform[] m_OriginTransfrom;
     [Space(1)]
     [SerializeField]
     Camera m_Camera;
+    [SerializeField]
+    float[] m_RayDistance;
 
+    #endregion
+
+    // Property
+    #region Property
+    public float[] RayDistance
+    {
+        get => m_RayDistance;
+        set => m_RayDistance = value;
+    }
     #endregion
 
     // Property
@@ -43,7 +52,7 @@ public class ActiveColliderLineController : MonoBehaviour
     private void Update()
     {
         m_Ray[0].origin = m_OriginTransfrom[0].position;
-        ActiveTrueRayMethod(m_Ray[0].origin, m_Ray[0].direction, RayDistance[0]);
+         ActiveTrueRayMethod(m_Ray[0].origin, m_Ray[0].direction, m_RayDistance[0]);
     }
     #endregion
 

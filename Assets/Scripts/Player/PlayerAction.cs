@@ -50,7 +50,7 @@ public partial class PlayerAction : MonoBehaviour
     {
         InitData();
     }
-    private void FixedUpdate()
+    private void Update()
     {
         if (!action)
             return;
@@ -101,31 +101,35 @@ public partial class PlayerAction : MonoBehaviour
         DelayActiveFalse = new WaitForSeconds(DelayActiveFalseValue);
 
     }
+
     /// <summary>
     /// 움직이기
     /// </summary>
     private void Move()
     {
-        if (playerInput.move > 0)
+        if (!ignoreMoveForce)
         {
-            playerAnimCtrl.SetFlipX(false);
-        }
-        else if (playerInput.move < 0)
-        {
-            playerAnimCtrl.SetFlipX(true);
-        }
-        else
-        {
-            playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Run,false, 1f);
-            return;
-        }
-        if(!ignoreMoveForce)
-        {
-
-        Vector2 movePos = playerInput.move * Vector2.right * runSpeed * Time.fixedDeltaTime;
+            if (playerInput.move > 0)
+            {
+                playerAnimCtrl.SetFlipX(false);
+            }
+            else if (playerInput.move < 0)
+            {
+                playerAnimCtrl.SetFlipX(true);
+            }
+            else
+            {
+                playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Run, false, 1f);
+                return;
+            }
+            Vector2 movePos = playerInput.move * Vector2.right * runSpeed * Time.fixedDeltaTime;
             playerRigidbody.position = playerRigidbody.position + movePos;
+            playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Run, true, playerInput.move * 5f);
         }
-        playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Run,true, playerInput.move * 5f);
+        else if(ignoreMoveForce)
+        {
+            playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Run, false, playerInput.move * 5f);
+        }
     }
 
     /// <summary>
@@ -213,6 +217,11 @@ public partial class PlayerAction : MonoBehaviour
         action = false;
         SetIgnoreCollision(true,Common.layerEnemy);
         playerAnimCtrl.PlayAnim( PlayerAnimCtrl.AnimKind.Growth);
+    }
+    public void PlayerStop()
+    {
+        ignoreMoveForce = true;
+        playerRigidbody.velocity = Vector2.zero;
     }
     #endregion
 }

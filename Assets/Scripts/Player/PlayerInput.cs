@@ -34,6 +34,7 @@ public class PlayerInput : MonoBehaviour
 
     private void OnDisable()
     {
+        //OutControl();
         if (GameInputManager.Instance != null)
         {
             GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Push, JumpDown);
@@ -81,5 +82,14 @@ public class PlayerInput : MonoBehaviour
 
     // Public Method
     #region Public Method
+    //public void OutControl()
+    //{
+    //    if (GameInputManager.Instance != null)
+    //    {
+    //        GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Push, JumpDown);
+    //        GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.Pushed, JumpDownStay);
+    //        GameInputManager.Instance.Desubscribe(SOInputKey.InputKeyName.JumpKey, GameInputManager.InputEventType.UP, JumpUp);
+    //    }
+    //}
     #endregion
 }
