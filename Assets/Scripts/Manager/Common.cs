@@ -41,9 +41,9 @@ public static class Common
 
 public class SceneName
 {
-    public const string Title = "SceneTitle";
-    public const string Stage = "SceneStage";
-    public const string Option = "SceneOption";
+    public const string Title = "Title";
+    public const string Stage = "MainScene";
+    public const string Option = "Option";
     public const string StageUI = "StageUI";
 }
 
