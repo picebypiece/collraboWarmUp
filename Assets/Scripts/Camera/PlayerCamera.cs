@@ -80,7 +80,7 @@ public class PlayerCamera : MonoBehaviour
         //    f_hit.collider.gameObject.GetComponent<TileObject>().Renderer.enabled = true;
         //}
 
-        if (player != null)
+        if (player != null&& Common.GameState != GameState.End)
         {
             //if (transform.position.x < player.position.x)
             //    transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);

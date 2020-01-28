@@ -131,27 +131,55 @@ public partial class PlayerAction
         {
             case Common.tagItem:
                 SpawnerType.ItemType t_ItemType = collision.gameObject.GetComponent<Item>().Get_ItemKind;
-                if (t_ItemType == SpawnerType.ItemType.GrowthMushroom)
+                switch (t_ItemType)
                 {
-                    switch (playerAnimCtrl.marioSize)
-                    {
-                        case MarioSize.Child:
-                            action = false;
-                            SetIgnoreCollision(true, Common.layerEnemy);
-                            playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Growth);
-                            break;
-                        case MarioSize.Adult:
-                            break;
-                    }
+                    case SpawnerType.ItemType.Coin:
+                        break;
+                    case SpawnerType.ItemType.GrowthMushroom:
+                        switch (playerAnimCtrl.marioSize)
+                        {
+                            case MarioSize.Child:
+                                action = false;
+                                SetIgnoreCollision(true, Common.layerEnemy);
+                                playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Growth);
+                                break;
+                            case MarioSize.Adult:
+                                break;
+                        }
+                        break;
+                    case SpawnerType.ItemType.PopCoin:
+                        break;
+                    case SpawnerType.ItemType.Flag:
+                        PlayerStop();
+                        break;
+                    case SpawnerType.ItemType.CalseEnter:
+                        this.gameObject.SetActive(false);
+                        Common.GameState = GameState.Reset;
+                        break;
+                    default:
+                        break;
                 }
-                else if (t_ItemType == SpawnerType.ItemType.Flag)
-                {
-                    PlayerStop();
-                }
-                else if (t_ItemType == SpawnerType.ItemType.CalseEnter)
-                {
-                    this.gameObject.SetActive(false);
-                }
+                //if (t_ItemType == SpawnerType.ItemType.GrowthMushroom)
+                //{
+                //    switch (playerAnimCtrl.marioSize)
+                //    {
+                //        case MarioSize.Child:
+                //            action = false;
+                //            SetIgnoreCollision(true, Common.layerEnemy);
+                //            playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Growth);
+                //            break;
+                //        case MarioSize.Adult:
+                //            break;
+                //    }
+                //}
+                //else if (t_ItemType == SpawnerType.ItemType.Flag)
+                //{
+                //    PlayerStop();
+                //}
+                //else if (t_ItemType == SpawnerType.ItemType.CalseEnter)
+                //{
+                //    this.gameObject.SetActive(false);
+                //}
                 break;
         }
     }

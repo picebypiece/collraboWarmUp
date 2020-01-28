@@ -99,7 +99,6 @@ public partial class PlayerAction : MonoBehaviour
         isJumping = false;
 
         DelayActiveFalse = new WaitForSeconds(DelayActiveFalseValue);
-
     }
 
     /// <summary>
@@ -126,9 +125,9 @@ public partial class PlayerAction : MonoBehaviour
             playerRigidbody.position = playerRigidbody.position + movePos;
             playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Run, true, playerInput.move * 5f);
         }
-        else if(ignoreMoveForce)
+        else if(ignoreMoveForce&& Common.GameState != GameState.End)
         {
-            playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Run, false, playerInput.move * 5f);
+            playerAnimCtrl.PlayAnim(PlayerAnimCtrl.AnimKind.Run, false, 1f);
         }
     }
 
@@ -148,6 +147,7 @@ public partial class PlayerAction : MonoBehaviour
             playerRigidbody.AddForce(new Vector2(0, jumpForce) * playerRigidbody.mass);
         }
     }
+
     /// <summary>
     /// 애니메이션 끝났을때 호출
     /// </summary>
@@ -193,7 +193,7 @@ public partial class PlayerAction : MonoBehaviour
     }
 
     /// <summary>
-    /// Player Game
+    /// Player Delay SetActive false
     /// </summary>
     /// <returns></returns>
     IEnumerator DelaySetActiveFalseGameObject()
@@ -201,10 +201,21 @@ public partial class PlayerAction : MonoBehaviour
         yield return DelayActiveFalse;
         this.gameObject.SetActive(false);
     }
-    #endregion
 
+    #endregion
     // Public Method
     #region Public Method
+    /// <summary>
+    /// 게임 끝에 행동할 에니메이션 코루틴
+    /// </summary>
+    public IEnumerator GotoTargetMove(Vector3 _Targetposition)
+    {
+        while (true)
+        {
+            this.gameObject.transform.position = Vector3.Lerp(this.gameObject.transform.position, _Targetposition, Time.deltaTime);
+            yield return null;
+        }
+    }
 
     public void DirectDeath()
     {

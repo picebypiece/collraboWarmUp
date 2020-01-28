@@ -11,6 +11,7 @@ public static class Common
     // Variable
     #region Variable
 
+    public static GameState GameState;
     // 태그
     public const string tagEnvirments = "Envirments";
     public const string tagGround = "Ground";
@@ -26,6 +27,10 @@ public static class Common
 
     //계층구조 내 오브젝트 이름
     public const string TileGrideName = "Grid";
+    public const string PlayerName = "Player";
+    public const string CalseDoorName = "CalseEnter(Clone)";
+
+
     #endregion
 
     // Property
@@ -52,10 +57,10 @@ public class SceneName
 public struct TilePos
 {
     public int row, colum;
-    public TilePos(int r, int c)
+    public TilePos(int _row, int _colum)
     {
-        row = r;
-        colum = c;
+        row = _row;
+        colum = _colum;
     }
 }
 
@@ -105,6 +110,18 @@ namespace SpawnerType
         Goomba,
         KoopaTroopa
     }
+}
+
+/// <summary>
+/// 스테이지 상태를 가지고 있음
+/// 게임 시작단계
+/// 게임 중
+/// 게임 끝
+/// 게임 종료
+/// </summary>
+public enum GameState
+{
+    Awake, Ing, End, Reset
 }
 
 public enum MarioSize

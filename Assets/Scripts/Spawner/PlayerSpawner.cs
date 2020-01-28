@@ -37,7 +37,8 @@ public class PlayerSpawner : Spawner<SpawnerType.PlayerType, GameObject, Transfo
         var player = Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
         GameCamera.Instance.SetActiveCamera(GameCamera.CameraKind.PlayerCamera);
         GameCamera.Instance.GetCameraObjectComponent<PlayerCamera>(GameCamera.CameraKind.PlayerCamera).SetPlayer(player.transform);
-        SpawnObjects.Add(_GameObject);
+        player.name = Common.PlayerName;
+        SpawnObjects.Add(player);
     }
 
     public override void Add_Dictionary()

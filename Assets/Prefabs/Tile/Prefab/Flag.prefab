@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8493850184159795152}
   - component: {fileID: 6198133342693676155}
   - component: {fileID: 5931773335956417744}
+  - component: {fileID: 2536346270763282862}
   m_Layer: 11
   m_Name: RenderImage
   m_TagString: Untagged
@@ -101,6 +102,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2536346270763282862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2432412475732631194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a35860b24302e54491130c39eb34dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 5931773335956417744}
+  m_Flag: {fileID: 7343402285217916722}
 --- !u!1 &7343402285217916722
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,3 +189,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemKind: 3
   m_Animator: {fileID: 5931773335956417744}
+  m_playerAction: {fileID: 0}

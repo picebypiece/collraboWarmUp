@@ -75,8 +75,8 @@ public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject,Transform>, 
 
     public override void Instantiate(GameObject _GameObject, Vector3 _StandardPos, int _row, int _Cloum, Transform _ParentTransform)
     {
-        Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
-        SpawnObjects.Add(_GameObject);
+        var Item = Instantiate<GameObject>(_GameObject, new Vector3(_StandardPos.x + (0.16f * _row), _StandardPos.y + (0.16f * _Cloum), 0), Quaternion.identity, _ParentTransform);
+        SpawnObjects.Add(Item);
     }
 
     public override void Add_Dictionary()

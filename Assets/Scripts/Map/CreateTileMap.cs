@@ -43,6 +43,10 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     /// </summary>
     Vector3 m_StandardVector3Pos = new Vector3(0.08f, 0.08f, 0);
 
+    /// <summary>
+    /// Spawn 순서 :
+    /// Player, Tile, ForegroundType, ObjectTile, Enemy, Item
+    /// </summary>
     public enum SpawnType
     {
         Default,
@@ -52,6 +56,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
         //항상 마지막에 사용할 Enum
         EndSpawnType
     }
+
     [System.Serializable]
     public struct TileMapLayerName
     {
@@ -92,6 +97,8 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     #region MonoBehaviour
     private void Awake()
     {
+        Common.GameState = GameState.Awake;
+
         //스포너들의 IRegist_Dictionary 등록
         m_Dictionary_Register = new IRegist_Dictionary[]
         {
@@ -111,6 +118,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
         TileLayerName.GameObjectTile = 2;
         TileLayerName.ForgoroundLayer = 3;
 
+        //BackGround 갯수 초기화
         background_Counter = 0;
         m_BackGroundRenderController = m_BackGround.GetComponent<BackGroundRenderControl>();
 
@@ -127,6 +135,7 @@ public class CreateTileMap : SingletonMono<CreateTileMap>
     private void Start()
     {
         CreateTileMap.Instance.CreateMap();
+        Common.GameState = GameState.Ing;
     }
     #endregion
 

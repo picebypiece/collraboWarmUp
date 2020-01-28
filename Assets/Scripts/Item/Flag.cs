@@ -12,18 +12,38 @@ public class Flag : Item
     #region Variable
     [SerializeField]
     Animator m_Animator;
+
+    [SerializeField]
+    GameObject m_player;
+
+    [SerializeField]
+    PlayerAnimCtrl m_playerAnimCtrl;
+    [SerializeField]
+    PlayerAction m_PlayerAction;
     #endregion
 
     // Property
     #region Property
-
+    public PlayerAction PlayerAction
+    {
+        get => m_PlayerAction;
+        set => m_PlayerAction = value;
+    }
+    public PlayerAnimCtrl playerAnimCtrl
+    {
+        get => m_playerAnimCtrl;
+        set => m_playerAnimCtrl = value;
+    }
     #endregion
 
     // MonoBehaviour
     #region MonoBehaviour
-    private void Awake()
+    private void Start()
     {
-        
+        m_player = GameObject.Find(Common.PlayerName);
+       
+        m_playerAnimCtrl = m_player.GetComponent<PlayerAnimCtrl>();
+        m_PlayerAction = m_player.GetComponent<PlayerAction>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -32,13 +52,6 @@ public class Flag : Item
             m_Animator.SetTrigger("EndGame");
         }
     }
-    //private void OnCollisionEnter2D(Collider2D _Collider)
-    //{
-    //    if (_Collider.CompareTag(Common.tagPlayer))
-    //    {
-    //        m_Animator.SetTrigger("EndGame");
-    //    }
-    //}
     #endregion
 
     // Private Method
@@ -48,6 +61,6 @@ public class Flag : Item
 
     // Public Method
     #region Public Method
-
+   
     #endregion
 }
