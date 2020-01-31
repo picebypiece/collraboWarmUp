@@ -80,12 +80,16 @@ public class PlayerCamera : MonoBehaviour
         //    f_hit.collider.gameObject.GetComponent<TileObject>().Renderer.enabled = true;
         //}
 
-        if (player != null&& Common.GameState != GameState.End)
+        if (player != null && Common.GameState != GameState.End)
         {
             //if (transform.position.x < player.position.x)
             //    transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
             if (transform.position.x < player.position.x)
-                transform.position = Vector3.Lerp(transform.position, new Vector3(player.position.x, transform.position.y, transform.position.z), Time.deltaTime*2);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(player.position.x, transform.position.y, transform.position.z), Time.deltaTime * 2);
+        }
+        else
+        {
+            GetComponent<PlayerCamera>().enabled = false;
         }
     }
     #endregion

@@ -94,7 +94,16 @@ public class BrickObjectControl : TileObject
         //주머니 큐가 비어있다면
         else if (m_PoketQueue.Count == 0)
         {
-            m_RenderAnimator.SetTrigger(m_AnimID.Hit);
+            if (Common.CurrentPlayer == MarioSize.Child)
+            {
+                m_RenderAnimator.SetTrigger(m_AnimID.Hit);
+            }
+            else if (Common.CurrentPlayer == MarioSize.Adult)
+            {
+                ItemSpawner.Instance.Pooling(1, SpawnerType.ItemType.BrickPopEffect, this.transform.localPosition);
+                this.gameObject.SetActive(false);
+            }
+        
         }
     }
 

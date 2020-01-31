@@ -275,7 +275,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4594211215995795607}
-  - component: {fileID: 4791164114833014902}
   - component: {fileID: 7644709277909430797}
   m_Layer: 12
   m_Name: DisableCollider
@@ -299,24 +298,6 @@ Transform:
   m_Father: {fileID: 2943062497224918390}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!68 &4791164114833014902
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5806135455333247311}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -2.15, y: 0.25}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 0, y: 1}
-  - {x: 0, y: -1.5}
 --- !u!114 &7644709277909430797
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public static class Common
     #region Variable
 
     public static GameState GameState;
+    public static MarioSize CurrentPlayer;
     // 태그
     public const string tagEnvirments = "Envirments";
     public const string tagGround = "Ground";
@@ -99,7 +100,7 @@ namespace SpawnerType
     }
     public enum ItemType
     {
-        Coin, GrowthMushroom, PopCoin, Flag, CalseEnter
+        Coin, GrowthMushroom, PopCoin, Flag, CalseEnter, BrickPopEffect
     }
     public enum PlayerType
     {

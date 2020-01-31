@@ -29,7 +29,8 @@ public class ItemSpawner : Spawner<SpawnerType.ItemType, GameObject,Transform>, 
     private void Start()
     {
         PoolInit(3, SpawnerType.ItemType.PopCoin);
-        PoolInit(1, SpawnerType.ItemType.GrowthMushroom);
+        PoolInit(2, SpawnerType.ItemType.GrowthMushroom);
+        PoolInit(3, SpawnerType.ItemType.BrickPopEffect);
       
     }
     #endregion

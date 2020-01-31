@@ -21,7 +21,7 @@ public class ChildMario : MonoBehaviour
     #region MonoBehaviour
     private void OnEnable()
     {
-
+        Common.CurrentPlayer = MarioSize.Child;
     }
     private void OnDisable()
     {
